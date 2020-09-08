@@ -13,6 +13,7 @@ import androidx.multidex.MultiDex;
 import com.auto.di.guan.manager.basemodel.model.respone.LoginRespone;
 import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.db.User;
+import com.auto.di.guan.manager.rtm.ChatManager;
 import com.auto.di.guan.manager.utils.CrashHandler;
 import com.auto.di.guan.manager.utils.FloatWindowUtil;
 import com.auto.di.guan.manager.utils.GsonUtil;
@@ -37,9 +38,11 @@ import java.util.TimerTask;
 public class BaseApp extends Application {
 
     public static String TAG = "BaseApp";
-    public static String DB_NAME = "guan.db";
 
     private static BaseApp instance;
+
+    private ChatManager mChatManager;
+
 
     public static User getUser() {
         return user;
@@ -50,7 +53,6 @@ public class BaseApp extends Application {
     }
 
     private static User user;
-    public static boolean groupIsStart;
 
     private  static List<DeviceInfo> deviceInfos = new ArrayList<>();
 
@@ -79,6 +81,9 @@ public class BaseApp extends Application {
         EMClient.getInstance().init(this, options);
 //在做打包混淆时，关闭debug模式，避免消耗不必要的资源
         EMClient.getInstance().setDebugMode(true);
+
+        mChatManager = new ChatManager(this);
+        mChatManager.init();
 
     }
 
@@ -220,5 +225,9 @@ public class BaseApp extends Application {
 
     public static void setDeviceInfos(List<DeviceInfo> deviceInfos) {
         BaseApp.deviceInfos = deviceInfos;
+    }
+
+    public ChatManager getChatManager() {
+        return mChatManager;
     }
 }
