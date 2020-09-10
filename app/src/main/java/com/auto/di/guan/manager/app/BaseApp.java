@@ -45,7 +45,7 @@ public class BaseApp extends Application {
         BaseApp.user = user;
     }
 
-    private static User user;
+    private static User user = new User();
 
     private  static List<DeviceInfo> deviceInfos = new ArrayList<>();
 

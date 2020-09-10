@@ -98,8 +98,8 @@ public class MainActivity extends AppCompatActivity {
            }else {
                id = 5;
            }
-//           info1.setValve_group_id(id);
-//           info2.setValve_group_id(id);
+           info1.setValve_group_id(id);
+           info2.setValve_group_id(id);
            controlInfos.add(info1);
            controlInfos.add(info2);
            deviceInfo.setValveDeviceSwitchList(controlInfos);
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
            groupInfos.add(groupInfo);
        }
        BaseApp.setDeviceInfos(deviceInfos);
-//        BaseApp.setGroupInfos(groupInfos);
+        BaseApp.setGroupInfos(groupInfos);
     }
 
 
@@ -132,11 +132,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //HuanXinUtil.stop();
-        mChatManager.doLogout();
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        //HuanXinUtil.stop();
+//        mChatManager.doLogout();
+//    }
 
 }

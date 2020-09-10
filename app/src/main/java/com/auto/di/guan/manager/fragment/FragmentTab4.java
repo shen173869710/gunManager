@@ -1,66 +1,61 @@
 package com.auto.di.guan.manager.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.GridView;
+import android.widget.ExpandableListView;
 
 import com.auto.di.guan.manager.R;
-import com.auto.di.guan.manager.adapter.MyGridOpenAdapter;
-import com.auto.di.guan.manager.db.DeviceInfo;
-import com.auto.di.guan.manager.entity.Entiy;
+import com.auto.di.guan.manager.adapter.GroupExpandableListViewaAdapter31;
+import com.auto.di.guan.manager.app.BaseApp;
+import com.auto.di.guan.manager.db.ControlInfo;
+import com.auto.di.guan.manager.db.GroupInfo;
+import com.auto.di.guan.manager.db.GroupList;
+import com.auto.di.guan.manager.db.sql.ControlInfoSql;
 import com.auto.di.guan.manager.event.ControlEvent;
 import com.auto.di.guan.manager.event.DeviceEvent;
 import com.auto.di.guan.manager.event.GroupEvent;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- */
+import butterknife.BindView;
+
+
 public class FragmentTab4 extends BaseFragment {
-    private GridView mGridView;
-    private View view;
-    private MyGridOpenAdapter adapter;
-    private List<DeviceInfo> deviceInfos = new ArrayList<>();
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_0, null);
-//        mGridView = (GridView) view.findViewById(R.id.fragment_0_gridview);
-//       // deviceInfos = DeviceInfoSql.queryDeviceList();
-//        adapter = new MyGridOpenAdapter(getActivity(), deviceInfos);
-//        mGridView.setAdapter(adapter);
-//        mGridView.setNumColumns(Entiy.GRID_COLUMNS);
-//        EventBus.getDefault().register(this);
-        return view;
-    }
-//
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void onFragment4Update(Fragment4Event event) {
-//        if (adapter != null) {
-//            deviceInfos.clear();
-//            deviceInfos.addAll(DeviceInfoSql.queryDeviceList());
-//            adapter.notifyDataSetChanged();
-//        }
-//    }
+    @BindView(R.id.fragment_4_expand)
+    ExpandableListView fragment4Expand;
 
-    ;
+	private List<GroupList> groupLists = new ArrayList<>();
+	private  List<GroupInfo> groupInfos = BaseApp.getGroupInfos();
 
-
+    private GroupExpandableListViewaAdapter31 adapter;
 
     @Override
     public int setLayout() {
-        return 0;
+        return R.layout.fragment_4;
     }
 
     @Override
     public void init() {
 
+		int size = groupInfos.size();
+		if (size > 0) {
+			for (int i = 0; i < size; i++) {
+				List<ControlInfo>clist = ControlInfoSql.queryControlList(groupInfos.get(i).getGroupId());
+				if (clist.size() > 0) {
+					GroupList list = new GroupList();
+					list.groupInfo = groupInfos.get(i);
+					list.controlInfos.addAll(clist);
+					groupLists.add(list);
+				}
+			}
+
+			if (adapter != null) {
+				adapter.setData(groupLists);
+			}
+		}
+		adapter = new GroupExpandableListViewaAdapter31(activity, groupLists);
+		fragment4Expand.setAdapter(adapter);
+		fragment4Expand.setGroupIndicator(null);
     }
 
     @Override
@@ -77,11 +72,4 @@ public class FragmentTab4 extends BaseFragment {
     public void groupChange(GroupEvent event) {
 
     }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
-
 }

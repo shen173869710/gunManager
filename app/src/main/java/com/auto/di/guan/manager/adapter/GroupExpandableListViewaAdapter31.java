@@ -25,7 +25,7 @@ public class GroupExpandableListViewaAdapter31 extends BaseExpandableListAdapter
     private Context context;
     private List<GroupList> groupLists;//组列表
     private FragmentTab31 fragmentTab31;
-    public GroupExpandableListViewaAdapter31(Context a, List<GroupList> groupArray, FragmentTab31 fragmentTab31) {
+    public GroupExpandableListViewaAdapter31(Context a, List<GroupList> groupArray) {
         this.groupLists = groupArray;
         this.context = a;
         this.fragmentTab31 = fragmentTab31;
@@ -135,7 +135,7 @@ public class GroupExpandableListViewaAdapter31 extends BaseExpandableListAdapter
                     if(NoFastClickUtils.isFastClick()){
                         return;
                     }
-                    fragmentTab31.startWork(groupLists.get(groupPosition).groupInfo);
+
                 }
             });
         }else {
@@ -146,7 +146,7 @@ public class GroupExpandableListViewaAdapter31 extends BaseExpandableListAdapter
                     if(NoFastClickUtils.isFastClick()){
                         return;
                     }
-                    fragmentTab31.startWork(groupLists.get(groupPosition).groupInfo);
+
                 }
             });
         }

@@ -24,7 +24,6 @@ public class MyGridAdapter  extends BaseQuickAdapter<DeviceInfo, BaseViewHolder>
 
     public MyGridAdapter(List<DeviceInfo> data) {
         super(R.layout.grid_item, data);
-
     }
 
 //    @Override
