@@ -16,6 +16,9 @@ import com.auto.di.guan.manager.db.UserAction;
 import com.auto.di.guan.manager.dialog.MainChooseDialog;
 import com.auto.di.guan.manager.dialog.MainChooseIdDialog;
 import com.auto.di.guan.manager.entity.Entiy;
+import com.auto.di.guan.manager.event.ControlEvent;
+import com.auto.di.guan.manager.event.DeviceEvent;
+import com.auto.di.guan.manager.event.GroupEvent;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
 
 import java.util.ArrayList;
@@ -250,8 +253,29 @@ public class FragmentTab5 extends BaseFragment {
 //		showEnd(action);
 	}
 
+
 	@Override
-	public void refreshData() {
+	public int setLayout() {
+		return 0;
+	}
+
+	@Override
+	public void init() {
+
+	}
+
+	@Override
+	public void controlChange(ControlEvent event) {
+
+	}
+
+	@Override
+	public void deviceChange(DeviceEvent event) {
+
+	}
+
+	@Override
+	public void groupChange(GroupEvent event) {
 
 	}
 }

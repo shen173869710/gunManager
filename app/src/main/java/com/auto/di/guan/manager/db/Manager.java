@@ -1,14 +1,9 @@
 package com.auto.di.guan.manager.db;
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.annotation.Property;
-
 import java.io.Serializable;
 import java.util.Date;
 
-public class User implements Serializable {
-    static final long serialVersionUID=1L;
+public class Manager implements Serializable {
 
     /** 用户ID */
     private Long userId;
@@ -41,7 +36,7 @@ public class User implements Serializable {
     /** 盐加密 */
     private String salt;
     /** 帐号状态（0正常 1停用） */
-    private int status;
+    private String status;
 
     /** 删除标志（0代表存在 2代表删除） */
     private String delFlag;
@@ -73,7 +68,7 @@ public class User implements Serializable {
     // 项目经纬度
     private String parentLoginName;
 
-    public User() {
+    public Manager() {
     }
     public Long getUserId() {
         return this.userId;
@@ -159,10 +154,10 @@ public class User implements Serializable {
     public void setSalt(String salt) {
         this.salt = salt;
     }
-    public int getStatus() {
+    public String getStatus() {
         return this.status;
     }
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
     public String getDelFlag() {

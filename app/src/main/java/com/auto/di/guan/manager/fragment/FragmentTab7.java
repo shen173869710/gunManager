@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.auto.di.guan.manager.R;
+import com.auto.di.guan.manager.event.ControlEvent;
+import com.auto.di.guan.manager.event.DeviceEvent;
+import com.auto.di.guan.manager.event.GroupEvent;
 
 
 /**
@@ -21,13 +24,29 @@ public class FragmentTab7 extends BaseFragment {
 		return view;
 	}
 
-	private void init() {
 
+	@Override
+	public int setLayout() {
+		return 0;
+	}
+
+	@Override
+	public void init() {
 
 	}
 
 	@Override
-	public void refreshData() {
+	public void controlChange(ControlEvent event) {
+
+	}
+
+	@Override
+	public void deviceChange(DeviceEvent event) {
+
+	}
+
+	@Override
+	public void groupChange(GroupEvent event) {
 
 	}
 

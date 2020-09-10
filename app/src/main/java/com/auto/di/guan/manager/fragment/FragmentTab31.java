@@ -10,6 +10,9 @@ import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.GroupExpandableListViewaAdapter31;
 import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.GroupList;
+import com.auto.di.guan.manager.event.ControlEvent;
+import com.auto.di.guan.manager.event.DeviceEvent;
+import com.auto.di.guan.manager.event.GroupEvent;
 import com.auto.di.guan.manager.utils.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -83,11 +86,7 @@ public class FragmentTab31 extends BaseFragment {
 //			}
 //		}
 	}
-	@Override
-	public void adapterUpdate() {
-		super.adapterUpdate();
-		adapter.notifyDataSetChanged();
-	}
+
 
 
 	@Override
@@ -96,12 +95,31 @@ public class FragmentTab31 extends BaseFragment {
 		EventBus.getDefault().unregister(this);
 	}
 
+
+
 	@Override
-	public void refreshData() {
-		LogUtils.e("-------------", "313131");
-		if (adapter != null) {
-			initData();
-		}
+	public int setLayout() {
+		return 0;
+	}
+
+	@Override
+	public void init() {
+
+	}
+
+	@Override
+	public void controlChange(ControlEvent event) {
+
+	}
+
+	@Override
+	public void deviceChange(DeviceEvent event) {
+
+	}
+
+	@Override
+	public void groupChange(GroupEvent event) {
+
 	}
 
 //	/**

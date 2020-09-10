@@ -16,12 +16,12 @@ import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.GroupList;
 import com.auto.di.guan.manager.dialog.MainShowDialog;
-import com.auto.di.guan.manager.utils.LogUtils;
+import com.auto.di.guan.manager.event.ControlEvent;
+import com.auto.di.guan.manager.event.DeviceEvent;
+import com.auto.di.guan.manager.event.GroupEvent;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,12 +142,29 @@ public class FragmentTab2 extends BaseFragment {
 
 
 	@Override
-	public void refreshData() {
-		LogUtils.e("-------------", "222222");
-		initData();
+	public int setLayout() {
+		return 0;
+	}
+
+	@Override
+	public void init() {
 
 	}
 
+	@Override
+	public void controlChange(ControlEvent event) {
+
+	}
+
+	@Override
+	public void deviceChange(DeviceEvent event) {
+
+	}
+
+	@Override
+	public void groupChange(GroupEvent event) {
+
+	}
 
 
 	@Override

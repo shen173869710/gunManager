@@ -14,6 +14,9 @@ import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.PumpLeftAdapter;
 import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.entity.PumpInfo;
+import com.auto.di.guan.manager.event.ControlEvent;
+import com.auto.di.guan.manager.event.DeviceEvent;
+import com.auto.di.guan.manager.event.GroupEvent;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 
@@ -79,8 +82,29 @@ public class FragmentTab6 extends BaseFragment {
 		pump_pram_4.setText(Entiy.PUMP_PRAM[3] + "");
 	}
 
+
 	@Override
-	public void refreshData() {
+	public int setLayout() {
+		return 0;
+	}
+
+	@Override
+	public void init() {
+
+	}
+
+	@Override
+	public void controlChange(ControlEvent event) {
+
+	}
+
+	@Override
+	public void deviceChange(DeviceEvent event) {
+
+	}
+
+	@Override
+	public void groupChange(GroupEvent event) {
 
 	}
 }

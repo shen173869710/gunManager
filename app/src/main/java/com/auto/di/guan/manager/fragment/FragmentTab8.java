@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.auto.di.guan.manager.R;
+import com.auto.di.guan.manager.event.ControlEvent;
+import com.auto.di.guan.manager.event.DeviceEvent;
+import com.auto.di.guan.manager.event.GroupEvent;
 
 
 public class FragmentTab8 extends BaseFragment {
@@ -29,8 +32,29 @@ public class FragmentTab8 extends BaseFragment {
 		return view;
 	}
 
+
 	@Override
-	public void refreshData() {
+	public int setLayout() {
+		return 0;
+	}
+
+	@Override
+	public void init() {
+
+	}
+
+	@Override
+	public void controlChange(ControlEvent event) {
+
+	}
+
+	@Override
+	public void deviceChange(DeviceEvent event) {
+
+	}
+
+	@Override
+	public void groupChange(GroupEvent event) {
 
 	}
 }

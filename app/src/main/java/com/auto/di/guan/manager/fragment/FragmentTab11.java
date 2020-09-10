@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.GunManagerAdapter;
 import com.auto.di.guan.manager.entity.GunManager;
+import com.auto.di.guan.manager.event.ControlEvent;
+import com.auto.di.guan.manager.event.DeviceEvent;
+import com.auto.di.guan.manager.event.GroupEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +56,30 @@ public class FragmentTab11 extends BaseFragment {
         return view;
     }
 
+
+
     @Override
-    public void refreshData() {
+    public int setLayout() {
+        return 0;
+    }
+
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void controlChange(ControlEvent event) {
+
+    }
+
+    @Override
+    public void deviceChange(DeviceEvent event) {
+
+    }
+
+    @Override
+    public void groupChange(GroupEvent event) {
 
     }
 }

@@ -1,55 +1,132 @@
 package com.auto.di.guan.manager.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
+import android.widget.Button;
+import android.widget.ExpandableListView;
 
 import com.auto.di.guan.manager.R;
-import com.auto.di.guan.manager.adapter.MyGridAdapter;
+import com.auto.di.guan.manager.activity.ChooseGroupctivity;
+import com.auto.di.guan.manager.adapter.FragmentTab1Adapter;
+import com.auto.di.guan.manager.adapter.GroupExpandableListViewaAdapter2;
 import com.auto.di.guan.manager.app.BaseApp;
+import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.DeviceInfo;
-import com.auto.di.guan.manager.entity.Entiy;
+import com.auto.di.guan.manager.db.GroupInfo;
+import com.auto.di.guan.manager.db.GroupList;
+import com.auto.di.guan.manager.dialog.MainShowDialog;
+import com.auto.di.guan.manager.event.ControlEvent;
+import com.auto.di.guan.manager.event.DeviceEvent;
+import com.auto.di.guan.manager.event.GroupEvent;
+import com.auto.di.guan.manager.utils.NoFastClickUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 控制阀分组
+ */
 public class FragmentTab1 extends BaseFragment {
-    private GridView mGridView;
-    private View view;
-    private MyGridAdapter adapter;
+    @BindView(R.id.expandableListView)
+    ExpandableListView expandableListView;
+    @BindView(R.id.addBtn)
+    Button addBtn;
+    @BindView(R.id.delBtn)
+    Button delBtn;
+    private List<GroupList> groupLists = new ArrayList<>();
+    private List<GroupInfo> groupInfos = new ArrayList<>();
     private List<DeviceInfo> deviceInfos = new ArrayList<>();
+    private List<ControlInfo> controlInfos = new ArrayList<>();
+    private FragmentTab1Adapter adapter;
+
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_1, null);
+    public int setLayout() {
+        return R.layout.fragment_1;
+    }
+
+    @Override
+    public void init() {
         deviceInfos = BaseApp.getDeviceInfos();
-        mGridView = (GridView) view.findViewById(R.id.fragment_1_gridview);
-        adapter = new MyGridAdapter(getActivity(), deviceInfos);
-        mGridView.setAdapter(adapter);
-        mGridView.setNumColumns(Entiy.GRID_COLUMNS);
-        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
+        groupInfos = BaseApp.getGroupInfos();
 
+        adapter = new FragmentTab1Adapter(getActivity(), groupLists);
+        expandableListView.setAdapter(adapter);
+        expandableListView.setGroupIndicator(null);
+        initData();
+    }
+
+    private void initData() {
+        groupLists.clear();
+        controlInfos.clear();
+
+        int size = deviceInfos.size();
+        for (int i = 0; i < size; i++) {
+            controlInfos.addAll(deviceInfos.get(i).getValveDeviceSwitchList());
+        }
+        int gSize = groupInfos.size();
+        if (gSize > 0) {
+            for (int i = 0; i < gSize; i++) {
+                GroupInfo groupInfo = groupInfos.get(i);
+                int controlSize = controlInfos.size();
+                GroupList groupList = new GroupList();
+                groupList.controlInfos = new ArrayList<>();
+                groupList.groupInfo = groupInfo;
+                for (int j = 0; j < controlSize; j++) {
+                    if (controlInfos.get(j).getValve_group_id() == groupInfo.getGroupId()) {
+                        groupList.controlInfos.add(controlInfos.get(j));
+                    }
+
+                }
+                groupLists.add(groupList);
             }
-        });
-        EventBus.getDefault().register(this);
-        return view;
+        }
+        if (adapter != null) {
+            adapter.setData(groupLists);
+        }
     }
 
     @Override
-    public void refreshData() {
+    public void controlChange(ControlEvent event) {
 
     }
 
+    @Override
+    public void deviceChange(DeviceEvent event) {
+
+    }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
+    public void groupChange(GroupEvent event) {
+
+    }
+
+    @OnClick({R.id.addBtn, R.id.delBtn})
+    public void onViewClicked(View view) {
+        if (NoFastClickUtils.isFastClick()) {
+            return;
+        }
+        switch (view.getId()) {
+            case R.id.addBtn:
+                getActivity().startActivity(new Intent(getActivity(), ChooseGroupctivity.class));
+                break;
+            case R.id.delBtn:
+                MainShowDialog.ShowDialog(getActivity(), "删所有分组除", "当前操作会删除所有的分组", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+                break;
+        }
     }
 }

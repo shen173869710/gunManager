@@ -6,15 +6,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.GroupEditListAdapter;
 import com.auto.di.guan.manager.db.ControlInfo;
+import com.auto.di.guan.manager.db.sql.ControlInfoSql;
+import com.auto.di.guan.manager.dialog.MainShowDialog;
+import com.auto.di.guan.manager.rtm.MessageFactory;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,22 +57,23 @@ public class GroupEditctivity extends Activity {
 				GroupEditctivity.this.finish();
 			}
 		});
+
+		controls = ControlInfoSql.queryControlList(groupId);
 		group_edit_listview = (RecyclerView) findViewById(R.id.group_edit_listview);
 		group_edit_listview.setLayoutManager(new LinearLayoutManager(this));
 		adapter = new GroupEditListAdapter(controls);
 		group_edit_listview.setAdapter(adapter);
+		findViewById(R.id.group_edit_del).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				MainShowDialog.ShowDialog(GroupEditctivity.this, "解散分组", "是否解散当前分组", new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						MessageFactory.disbandGroup();
+					}
+				});
 
-//		findViewById(R.id.group_edit_del).setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				MainShowDialog.ShowDialog(GroupEditctivity.this, "解散分组", "是否解散当前分组", new View.OnClickListener() {
-//					@Override
-//					public void onClick(View v) {
-//
-//					}
-//				});
-//
-//			}
-//		});
+			}
+		});
 	}
 }

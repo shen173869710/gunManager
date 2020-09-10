@@ -39,10 +39,7 @@
                 android:layout_alignParentBottom="true"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="@dimen/text_size_14" />
-
-
             <TextView
-
                 android:id="@+id/grid_item_left_group"
                 android:layout_width="25dp"
                 android:layout_height="25dp"

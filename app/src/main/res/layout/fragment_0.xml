@@ -1,17 +1,16 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="horizontal"
-    >
+   >
 
-    <GridView
-        android:id="@+id/fragment_0_gridview"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_0_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="5"
-        android:scrollbars="none"
-        android:stretchMode="columnWidth" />
-
-</LinearLayout>
+        android:cacheColorHint="#00000000"
+        android:divider="@color/main_bg"
+        android:fadingEdge="none"
+        android:listSelector="@drawable/dialogue_listview_selector"
+        android:scrollbars="none" />
+</RelativeLayout>

@@ -16,6 +16,9 @@ import com.auto.di.guan.manager.activity.OptionSettingActivity;
 import com.auto.di.guan.manager.adapter.GroupExpandableListViewaAdapter;
 import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.GroupList;
+import com.auto.di.guan.manager.event.ControlEvent;
+import com.auto.di.guan.manager.event.DeviceEvent;
+import com.auto.di.guan.manager.event.GroupEvent;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
 
@@ -105,16 +108,33 @@ public class FragmentTab32 extends BaseFragment {
 
 
 
+
+
+
+
 	@Override
-	public void adapterUpdate() {
-		super.adapterUpdate();
-		adapter.notifyDataSetChanged();
+	public int setLayout() {
+		return 0;
 	}
 
+	@Override
+	public void init() {
+
+	}
 
 	@Override
-	public void refreshData() {
-		LogUtils.e("-------------", "323232");
+	public void controlChange(ControlEvent event) {
+
+	}
+
+	@Override
+	public void deviceChange(DeviceEvent event) {
+
+	}
+
+	@Override
+	public void groupChange(GroupEvent event) {
+
 	}
 
 	@Override

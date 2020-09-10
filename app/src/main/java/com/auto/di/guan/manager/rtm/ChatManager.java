@@ -151,7 +151,7 @@ public class ChatManager {
     /**
      *    用户登录
      */
-    public void doRtmLogin() {
+    public void doLogin() {
         mRtmClient.login(null, "222222", new ResultCallback<Void>() {
             @Override
             public void onSuccess(Void responseInfo) {

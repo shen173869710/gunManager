@@ -1,19 +1,36 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:gravity="center"
-    >
+    android:layout_height="match_parent">
 
-    <GridView
-        android:id="@+id/fragment_1_gridview"
+    <ExpandableListView
+        android:id="@+id/expandableListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="4"
-        android:stretchMode="columnWidth"
-        android:scrollbars="none"
-        android:background="@color/tran"
-        />
-
-</LinearLayout>
+        android:layout_above="@+id/addBtn_layout"/>
+    <LinearLayout
+        android:id="@+id/addBtn_layout"
+        android:layout_width="340dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="30dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/addBtn"
+            android:layout_width="@dimen/main_button_width"
+            android:layout_height="@dimen/main_button_height"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/bg_red_buttom_rect"
+            android:text="新增分组"
+            android:textColor="@color/white" />
+        <Button
+            android:id="@+id/delBtn"
+            android:layout_width="@dimen/main_button_width"
+            android:layout_height="@dimen/main_button_height"
+            android:background="@drawable/bg_red_buttom_rect"
+            android:text="删除所有分组"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</RelativeLayout>

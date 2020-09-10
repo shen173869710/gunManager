@@ -11,6 +11,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.MyFragmentAdapter;
+import com.auto.di.guan.manager.event.ControlEvent;
+import com.auto.di.guan.manager.event.DeviceEvent;
+import com.auto.di.guan.manager.event.GroupEvent;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
 
@@ -86,14 +89,27 @@ public class FragmentTab3 extends BaseFragment {
 
 
 	@Override
-	public void refreshData() {
-		LogUtils.e("-------------", "333333");
-		int size = fragments.size();
-		if (size == 2) {
-			FragmentTab31 fragmentTab31 = (FragmentTab31) fragments.get(0);
-			fragmentTab31.refreshData();
-			FragmentTab32 fragmentTab32 = (FragmentTab32) fragments.get(1);
-			fragmentTab32.refreshData();
-		}
+	public int setLayout() {
+		return 0;
+	}
+
+	@Override
+	public void init() {
+
+	}
+
+	@Override
+	public void controlChange(ControlEvent event) {
+
+	}
+
+	@Override
+	public void deviceChange(DeviceEvent event) {
+
+	}
+
+	@Override
+	public void groupChange(GroupEvent event) {
+
 	}
 }

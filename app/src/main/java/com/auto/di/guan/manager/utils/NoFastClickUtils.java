@@ -5,7 +5,7 @@ public class NoFastClickUtils {
 
     public static boolean isFastClick() {
         long currentTime = System.currentTimeMillis();
-        if (currentTime - lastClickTime > 1000) {
+        if (currentTime - lastClickTime > 500) {
             lastClickTime = currentTime;
             return false;
         }

@@ -10,6 +10,9 @@ import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.MyGridOpenAdapter;
 import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.entity.Entiy;
+import com.auto.di.guan.manager.event.ControlEvent;
+import com.auto.di.guan.manager.event.DeviceEvent;
+import com.auto.di.guan.manager.event.GroupEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -28,12 +31,12 @@ public class FragmentTab4 extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_0, null);
-        mGridView = (GridView) view.findViewById(R.id.fragment_0_gridview);
-       // deviceInfos = DeviceInfoSql.queryDeviceList();
-        adapter = new MyGridOpenAdapter(getActivity(), deviceInfos);
-        mGridView.setAdapter(adapter);
-        mGridView.setNumColumns(Entiy.GRID_COLUMNS);
-        EventBus.getDefault().register(this);
+//        mGridView = (GridView) view.findViewById(R.id.fragment_0_gridview);
+//       // deviceInfos = DeviceInfoSql.queryDeviceList();
+//        adapter = new MyGridOpenAdapter(getActivity(), deviceInfos);
+//        mGridView.setAdapter(adapter);
+//        mGridView.setNumColumns(Entiy.GRID_COLUMNS);
+//        EventBus.getDefault().register(this);
         return view;
     }
 //
@@ -48,13 +51,31 @@ public class FragmentTab4 extends BaseFragment {
 
     ;
 
+
+
     @Override
-    public void refreshData() {
-        if (adapter != null) {
-//            deviceInfos.clear();
-//            deviceInfos.addAll(DeviceInfoSql.queryDeviceList());
-//            adapter.notifyDataSetChanged();
-        }
+    public int setLayout() {
+        return 0;
+    }
+
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void controlChange(ControlEvent event) {
+
+    }
+
+    @Override
+    public void deviceChange(DeviceEvent event) {
+
+    }
+
+    @Override
+    public void groupChange(GroupEvent event) {
+
     }
 
     @Override
