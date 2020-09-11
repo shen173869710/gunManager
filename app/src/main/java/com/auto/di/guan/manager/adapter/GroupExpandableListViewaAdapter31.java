@@ -1,5 +1,6 @@
 package com.auto.di.guan.manager.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,11 +8,11 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.db.ControlInfo;
+import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.GroupList;
+import com.auto.di.guan.manager.dialog.Main31Dialog;
 import com.auto.di.guan.manager.fragment.FragmentTab31;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
 
@@ -22,12 +23,12 @@ import java.util.List;
  */
 
 public class GroupExpandableListViewaAdapter31 extends BaseExpandableListAdapter {
-    private Context context;
+    private Context mContext;
     private List<GroupList> groupLists;//组列表
     private FragmentTab31 fragmentTab31;
-    public GroupExpandableListViewaAdapter31(Context a, List<GroupList> groupArray) {
+    public GroupExpandableListViewaAdapter31(Context context, List<GroupList> groupArray) {
         this.groupLists = groupArray;
-        this.context = a;
+        this.mContext = context;
         this.fragmentTab31 = fragmentTab31;
     }
 
@@ -53,7 +54,7 @@ public class GroupExpandableListViewaAdapter31 extends BaseExpandableListAdapter
         ChildHolder holder = null;
         if (convertView == null) {
             holder = new ChildHolder();
-            convertView = LayoutInflater.from(context).inflate(R.layout.expand_group_child_item, null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.expand_group_child_item, null);
             holder.group_item_name = (TextView) convertView.
                     findViewById(R.id.group_item_name);
             holder.group_item_type = (TextView) convertView.
@@ -105,7 +106,7 @@ public class GroupExpandableListViewaAdapter31 extends BaseExpandableListAdapter
         GroupHolder holder = null;
         if (convertView == null) {
             holder = new GroupHolder();
-            convertView = LayoutInflater.from(context).inflate(R.layout.expand_list_group_item, null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.expand_list_group_item, null);
             holder.expand_list_group_num = (TextView) convertView.findViewById(R.id.expand_list_group_num);
             holder.expand_list_group_time = (TextView) convertView.findViewById(R.id.expand_list_group_time);
             holder.expand_list_group_state = (TextView) convertView.findViewById(R.id.expand_list_group_state);
@@ -126,8 +127,10 @@ public class GroupExpandableListViewaAdapter31 extends BaseExpandableListAdapter
     }
 
     private void bindGroupView(GroupHolder holder, final int groupPosition) {
-        holder.expand_list_group_num.setText("第 "+groupLists.get(groupPosition).groupInfo.getGroupName()+"组");
-        if(groupLists.get(groupPosition).groupInfo.getGroupStatus() == 0) {
+
+        GroupInfo groupInfo = groupLists.get(groupPosition).groupInfo;
+        holder.expand_list_group_num.setText("第 "+groupInfo.getGroupName()+"组");
+        if(groupInfo.getGroupStatus() == 0) {
             holder.expand_list_group_state.setText("开启轮灌");
             holder.expand_list_group_state.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -135,7 +138,7 @@ public class GroupExpandableListViewaAdapter31 extends BaseExpandableListAdapter
                     if(NoFastClickUtils.isFastClick()){
                         return;
                     }
-
+                    startWork(groupInfo);
                 }
             });
         }else {
@@ -146,7 +149,7 @@ public class GroupExpandableListViewaAdapter31 extends BaseExpandableListAdapter
                     if(NoFastClickUtils.isFastClick()){
                         return;
                     }
-
+                    startWork(groupInfo);
                 }
             });
         }
@@ -176,6 +179,31 @@ public class GroupExpandableListViewaAdapter31 extends BaseExpandableListAdapter
         TextView group_item_status;
         ImageView group_item_icon;
 
+    }
+
+
+
+    public void startWork(final GroupInfo groupInfo) {
+        String title;
+        if (groupInfo.getGroupStatus() == 0) {
+            title = "当前分组处于关闭状态";
+        }else {
+            title = "当前分组处于运行状态";
+        }
+
+        Main31Dialog.ShowDialog((Activity) mContext,title, new Main31Dialog.ItemClick(){
+
+            @Override
+            public void onItemClick(int index) {
+                if (index == 1) {
+//                    TaskFactory.createGroupOpenTask(groupInfo);
+//                    TaskManager.getInstance().startTask();
+                }else if (index == 2) {
+//                    TaskFactory.createGroupCloseTask(groupInfo);
+//                    TaskManager.getInstance().startTask();
+                }
+            }
+        });
     }
 
 }

@@ -14,7 +14,10 @@ import com.auto.di.guan.manager.adapter.GroupStatusAdapter;
 import com.auto.di.guan.manager.adapter.StatusAdapter;
 import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
+import com.auto.di.guan.manager.db.sql.GroupInfoSql;
+import com.auto.di.guan.manager.dialog.GroupOptionDialog;
 import com.auto.di.guan.manager.entity.Entiy;
+import com.auto.di.guan.manager.event.GroupEvent;
 import com.auto.di.guan.manager.utils.DiffStatusCallback;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
@@ -51,6 +54,7 @@ public class GroupStatusActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_status_layout);
+
         view = findViewById(R.id.title_bar);
         EventBus.getDefault().register(this);
 
@@ -66,12 +70,12 @@ public class GroupStatusActivity extends FragmentActivity {
                 if(NoFastClickUtils.isFastClick()){
                     return;
                 }
-//                GroupOptionDialog.ShowDialog(GroupStatusActivity.this, "自动轮灌操作", new GroupOptionDialog.ItemClick() {
-//                    @Override
-//                    public void onItemClick(int index) {
-//                        groupOption(index);
-//                    }
-//                });
+                GroupOptionDialog.ShowDialog(GroupStatusActivity.this, "自动轮灌操作", new GroupOptionDialog.ItemClick() {
+                    @Override
+                    public void onItemClick(int index) {
+
+                    }
+                });
             }
         });
         view.findViewById(R.id.title_bar_back_layout).setOnClickListener(new View.OnClickListener() {
@@ -82,6 +86,7 @@ public class GroupStatusActivity extends FragmentActivity {
             }
         });
 
+        groupInfos = GroupInfoSql.getJoinGroup();
         recyclerView = (RecyclerView) findViewById(R.id.group_option_view);
         adapter = new GroupStatusAdapter(groupInfos);
         adapter.setDiffCallback(new DiffStatusCallback());
@@ -107,5 +112,8 @@ public class GroupStatusActivity extends FragmentActivity {
         EventBus.getDefault().unregister(this);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onGroupEvent(GroupEvent event) {
 
+    }
 }

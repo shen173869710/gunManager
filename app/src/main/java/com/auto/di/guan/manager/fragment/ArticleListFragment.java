@@ -48,9 +48,7 @@ public class ArticleListFragment extends ListFragment {
 		fragments.add(new FragmentTab5());
 		fragments.add(new FragmentTab6());
 		fragments.add(new FragmentTab7());
-//		fragments.add(new FragmentTab8());
-		fragments.add(new FragmentTab10());
-		fragments.add(new FragmentTab11());
+		fragments.add(new FragmentTab8());
 		fragments.add(new FragmentTab9());
 		transaction = manager.beginTransaction();
 		transaction.add(R.id.right, fragments.get(0), Entiy.TAB_TITLE[0]).show(fragments.get(0));

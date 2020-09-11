@@ -1,10 +1,12 @@
 package com.auto.di.guan.manager.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.event.ControlEvent;
@@ -12,12 +14,12 @@ import com.auto.di.guan.manager.event.DeviceEvent;
 import com.auto.di.guan.manager.event.GroupEvent;
 
 
-/**
- *
- */
 public class FragmentTab9 extends BaseFragment {
-	private Button login_out;
+
+	private TextView read_desc;
+	private Button read_data;
 	private View view;
+	private Activity activity;
 
 
 
@@ -25,15 +27,8 @@ public class FragmentTab9 extends BaseFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_9, null);
-		login_out = (Button) view.findViewById(R.id.login_out);
-
-		login_out.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				activity.finish();
-			}
-		});
-
+//		read_desc = (TextView)view.findViewById(R.id.read_desc);
+//		read_data = (Button)view.findViewById(R.id.read_desc);
 		return view;
 	}
 

@@ -3,7 +3,6 @@ package com.auto.di.guan.manager.fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.MyGridOpenAdapter;
 import com.auto.di.guan.manager.app.BaseApp;
@@ -11,7 +10,6 @@ import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.event.ControlEvent;
 import com.auto.di.guan.manager.event.DeviceEvent;
 import com.auto.di.guan.manager.event.GroupEvent;
-
 import butterknife.BindView;
 
 public class FragmentTab3 extends BaseFragment {
