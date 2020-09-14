@@ -24,12 +24,12 @@ public class MessageListBean {
         accountOther = account;
         messageBeanList = new ArrayList<>();
 
-        List<RtmMessage> messageList = chatManager.getAllOfflineMessages(account);
-        for (RtmMessage m : messageList) {
-            // All offline messages are from peer users
-            MessageBean bean = new MessageBean(account, m, false);
-            messageBeanList.add(bean);
-        }
+//        List<RtmMessage> messageList = chatManager.getAllOfflineMessages(account);
+//        for (RtmMessage m : messageList) {
+//            // All offline messages are from peer users
+//            MessageBean bean = new MessageBean(account, m, false);
+//            messageBeanList.add(bean);
+//        }
     }
 
     public String getAccountOther() {

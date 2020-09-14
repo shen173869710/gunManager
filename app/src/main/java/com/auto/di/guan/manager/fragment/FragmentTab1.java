@@ -1,29 +1,21 @@
 package com.auto.di.guan.manager.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.activity.ChooseGroupctivity;
 import com.auto.di.guan.manager.adapter.FragmentTab1Adapter;
-import com.auto.di.guan.manager.adapter.GroupExpandableListViewaAdapter2;
 import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.GroupList;
 import com.auto.di.guan.manager.dialog.MainShowDialog;
-import com.auto.di.guan.manager.event.ControlEvent;
-import com.auto.di.guan.manager.event.DeviceEvent;
-import com.auto.di.guan.manager.event.GroupEvent;
+import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +24,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * 控制阀分组
+ * 控制阀分组界面
  */
 public class FragmentTab1 extends BaseFragment {
     @BindView(R.id.expandableListView)
@@ -65,6 +57,8 @@ public class FragmentTab1 extends BaseFragment {
         initData();
     }
 
+
+
     private void initData() {
         groupLists.clear();
         controlInfos.clear();
@@ -82,7 +76,7 @@ public class FragmentTab1 extends BaseFragment {
                 groupList.controlInfos = new ArrayList<>();
                 groupList.groupInfo = groupInfo;
                 for (int j = 0; j < controlSize; j++) {
-                    if (controlInfos.get(j).getValve_group_id() == groupInfo.getGroupId()) {
+                    if (controlInfos.get(j).getValveGroupId() == groupInfo.getGroupId()) {
                         groupList.controlInfos.add(controlInfos.get(j));
                     }
 
@@ -93,21 +87,6 @@ public class FragmentTab1 extends BaseFragment {
         if (adapter != null) {
             adapter.setData(groupLists);
         }
-    }
-
-    @Override
-    public void controlChange(ControlEvent event) {
-
-    }
-
-    @Override
-    public void deviceChange(DeviceEvent event) {
-
-    }
-
-    @Override
-    public void groupChange(GroupEvent event) {
-
     }
 
     @OnClick({R.id.addBtn, R.id.delBtn})
@@ -128,5 +107,10 @@ public class FragmentTab1 extends BaseFragment {
                 });
                 break;
         }
+    }
+
+    @Override
+    public void dataChange(DateChangeEvent event) {
+
     }
 }

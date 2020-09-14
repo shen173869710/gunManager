@@ -7,9 +7,8 @@ import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.MyGridOpenAdapter;
 import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.entity.Entiy;
-import com.auto.di.guan.manager.event.ControlEvent;
-import com.auto.di.guan.manager.event.DeviceEvent;
-import com.auto.di.guan.manager.event.GroupEvent;
+import com.auto.di.guan.manager.event.DateChangeEvent;
+
 import butterknife.BindView;
 
 public class FragmentTab3 extends BaseFragment {
@@ -33,18 +32,9 @@ public class FragmentTab3 extends BaseFragment {
     }
 
     @Override
-    public void controlChange(ControlEvent event) {
+    public void dataChange(DateChangeEvent event) {
 
     }
 
-    @Override
-    public void deviceChange(DeviceEvent event) {
-
-    }
-
-    @Override
-    public void groupChange(GroupEvent event) {
-
-    }
 
 }

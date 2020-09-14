@@ -7,10 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.db.ControlInfo;
-
 import java.util.List;
 
 
@@ -58,7 +56,7 @@ public class MainChooseIdAdapter extends BaseAdapter {
 		}else {
 			vHolder.main_choose_check.setBackgroundResource(R.mipmap.img_unselected);
 		}
-		vHolder.main_choose_name.setText(users.get(position).getValve_name());
+		vHolder.main_choose_name.setText(users.get(position).getValveName());
 		return convertView;
 	}
 

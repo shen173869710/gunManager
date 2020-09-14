@@ -69,29 +69,29 @@ public class ChooseGridAdapter extends BaseQuickAdapter<DeviceInfo, BaseViewHold
             grid_item_device_value.setText(deviceInfo.getElectricQuantity()+"%");
             ControlInfo info1 = deviceInfo.getValveDeviceSwitchList().get(0);
 
-            if (info1.getValve_status() == 0) {
+            if (info1.getValveStatus() == 0) {
                 grid_item_left_layout.setVisibility(View.INVISIBLE);
                 grid_item_left_layout.setOnClickListener(null);
             }else {
                 grid_item_left_layout.setVisibility(View.VISIBLE);
                 grid_item_left_image.setVisibility(View.VISIBLE);
-                grid_item_left_image.setImageResource(info1.getValve_imgage_id());
+                grid_item_left_image.setImageResource(info1.getValveImgageId());
                 grid_item_left_sel.setVisibility(View.VISIBLE);
-                grid_item_left_id.setText(info1.getValve_alias()+"");
+                grid_item_left_id.setText(info1.getValveAlias()+"");
                 if (info1.isSelect()) {
                     grid_item_left_sel.setBackgroundResource(R.mipmap.img_selected);
                 }else {
                     grid_item_left_sel.setBackgroundResource(R.mipmap.img_unselected);
                 }
 
-                if (info1.getValve_group_id() == 0) {
+                if (info1.getValveGroupId() == 0) {
                     grid_item_left_group.setVisibility(View.INVISIBLE);
                 }else {
                     grid_item_left_group.setVisibility(View.VISIBLE);
-                    grid_item_left_group.setText(info1.getValve_group_id()+"");
+                    grid_item_left_group.setText(info1.getValveGroupId()+"");
                 }
 
-                if (info1.getValve_group_id() > 0) {
+                if (info1.getValveGroupId() > 0) {
                     grid_item_left_sel.setVisibility(View.GONE);
                     deviceInfo.getValveDeviceSwitchList().get(0).setSelect(false);
                 }else {
@@ -109,28 +109,28 @@ public class ChooseGridAdapter extends BaseQuickAdapter<DeviceInfo, BaseViewHold
             }
 
             ControlInfo info2 = deviceInfo.getValveDeviceSwitchList().get(1);
-            if (info2.getValve_status() == 0) {
+            if (info2.getValveStatus() == 0) {
                 grid_item_right_layout.setVisibility(View.INVISIBLE);
             }else {
                 grid_item_right_layout.setVisibility(View.VISIBLE);
                 grid_item_right_image.setVisibility(View.VISIBLE);
-                grid_item_right_image.setImageResource(info1.getValve_imgage_id());
+                grid_item_right_image.setImageResource(info1.getValveImgageId());
                 grid_item_right_sel.setVisibility(View.VISIBLE);
-                grid_item_right_id.setText(info2.getValve_alias()+"");
+                grid_item_right_id.setText(info2.getValveAlias()+"");
                 if (info2.isSelect()) {
                     grid_item_right_sel.setBackgroundResource(R.mipmap.img_selected);
                 }else {
                     grid_item_right_sel.setBackgroundResource(R.mipmap.img_unselected);
                 }
 
-                if (info2.getValve_group_id() == 0) {
+                if (info2.getValveGroupId() == 0) {
                     grid_item_right_group.setVisibility(View.INVISIBLE);
                 }else {
                     grid_item_right_group.setVisibility(View.VISIBLE);
-                    grid_item_right_group.setText(info2.getValve_group_id()+"");
+                    grid_item_right_group.setText(info2.getValveGroupId()+"");
                 }
 
-                if (info2.getValve_group_id() > 0) {
+                if (info2.getValveGroupId() > 0) {
                     grid_item_right_sel.setVisibility(View.GONE);
                     deviceInfo.getValveDeviceSwitchList().get(1).setSelect(false);
                 }else {

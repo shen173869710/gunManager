@@ -4,24 +4,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.GunManagerAdapter;
 import com.auto.di.guan.manager.entity.GunManager;
-import com.auto.di.guan.manager.event.ControlEvent;
-import com.auto.di.guan.manager.event.DeviceEvent;
-import com.auto.di.guan.manager.event.GroupEvent;
-
+import com.auto.di.guan.manager.event.DateChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- */
+
 public class FragmentTab11 extends BaseFragment {
     RecyclerView fragment11List;
     private View view;
@@ -69,17 +61,9 @@ public class FragmentTab11 extends BaseFragment {
     }
 
     @Override
-    public void controlChange(ControlEvent event) {
+    public void dataChange(DateChangeEvent event) {
 
     }
 
-    @Override
-    public void deviceChange(DeviceEvent event) {
 
-    }
-
-    @Override
-    public void groupChange(GroupEvent event) {
-
-    }
 }

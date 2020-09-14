@@ -13,18 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.ChooseGridAdapter;
-import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
-import com.auto.di.guan.manager.db.LevelInfo;
-import com.auto.di.guan.manager.db.sql.ControlInfoSql;
 import com.auto.di.guan.manager.db.sql.DeviceSql;
 import com.auto.di.guan.manager.dialog.MainShowDialog;
 import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
-import com.auto.di.guan.manager.utils.ToastUtils;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;

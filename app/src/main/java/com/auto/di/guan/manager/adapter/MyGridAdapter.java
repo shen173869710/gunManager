@@ -189,39 +189,39 @@ public class MyGridAdapter  extends BaseQuickAdapter<DeviceInfo, BaseViewHolder>
             grid_item_left_sel.setVisibility(View.GONE);
 
             ControlInfo controlInfo0 = deviceInfo.getValveDeviceSwitchList().get(0);
-            if (controlInfo0.getValve_group_id() == 0) {
+            if (controlInfo0.getValveGroupId() == 0) {
                 grid_item_left_group.setVisibility(View.GONE);
             }else {
                 grid_item_left_group.setVisibility(View.VISIBLE);
-                grid_item_left_group.setText(controlInfo0.getValve_group_id()+"");
+                grid_item_left_group.setText(controlInfo0.getValveGroupId()+"");
             }
 
-            if (controlInfo0.getValve_status() == 0) {
+            if (controlInfo0.getValveStatus() == 0) {
                grid_item_left_image.setVisibility(View.INVISIBLE);
                 grid_item_left_id.setText("");
             }else {
                 grid_item_left_image.setVisibility(View.VISIBLE);
-                grid_item_left_image.setImageResource(controlInfo0.getValve_imgage_id());
-                grid_item_left_id.setText(controlInfo0.getValve_alias()+"");
+                grid_item_left_image.setImageResource(controlInfo0.getValveImgageId());
+                grid_item_left_id.setText(controlInfo0.getValveAlias()+"");
             }
 
             grid_item_right_layout.setVisibility(View.VISIBLE);
             grid_item_right_sel.setVisibility(View.GONE);
 
             ControlInfo controlInfo1 = deviceInfo.getValveDeviceSwitchList().get(1);
-            if (controlInfo1.getValve_group_id() == 0) {
+            if (controlInfo1.getValveGroupId() == 0) {
                 grid_item_right_group.setVisibility(View.GONE);
             }else {
                 grid_item_right_group.setVisibility(View.VISIBLE);
-                grid_item_right_group.setText(controlInfo1.getValve_group_id()+"");
+                grid_item_right_group.setText(controlInfo1.getValveGroupId()+"");
             }
-            if (controlInfo1.getValve_status() == 0) {
+            if (controlInfo1.getValveStatus() == 0) {
                 grid_item_right_image.setVisibility(View.INVISIBLE);
                 grid_item_right_id.setText("");
             }else {
                 grid_item_right_image.setVisibility(View.VISIBLE);
-                grid_item_right_image.setImageResource(controlInfo1.getValve_imgage_id());
-                grid_item_right_id.setText(controlInfo1.getValve_alias()+"");
+                grid_item_right_image.setImageResource(controlInfo1.getValveImgageId());
+                grid_item_right_id.setText(controlInfo1.getValveAlias()+"");
             }
         }
     }

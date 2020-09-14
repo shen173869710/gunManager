@@ -14,9 +14,7 @@ import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.PumpLeftAdapter;
 import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.entity.PumpInfo;
-import com.auto.di.guan.manager.event.ControlEvent;
-import com.auto.di.guan.manager.event.DeviceEvent;
-import com.auto.di.guan.manager.event.GroupEvent;
+import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 
@@ -92,17 +90,7 @@ public class FragmentTab8 extends BaseFragment {
 	}
 
 	@Override
-	public void controlChange(ControlEvent event) {
-
-	}
-
-	@Override
-	public void deviceChange(DeviceEvent event) {
-
-	}
-
-	@Override
-	public void groupChange(GroupEvent event) {
+	public void dataChange(DateChangeEvent event) {
 
 	}
 }

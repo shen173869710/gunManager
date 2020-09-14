@@ -1,7 +1,6 @@
 package com.auto.di.guan.manager.fragment;
 
 import android.widget.ExpandableListView;
-
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.GroupExpandableListViewaAdapter31;
 import com.auto.di.guan.manager.app.BaseApp;
@@ -9,13 +8,9 @@ import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.GroupList;
 import com.auto.di.guan.manager.db.sql.ControlInfoSql;
-import com.auto.di.guan.manager.event.ControlEvent;
-import com.auto.di.guan.manager.event.DeviceEvent;
-import com.auto.di.guan.manager.event.GroupEvent;
-
+import com.auto.di.guan.manager.event.DateChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 
 
@@ -58,18 +53,8 @@ public class FragmentTab4 extends BaseFragment {
 		fragment4Expand.setGroupIndicator(null);
     }
 
-    @Override
-    public void controlChange(ControlEvent event) {
+	@Override
+	public void dataChange(DateChangeEvent event) {
 
-    }
-
-    @Override
-    public void deviceChange(DeviceEvent event) {
-
-    }
-
-    @Override
-    public void groupChange(GroupEvent event) {
-
-    }
+	}
 }

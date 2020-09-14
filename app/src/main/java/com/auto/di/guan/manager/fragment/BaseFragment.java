@@ -10,23 +10,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import com.auto.di.guan.manager.db.ControlInfo;
-import com.auto.di.guan.manager.event.ControlEvent;
-import com.auto.di.guan.manager.event.DeviceEvent;
-import com.auto.di.guan.manager.event.GroupEvent;
-
+import com.auto.di.guan.manager.event.DateChangeEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
 /**
  * Created by Administrator on 2017/7/16.
  */
-
 public abstract class BaseFragment extends Fragment{
 
     public Activity activity;
@@ -63,10 +55,7 @@ public abstract class BaseFragment extends Fragment{
     public abstract int setLayout();  //提供给子类实现的抽象类
     public abstract void  init();
 
-
-    public abstract void controlChange(ControlEvent event);
-    public abstract void deviceChange(DeviceEvent event);
-    public abstract void groupChange(GroupEvent event);
+    public abstract void dataChange(DateChangeEvent event);
 
     @Override
     public void onDestroy() {
@@ -83,18 +72,10 @@ public abstract class BaseFragment extends Fragment{
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onControlEvent(ControlEvent event) {
-        controlChange(event);
+    public void onDataChangeEvent(DateChangeEvent event) {
+        dataChange(event);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onDeviceEvent(DeviceEvent event) {
-        deviceChange(event);
-    }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onGroupEvent(GroupEvent event) {
-        groupChange(event);
-    }
 
 }

@@ -16,14 +16,9 @@ import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.sql.GroupInfoSql;
 import com.auto.di.guan.manager.dialog.GroupOptionDialog;
-import com.auto.di.guan.manager.entity.Entiy;
-import com.auto.di.guan.manager.event.GroupEvent;
+import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.utils.DiffStatusCallback;
-import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
-import com.auto.di.guan.manager.utils.PollingUtils;
-import com.auto.di.guan.manager.utils.ToastUtils;
-import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -113,7 +108,7 @@ public class GroupStatusActivity extends FragmentActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onGroupEvent(GroupEvent event) {
+    public void onGroupEvent(DateChangeEvent event) {
 
     }
 }

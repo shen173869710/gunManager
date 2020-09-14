@@ -9,7 +9,7 @@ import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.dialog.MainShowDialog;
 import com.auto.di.guan.manager.entity.Entiy;
-import com.auto.di.guan.manager.rtm.MessageFactory;
+import com.auto.di.guan.manager.rtm.MessageSend;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
@@ -25,11 +25,11 @@ public class GroupEditListAdapter extends BaseQuickAdapter<ControlInfo, BaseView
     @Override
     protected void convert(BaseViewHolder holder, ControlInfo info) {
 
-        holder.setText(R.id.group_item_name,info.getValve_id() + "阀控器" );
-        holder.setText(R.id.group_item_id,"名称"+info.getValve_alias());
+        holder.setText(R.id.group_item_name,info.getValveId() + "阀控器" );
+        holder.setText(R.id.group_item_id,"名称"+info.getValveAlias());
 
         String stutes = "";
-        int valveStatus = info.getValve_status();
+        int valveStatus = info.getValveStatus();
         if (valveStatus == Entiy.CONTROL_STATUS＿RUN) {
             stutes = "工作当中";
         } else if (valveStatus == Entiy.CONTROL_STATUS＿ERROR) {
@@ -51,7 +51,7 @@ public class GroupEditListAdapter extends BaseQuickAdapter<ControlInfo, BaseView
                                 Toast.makeText(getContext(), "当前小组只有一个阀控器, 如果要退出, 请点击解散分组", Toast.LENGTH_LONG).show();
                                 return;
                             }
-                            MessageFactory.exitGroup();
+//                            MessageSend.exitGroup();
                         }
                     });
 

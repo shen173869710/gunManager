@@ -9,9 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.auto.di.guan.manager.R;
-import com.auto.di.guan.manager.event.ControlEvent;
-import com.auto.di.guan.manager.event.DeviceEvent;
-import com.auto.di.guan.manager.event.GroupEvent;
+import com.auto.di.guan.manager.event.DateChangeEvent;
 
 
 public class FragmentTab9 extends BaseFragment {
@@ -44,17 +42,9 @@ public class FragmentTab9 extends BaseFragment {
 	}
 
 	@Override
-	public void controlChange(ControlEvent event) {
+	public void dataChange(DateChangeEvent event) {
 
 	}
 
-	@Override
-	public void deviceChange(DeviceEvent event) {
 
-	}
-
-	@Override
-	public void groupChange(GroupEvent event) {
-
-	}
 }

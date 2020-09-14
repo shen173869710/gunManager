@@ -13,7 +13,7 @@ import com.auto.di.guan.manager.adapter.GroupEditListAdapter;
 import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.sql.ControlInfoSql;
 import com.auto.di.guan.manager.dialog.MainShowDialog;
-import com.auto.di.guan.manager.rtm.MessageFactory;
+import com.auto.di.guan.manager.rtm.MessageSend;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +69,7 @@ public class GroupEditctivity extends Activity {
 				MainShowDialog.ShowDialog(GroupEditctivity.this, "解散分组", "是否解散当前分组", new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						MessageFactory.disbandGroup();
+					//	MessageSend.disbandGroup();
 					}
 				});
 

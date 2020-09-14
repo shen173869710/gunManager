@@ -2,16 +2,12 @@ package com.auto.di.guan.manager.rtm;
 
 import android.content.Context;
 import android.util.Log;
-
 import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.utils.LogUtils;
-
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import io.agora.rtm.ErrorInfo;
 import io.agora.rtm.ResultCallback;
 import io.agora.rtm.RtmClient;
@@ -27,9 +23,11 @@ public class ChatManager {
 
     private Context mContext;
     private RtmClient mRtmClient;
-    private SendMessageOptions mSendMsgOptions;
     private List<RtmClientListener> mListenerList = new ArrayList<>();
-    private RtmMessagePool mMessagePool = new RtmMessagePool();
+    /**
+     *    当前登录用户的ID
+     */
+    private String loginId;
 
     public ChatManager(Context context) {
         mContext = context;
@@ -49,13 +47,13 @@ public class ChatManager {
 
                 @Override
                 public void onMessageReceived(RtmMessage rtmMessage, String peerId) {
-                    if (mListenerList.isEmpty()) {
-                        mMessagePool.insertOfflineMessage(rtmMessage, peerId);
-                    } else {
-                        for (RtmClientListener listener : mListenerList) {
-                            listener.onMessageReceived(rtmMessage, peerId);
-                        }
-                    }
+//                    if (mListenerList.isEmpty()) {
+//                        mMessagePool.insertOfflineMessage(rtmMessage, peerId);
+//                    } else {
+//                        for (RtmClientListener listener : mListenerList) {
+//                            listener.onMessageReceived(rtmMessage, peerId);
+//                        }
+//                    }
                     LogUtils.e(TAG, "onMessageReceived   peerid = "+peerId + "message" +rtmMessage.getText());
                 }
 
@@ -65,7 +63,6 @@ public class ChatManager {
                         // If currently there is no callback to handle this
                         // message, this message is unread yet. Here we also
                         // take it as an offline message.
-                        mMessagePool.insertOfflineMessage(rtmImageMessage, peerId);
                     } else {
                         for (RtmClientListener listener : mListenerList) {
                             listener.onImageMessageReceivedFromPeer(rtmImageMessage, peerId);
@@ -113,39 +110,10 @@ public class ChatManager {
 
         // Global option, mainly used to determine whether
         // to support offline messages now.
-        mSendMsgOptions = new SendMessageOptions();
     }
 
     public RtmClient getRtmClient() {
         return mRtmClient;
-    }
-
-    public void registerListener(RtmClientListener listener) {
-        mListenerList.add(listener);
-    }
-
-    public void unregisterListener(RtmClientListener listener) {
-        mListenerList.remove(listener);
-    }
-
-    public void enableOfflineMessage(boolean enabled) {
-        mSendMsgOptions.enableOfflineMessaging = enabled;
-    }
-
-    public boolean isOfflineMessageEnabled() {
-        return mSendMsgOptions.enableOfflineMessaging;
-    }
-
-    public SendMessageOptions getSendMessageOptions() {
-        return mSendMsgOptions;
-    }
-
-    public List<RtmMessage> getAllOfflineMessages(String peerId) {
-        return mMessagePool.getAllOfflineMessages(peerId);
-    }
-
-    public void removeAllOfflineMessages(String peerId) {
-        mMessagePool.removeAllOfflineMessages(peerId);
     }
 
     /**
@@ -191,12 +159,12 @@ public class ChatManager {
 
 
 
-    public void sendPeerMessage(String dst, String content) {
+    public void sendPeerMessage( String content) {
         final RtmMessage message = mRtmClient.createMessage();
         message.setText(content);
         SendMessageOptions option = new SendMessageOptions();
         option.enableOfflineMessaging = false;
-        mRtmClient.sendMessageToPeer(dst, message, option, new ResultCallback<Void>() {
+        mRtmClient.sendMessageToPeer(loginId, message, option, new ResultCallback<Void>() {
 
             @Override
             public void onSuccess(Void aVoid) {

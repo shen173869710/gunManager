@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ExpandableListView;
-
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.activity.GroupOptionActivity;
 import com.auto.di.guan.manager.activity.GroupStatusActivity;
@@ -16,19 +15,14 @@ import com.auto.di.guan.manager.activity.OptionSettingActivity;
 import com.auto.di.guan.manager.adapter.GroupExpandableListViewaAdapter;
 import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.GroupList;
-import com.auto.di.guan.manager.event.ControlEvent;
-import com.auto.di.guan.manager.event.DeviceEvent;
-import com.auto.di.guan.manager.event.GroupEvent;
+import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- */
+
 public class FragmentTab32 extends BaseFragment {
 	private View view;
 	private ExpandableListView expandableListView;
@@ -123,19 +117,10 @@ public class FragmentTab32 extends BaseFragment {
 	}
 
 	@Override
-	public void controlChange(ControlEvent event) {
+	public void dataChange(DateChangeEvent event) {
 
 	}
 
-	@Override
-	public void deviceChange(DeviceEvent event) {
-
-	}
-
-	@Override
-	public void groupChange(GroupEvent event) {
-
-	}
 
 	@Override
 	public void onDestroy() {
