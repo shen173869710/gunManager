@@ -75,7 +75,7 @@
         android:background="@drawable/bg_red_buttom_rect"
         />
     <Button
-        android:id="@+id/manager_item_option"
+        android:id="@+id/manager_item_login"
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"

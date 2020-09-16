@@ -2,8 +2,12 @@ package com.auto.di.guan.manager.rtm;
 
 import android.content.Context;
 import android.util.Log;
+
+import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.entity.Entiy;
+import com.auto.di.guan.manager.event.UserStatusEvent;
 import com.auto.di.guan.manager.utils.LogUtils;
+import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +59,8 @@ public class ChatManager {
 //                        }
 //                    }
                     LogUtils.e(TAG, "onMessageReceived   peerid = "+peerId + "message" +rtmMessage.getText());
+                    MessageParse.praseData(rtmMessage.getText(), peerId);
+
                 }
 
                 @Override
@@ -93,8 +99,10 @@ public class ChatManager {
                 @Override
                 public void onPeersOnlineStatusChanged(Map<String, Integer> status) {
                     LogUtils.e(TAG, "onPeersOnlineStatusChanged" + status.toString());
+
                     for (String key : status.keySet()) {
                         int code = status.get(key);
+                        EventBus.getDefault().post(new UserStatusEvent(key, code));
                         if (code == 0) {
                             LogUtils.e(TAG, "  当前用户ID  peerId = " + key + " 当前状态在线 ");
                         }else {
@@ -120,7 +128,7 @@ public class ChatManager {
      *    用户登录
      */
     public void doLogin() {
-        mRtmClient.login(null, "222222", new ResultCallback<Void>() {
+        mRtmClient.login(null, BaseApp.getUser().getLoginName(), new ResultCallback<Void>() {
             @Override
             public void onSuccess(Void responseInfo) {
                 LogUtils.e(TAG, "login success");
@@ -159,7 +167,7 @@ public class ChatManager {
 
 
 
-    public void sendPeerMessage( String content) {
+    public void sendPeerMessage(String content) {
         final RtmMessage message = mRtmClient.createMessage();
         message.setText(content);
         SendMessageOptions option = new SendMessageOptions();
@@ -178,4 +186,31 @@ public class ChatManager {
         });
     }
 
+    public void sendLoginPeerMessage(String id,String content) {
+        final RtmMessage message = mRtmClient.createMessage();
+        message.setText(content);
+        SendMessageOptions option = new SendMessageOptions();
+        option.enableOfflineMessaging = false;
+        mRtmClient.sendMessageToPeer(id, message, option, new ResultCallback<Void>() {
+
+            @Override
+            public void onSuccess(Void aVoid) {
+                setLoginId(id);
+                LogUtils.e(TAG, "sendPeerMessage : onSuccess");
+            }
+
+            @Override
+            public void onFailure(ErrorInfo errorInfo) {
+                Entiy.onPeerError(TAG, errorInfo.getErrorCode());
+            }
+        });
+    }
+
+    public String getLoginId() {
+        return loginId;
+    }
+
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
+    }
 }

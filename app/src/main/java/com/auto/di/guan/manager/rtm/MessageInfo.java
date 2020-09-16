@@ -8,7 +8,6 @@ import java.util.List;
 
 public class MessageInfo {
 
-
     private int type;
     private List<ControlInfo> controlInfos;
     private List<GroupInfo>groupInfos;

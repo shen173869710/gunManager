@@ -20,14 +20,12 @@ import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.SPUtils;
 import com.facebook.stetho.Stetho;
 import com.tencent.bugly.crashreport.CrashReport;
-
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
 /**
  * Created by Administrator on 2017/6/28.
  */

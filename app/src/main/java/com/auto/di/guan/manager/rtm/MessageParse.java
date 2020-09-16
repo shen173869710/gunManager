@@ -1,5 +1,6 @@
 package com.auto.di.guan.manager.rtm;
 
+import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.sql.ControlInfoSql;
@@ -18,7 +19,7 @@ import java.util.List;
 public class MessageParse {
     public static final String TAG = "MessageParse";
 
-    public static void praseData(String data) {
+    public static void praseData(String data, String peerId) {
         MessageInfo info = new Gson().fromJson(data, MessageInfo.class);
         if (info == null) {
             LogUtils.e(TAG, "gson 数据解析异常");
@@ -28,6 +29,7 @@ public class MessageParse {
             case MessageEntiy.TYPE_LOGIN:
                 // 登录
                 EventBus.getDefault().post(new LoginEvent(true));
+                BaseApp.getInstance().getChatManager().setLoginId(peerId);
                 break;
             case MessageEntiy.TYPE_LOGOUT:
                 // 登出

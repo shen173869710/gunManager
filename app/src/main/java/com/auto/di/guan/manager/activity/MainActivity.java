@@ -1,22 +1,29 @@
 package com.auto.di.guan.manager.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
+import com.auto.di.guan.manager.event.UserStatusEvent;
 import com.auto.di.guan.manager.fragment.ArticleListFragment;
-import com.auto.di.guan.manager.rtm.ChatManager;
+import com.auto.di.guan.manager.utils.LogUtils;
+import com.auto.di.guan.manager.utils.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -24,12 +31,13 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager manager;
     private FragmentTransaction transaction;
     private final String TAG = "MainActivity";
-    private ChatManager mChatManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        EventBus.getDefault().register(this);
 
         windowTop = getStatusBarHeight();
         manager = getSupportFragmentManager();
@@ -38,27 +46,16 @@ public class MainActivity extends AppCompatActivity {
         transaction.add(R.id.center, articleListFragment, "center");
         transaction.commitAllowingStateLoss();
 
-        mChatManager = BaseApp.getInstance().getChatManager();
         findViewById(R.id.title_bar_title).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mChatManager.sendPeerMessage( "来着222222222的消息");
+//                mChatManager.sendPeerMessage( "来着222222222的消息");
             }
         });
-        mChatManager.doLogin();
-
-
-        Set<String> user = new HashSet<>();
-        user.add("111111");
-        user.add("123456");
-        user.add("333333");
-        mChatManager.addPeersOnlineStatusListen(user);
-
         inttTest();
     }
 
     private void inttTest() {
-
         List<DeviceInfo> deviceInfos = new ArrayList<>();
        for (int i = 1; i < 10; i++) {
            DeviceInfo deviceInfo = new DeviceInfo();
@@ -125,12 +122,25 @@ public class MainActivity extends AppCompatActivity {
         return result;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        //HuanXinUtil.stop();
-//        mChatManager.doLogout();
-//    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUserStatusEvent(UserStatusEvent event) {
+        String currentId = BaseApp.getInstance().getChatManager().getLoginId();
+        LogUtils.e(TAG, "当前登录的 id = "+currentId+ "离线用户的id = "+event.getPeerId());
+        if (!TextUtils.isEmpty(currentId) && currentId.equals(event.getPeerId())){
+            if (event.getStatus() == 0) {
+                LogUtils.e(TAG, "用户处于登录状态");
+            }else {
+                ToastUtils.showLongToast("用户处于离线状态");
+                BaseApp.getInstance().getChatManager().setLoginId("");
+                MainActivity.this.finish();
+            }
+        }
 
+    }
 }

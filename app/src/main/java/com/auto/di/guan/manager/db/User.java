@@ -1,25 +1,17 @@
 package com.auto.di.guan.manager.db;
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.annotation.Property;
-
 import java.io.Serializable;
 import java.util.Date;
 
 public class User implements Serializable {
-    static final long serialVersionUID=1L;
 
     /** 用户ID */
     private Long userId;
     private Long memberId;
-
     /** 部门ID */
     private Long deptId;
-
     /** 部门父ID */
     private Long parentId;
-
     /** 角色ID */
     private Long roleId;
     /** 登录名称 */
@@ -72,6 +64,9 @@ public class User implements Serializable {
     private String longitudeLatitude;
     // 项目经纬度
     private String parentLoginName;
+
+
+    private int loginStatus;
 
     public User() {
     }
@@ -250,4 +245,11 @@ public class User implements Serializable {
         this.parentLoginName = parentLoginName;
     }
 
+    public int getLoginStatus() {
+        return loginStatus;
+    }
+
+    public void setLoginStatus(int loginStatus) {
+        this.loginStatus = loginStatus;
+    }
 }

@@ -18,32 +18,6 @@ import java.util.TreeMap;
 public class LoginPresenter extends BasePresenter<ILoginView>{
 
     /**
-     *  设备激
-     * **/
-    public void doDeviceActivation(String loginName,String pwd) {
-       TreeMap<String, Object> treeMap = new TreeMap<>();
-       treeMap.put("loginName",loginName);
-       treeMap.put("password", pwd);
-       treeMap.put("mac", "mac");
-       doHttpTask(getApiService().deviceActivation(BaseRequest.toMerchantDeviceTreeMap(treeMap)),
-               new HttpManager.OnResultListener() {
-            @Override
-            public void onSuccess(BaseRespone respone) {
-                if (respone != null && respone.isOk() && null !=respone.getData()) {
-                    getBaseView().activationSuccess(respone);
-                }else{
-                    getBaseView().activationFail(null,-1, "设备码不存在,请重新输入!");
-                }
-            }
-
-            @Override
-            public void onError(Throwable error, Integer code,String msg) {
-                getBaseView().activationFail(error,code, msg);
-            }
-       });
-    }
-
-    /**
      *
      * 登录请求
      * **/

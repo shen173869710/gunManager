@@ -1,5 +1,6 @@
 package com.auto.di.guan.manager.rtm;
 
+import com.auto.di.guan.manager.activity.IBaseActivity;
 import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
@@ -9,29 +10,22 @@ public class MessageSend {
     public static void send(MessageInfo info) {
         BaseApp.getInstance().getChatManager().sendPeerMessage(info.toJson());
     }
-    /**
-     *        发送消息
-     * @param type
-     * @param controlInfos
-     * @param groupInfos
-     */
-    public static void sendMessage(int type, ArrayList<ControlInfo>controlInfos, ArrayList<GroupInfo> groupInfos) {
-        MessageInfo info  = new MessageInfo();
-        info.setType(type);
-        info.setControlInfos(controlInfos);
-        info.setGroupInfos(groupInfos);
-        send(info);
+
+
+    public static void send(MessageInfo info, String loginId) {
+        BaseApp.getInstance().getChatManager().sendLoginPeerMessage(loginId,info.toJson());
     }
 
     /**
      *  登录
      */
-    public static void doLogin() {
+    public static void doLogin(IBaseActivity baseActivity, String loginId) {
         MessageLoginInfo info  = new MessageLoginInfo();
         info.setType(MessageEntiy.TYPE_LOGIN);
         info.setManagerId(BaseApp.getUser().getUserId());
         BaseApp.getInstance().getChatManager().sendPeerMessage(info.toJson());
-        send(info);
+        send(info,loginId);
+        baseActivity.showDialog();
     }
 
     /**

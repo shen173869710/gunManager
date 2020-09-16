@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,14 +12,24 @@ import com.auto.di.guan.manager.adapter.ManagerAdapter;
 import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.basemodel.presenter.BasePresenter;
 import com.auto.di.guan.manager.db.User;
+import com.auto.di.guan.manager.event.LoginEvent;
+import com.auto.di.guan.manager.event.UserStatusEvent;
+import com.auto.di.guan.manager.rtm.ChatManager;
+import com.auto.di.guan.manager.rtm.MessageSend;
 import com.auto.di.guan.manager.utils.DensityUtil;
 import com.auto.di.guan.manager.utils.GridSpaceItemDecoration;
 import com.auto.di.guan.manager.utils.LogUtils;
+import com.auto.di.guan.manager.utils.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import butterknife.BindView;
 
 public class ManagerActivity extends IBaseActivity {
@@ -31,9 +40,11 @@ public class ManagerActivity extends IBaseActivity {
     TextView titleBarTitle;
     @BindView(R.id.manager_list)
     RecyclerView managerList;
-
     private ManagerAdapter mAdapter;
 
+    private ChatManager mChatManager;
+
+    private List<User> users = new ArrayList<>();
     @Override
     protected int setLayout() {
         return R.layout.activity_manager;
@@ -41,16 +52,21 @@ public class ManagerActivity extends IBaseActivity {
 
     @Override
     protected void init() {
-        List<User> users = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        User loginUser = new User();
+        loginUser.setLoginName("123456");
+        loginUser.setPhonenumber("123456");
+        loginUser.setProjectName("123456");
+        loginUser.setProjectId("123456");
+        BaseApp.setUser(loginUser);
+
+        users = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
             User user = new User();
             user.setAvatar("");
             user.setProjectName("项目名称"+i);
             user.setPhonenumber("10000000"+i);
-
-            if (i == 1 || i == 3 || i ==5) {
-                user.setStatus(1);
-            }
+            user.setLoginName("1330000000"+i);
+            user.setLoginStatus(-1);
             users.add(user);
         }
 
@@ -65,18 +81,57 @@ public class ManagerActivity extends IBaseActivity {
         mAdapter = new ManagerAdapter(users);
         managerList.setAdapter(mAdapter);
 
-        mAdapter.setOnItemClickListener(new OnItemClickListener() {
+        mAdapter.addChildClickViewIds(R.id.manager_item_login);
+        mAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                startActivity(new Intent(ManagerActivity.this, MainActivity.class));
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (view.getId() == R.id.manager_item_login){
+                    User user = users.get(position);
+                    if (user.getLoginStatus() != 0) {
+                        ToastUtils.showLongToast("用户不在线");
+                        return;
+                    }
+                    MessageSend.doLogin(ManagerActivity.this, users.get(position).getLoginName());
+                }
             }
         });
-    }
 
+        mChatManager = BaseApp.getInstance().getChatManager();
+        mChatManager.doLogin();
+        Set<String> user = new HashSet<>();
+        user.add("13300000000");
+        user.add("13300000001");
+        user.add("13300000002");
+        user.add("13300000003");
+        user.add("13300000004");
+        mChatManager.addPeersOnlineStatusListen(user);
+    }
 
     @Override
     protected BasePresenter createPresenter() {
         return null;
     }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLoginEvent(LoginEvent event) {
+        if (event.isLogin()) {
+            startActivity(new Intent(ManagerActivity.this, MainActivity.class));
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUserStatusEvent(UserStatusEvent event) {
+        int size = users.size();
+        for (int i = 0; i < size; i++) {
+            User user = users.get(i);
+            if (event.getPeerId().equals(user.getLoginName())) {
+                user.setLoginStatus(event.getStatus());
+            }
+        }
+
+        if (mAdapter != null) {
+            mAdapter.notifyDataSetChanged();
+        }
+    }
 }

@@ -1,135 +1,85 @@
 package com.auto.di.guan.manager.activity;
 
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.ValueCallback;
-import android.widget.LinearLayout;
+import android.text.TextUtils;
+import android.widget.Button;
+import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.auto.di.guan.manager.utils.AndroidInterface;
 import com.auto.di.guan.manager.R;
-import com.just.agentweb.AgentWeb;
+import com.auto.di.guan.manager.app.BaseApp;
+import com.auto.di.guan.manager.basemodel.model.respone.BaseRespone;
+import com.auto.di.guan.manager.basemodel.presenter.LoginPresenter;
+import com.auto.di.guan.manager.basemodel.view.ILoginView;
+import com.auto.di.guan.manager.customview.XEditText;
+import com.auto.di.guan.manager.db.User;
+import com.auto.di.guan.manager.utils.ToastUtils;
 
-import org.json.JSONObject;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends IBaseActivity<LoginPresenter> implements ILoginView {
+
+    @BindView(R.id.login_name)
+    XEditText loginName;
+    @BindView(R.id.login_pwd)
+    XEditText loginPwd;
+    @BindView(R.id.login)
+    Button login;
+
+    @Override
+    protected int setLayout() {
+        return R.layout.activity_login;
+    }
+
+    @Override
+    protected void init() {
 
 
-    private AgentWeb mAgentWeb;
-    private LinearLayout loginWeb;
+    }
+
+    @Override
+    protected LoginPresenter createPresenter() {
+        return new LoginPresenter();
+    }
+
+
+    @Override
+    public void loginSuccess(BaseRespone respone) {
+        User user = (User) respone.getData();
+        if (user != null) {
+            BaseApp.setUser(user);
+        }
+    }
+
+    @Override
+    public void loginFail(Throwable error, Integer code, String msg) {
+        ToastUtils.showLongToast(msg+"");
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        loginWeb = findViewById(R.id.login_web);
-
-
-        if(mAgentWeb!=null){
-            //注入对象
-            mAgentWeb.getJsInterfaceHolder().addJavaObject("android",new AndroidInterface(mAgentWeb,this));
-        }
-        findViewById(R.id.callJsNoParamsButton).setOnClickListener(mOnClickListener);
-        findViewById(R.id.callJsOneParamsButton).setOnClickListener(mOnClickListener);
-        findViewById(R.id.callJsMoreParamsButton).setOnClickListener(mOnClickListener);
-        findViewById(R.id.jsJavaCommunicationButton).setOnClickListener(mOnClickListener);
-
-        mAgentWeb =AgentWeb.with(this)
-                .setAgentWebParent(loginWeb, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
-                .useDefaultIndicator()//进度条
-                .createAgentWeb()
-                .ready()
-                .go("file:///android_asset/js_interaction/hello.html");
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 
-
-
-
-    private View.OnClickListener mOnClickListener=new View.OnClickListener() {
-        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-        @Override
-        public void onClick(View v) {
-
-
-            switch (v.getId()){
-
-                case R.id.callJsNoParamsButton:
-                    mAgentWeb.getJsAccessEntrace().quickCallJs("callByAndroid");
-
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    break;
-
-                case R.id.callJsOneParamsButton:
-                    mAgentWeb.getJsAccessEntrace().quickCallJs("callByAndroidParam","Hello ! Agentweb");
-                    break;
-
-                case R.id.callJsMoreParamsButton:
-                    mAgentWeb.getJsAccessEntrace().quickCallJs("callByAndroidMoreParams", new ValueCallback<String>() {
-                        @Override
-                        public void onReceiveValue(String value) {
-                            Log.i("Info","value:"+value);
-                        }
-                    },getJson(),"say:", " Hello! Agentweb");
-
-                    break;
-                case R.id.jsJavaCommunicationButton:
-                    mAgentWeb.getJsAccessEntrace().quickCallJs("callByAndroidInteraction","你好Js");
-                    break;
-            }
-
+    @OnClick(R.id.login)
+    public void onViewClicked() {
+        String name = loginName.getText().toString().trim();
+//        id = "13300000000";
+        if (TextUtils.isEmpty(name)) {
+            Toast.makeText(LoginActivity.this, "请输入账号", Toast.LENGTH_LONG).show();
+            return;
         }
-    };
-
-
-    private String getJson(){
-        String result="";
-        try {
-            JSONObject mJSONObject=new JSONObject();
-            mJSONObject.put("id",1);
-            mJSONObject.put("name","Agentweb");
-            mJSONObject.put("age",18);
-            result= mJSONObject.toString();
-        }catch (Exception e){
-
+        String pwd = loginPwd.getText().toString().trim();
+//        pwd = "123456";
+        if (TextUtils.isEmpty(pwd)) {
+            Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_LONG).show();
+            return;
         }
 
-        return result;
+        mPresenter.doLogin(name, pwd);
     }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (mAgentWeb.handleKeyEvent(keyCode, event)) {
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-
-    @Override
-    protected void onPause() {
-        mAgentWeb.getWebLifeCycle().onPause();
-        super.onPause();
-
-    }
-
-    @Override
-    protected void onResume() {
-        mAgentWeb.getWebLifeCycle().onResume();
-        super.onResume();
-    }
-
-    @Override
-    protected void onDestroy() {
-        mAgentWeb.getWebLifeCycle().onDestroy();
-        super.onDestroy();
-    }
-
 }

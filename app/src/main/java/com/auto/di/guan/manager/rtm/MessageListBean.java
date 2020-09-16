@@ -3,8 +3,6 @@ package com.auto.di.guan.manager.rtm;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.agora.rtm.RtmMessage;
-
 public class MessageListBean {
     private String accountOther;
     private List<MessageBean> messageBeanList;
