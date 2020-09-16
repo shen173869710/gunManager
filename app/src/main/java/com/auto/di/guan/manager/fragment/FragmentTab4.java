@@ -31,7 +31,6 @@ public class FragmentTab4 extends BaseFragment {
 
     @Override
     public void init() {
-
 		int size = groupInfos.size();
 		if (size > 0) {
 			for (int i = 0; i < size; i++) {
@@ -55,6 +54,6 @@ public class FragmentTab4 extends BaseFragment {
 
 	@Override
 	public void dataChange(DateChangeEvent event) {
-
+		init();
 	}
 }

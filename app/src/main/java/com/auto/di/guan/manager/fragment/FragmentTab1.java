@@ -16,10 +16,8 @@ import com.auto.di.guan.manager.db.GroupList;
 import com.auto.di.guan.manager.dialog.MainShowDialog;
 import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -39,8 +37,6 @@ public class FragmentTab1 extends BaseFragment {
     private List<ControlInfo> controlInfos = new ArrayList<>();
     private FragmentTab1Adapter adapter;
 
-
-
     @Override
     public int setLayout() {
         return R.layout.fragment_1;
@@ -50,19 +46,15 @@ public class FragmentTab1 extends BaseFragment {
     public void init() {
         deviceInfos = BaseApp.getDeviceInfos();
         groupInfos = BaseApp.getGroupInfos();
-
         adapter = new FragmentTab1Adapter(getActivity(), groupLists);
         expandableListView.setAdapter(adapter);
         expandableListView.setGroupIndicator(null);
         initData();
     }
 
-
-
     private void initData() {
         groupLists.clear();
         controlInfos.clear();
-
         int size = deviceInfos.size();
         for (int i = 0; i < size; i++) {
             controlInfos.addAll(deviceInfos.get(i).getValveDeviceSwitchList());
@@ -111,6 +103,8 @@ public class FragmentTab1 extends BaseFragment {
 
     @Override
     public void dataChange(DateChangeEvent event) {
-
+        if (event.isGroup()) {
+            initData();
+        }
     }
 }

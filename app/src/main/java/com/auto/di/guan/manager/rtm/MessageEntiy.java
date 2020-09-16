@@ -27,4 +27,5 @@ public class MessageEntiy {
 
     // 轮灌操作相关信息
     public static final int TYPE_MESSAGE = 100;
+
 }

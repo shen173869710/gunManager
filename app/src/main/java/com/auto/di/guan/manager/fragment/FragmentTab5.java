@@ -76,7 +76,7 @@ public class FragmentTab5 extends BaseFragment {
 
 	@Override
 	public void dataChange(DateChangeEvent event) {
-
+		initData();
 	}
 
 }

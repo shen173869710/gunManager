@@ -9,16 +9,11 @@ import com.auto.di.guan.manager.adapter.MyGridAdapter;
 import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.event.DateChangeEvent;
-
 import butterknife.BindView;
-
-
 public class FragmentTab0 extends BaseFragment {
-
     @BindView(R.id.fragment_0_list)
     RecyclerView fragment0List;
     private MyGridAdapter adapter;
-
 
     @Override
     public int setLayout() {
@@ -35,7 +30,7 @@ public class FragmentTab0 extends BaseFragment {
 
     @Override
     public void dataChange(DateChangeEvent event) {
-
+        adapter.replaceData(BaseApp.getDeviceInfos());
     }
 
 

@@ -3,6 +3,7 @@ package com.auto.di.guan.manager.fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.MyGridOpenAdapter;
 import com.auto.di.guan.manager.app.BaseApp;
@@ -33,7 +34,7 @@ public class FragmentTab3 extends BaseFragment {
 
     @Override
     public void dataChange(DateChangeEvent event) {
-
+        adapter.replaceData(BaseApp.getDeviceInfos());
     }
 
 

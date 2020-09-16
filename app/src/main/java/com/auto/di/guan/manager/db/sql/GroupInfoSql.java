@@ -19,4 +19,31 @@ public class GroupInfoSql {
         }
         return groupInfos;
     }
+
+    /**
+     *        更新组信息
+     * @param list
+     */
+    public static void updateGroup(List<GroupInfo> list) {
+        List<GroupInfo> groupInfos = BaseApp.getGroupInfos();
+        int size = groupInfos.size();
+        int jSize = list.size();
+
+        for (int i = 0; i < size; i++) {
+            GroupInfo groupInfo = groupInfos.get(i);
+            for (int j = 0; j < jSize; j ++) {
+                GroupInfo info = list.get(j);
+                if (groupInfo.getId() == info.getId()) {
+                    groupInfo.setGroupTime(info.getGroupTime());
+                    groupInfo.setGroupStatus(info.getGroupStatus());
+                    groupInfo.setGroupLevel(info.getGroupLevel());
+                    groupInfo.setGroupTime(info.getGroupTime());
+                    groupInfo.setGroupRunTime(info.getGroupRunTime());
+                    groupInfo.setGroupStop(info.getGroupStop());
+                    groupInfo.setGroupIsJoin(info.getGroupIsJoin());
+                }
+            }
+        }
+
+    }
 }
