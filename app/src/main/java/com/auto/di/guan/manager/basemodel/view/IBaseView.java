@@ -8,10 +8,10 @@ import com.auto.di.guan.manager.basemodel.model.respone.BaseRespone;
  * 登录页面抽象的接口
  */
 
-public interface ILoginView extends BaseView{
+public interface IBaseView extends BaseView{
 
     /***登录成功**/
-    void loginSuccess(BaseRespone respone);
+    void success(BaseRespone respone);
     /***登录失败**/
-    void loginFail(Throwable error, Integer code, String msg);
+    void fail(Throwable error, Integer code, String msg);
 }

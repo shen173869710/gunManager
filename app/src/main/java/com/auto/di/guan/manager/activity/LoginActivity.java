@@ -9,7 +9,7 @@ import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.basemodel.model.respone.BaseRespone;
 import com.auto.di.guan.manager.basemodel.presenter.LoginPresenter;
-import com.auto.di.guan.manager.basemodel.view.ILoginView;
+import com.auto.di.guan.manager.basemodel.view.IBaseView;
 import com.auto.di.guan.manager.customview.XEditText;
 import com.auto.di.guan.manager.db.User;
 import com.auto.di.guan.manager.utils.ToastUtils;
@@ -18,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends IBaseActivity<LoginPresenter> implements ILoginView {
+public class LoginActivity extends IBaseActivity<LoginPresenter> implements IBaseView {
 
     @BindView(R.id.login_name)
     XEditText loginName;
@@ -45,7 +45,7 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements ILog
 
 
     @Override
-    public void loginSuccess(BaseRespone respone) {
+    public void success(BaseRespone respone) {
         User user = (User) respone.getData();
         if (user != null) {
             BaseApp.setUser(user);
@@ -53,7 +53,7 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements ILog
     }
 
     @Override
-    public void loginFail(Throwable error, Integer code, String msg) {
+    public void fail(Throwable error, Integer code, String msg) {
         ToastUtils.showLongToast(msg+"");
     }
 

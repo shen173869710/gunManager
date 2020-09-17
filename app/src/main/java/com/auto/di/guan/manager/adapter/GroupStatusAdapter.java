@@ -7,7 +7,11 @@ import androidx.annotation.Nullable;
 
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.db.GroupInfo;
+import com.auto.di.guan.manager.db.sql.GroupInfoSql;
+import com.auto.di.guan.manager.dialog.DialogUtil;
+import com.auto.di.guan.manager.dialog.OnDialogClick;
 import com.auto.di.guan.manager.entity.Entiy;
+import com.auto.di.guan.manager.rtm.MessageSend;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
 import com.auto.di.guan.manager.utils.PollingUtils;
 import com.auto.di.guan.manager.utils.ToastUtils;
@@ -15,6 +19,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.daimajia.numberprogressbar.NumberProgressBar;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.greendao.annotation.NotNull;
 
 import java.util.ArrayList;
@@ -120,36 +125,30 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
                 }
 
                 if (info.getGroupStop()) {
-//                    DialogUtil.showStartCount(getContext(), new OnDialogClick() {
-//                        @Override
-//                        public void onDialogOkClick(String value) {
-//                            info.setGroupStop(false);
-//                            GroupInfoSql.updateGroup(info);
-//                            EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_START, info));
-//                            notifyDataSetChanged();
-//                        }
-//
-//                        @Override
-//                        public void onDialogCloseClick(String value) {
-//
-//                        }
-//                    });
+                    DialogUtil.showStartCount(getContext(), new OnDialogClick() {
+                        @Override
+                        public void onDialogOkClick(String value) {
+                            MessageSend.doAutoStart();
+                        }
+
+                        @Override
+                        public void onDialogCloseClick(String value) {
+
+                        }
+                    });
 
                 } else {
-//                    DialogUtil.showStopCount(getContext(), new OnDialogClick() {
-//                        @Override
-//                        public void onDialogOkClick(String value) {
-//                            info.setGroupStop(true);
-//                            GroupInfoSql.updateGroup(info);
-//                            EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_STOP));
-//                            notifyDataSetChanged();
-//                        }
-//
-//                        @Override
-//                        public void onDialogCloseClick(String value) {
-//
-//                        }
-//                    });
+                    DialogUtil.showStopCount(getContext(), new OnDialogClick() {
+                        @Override
+                        public void onDialogOkClick(String value) {
+                            MessageSend.doAutoStop();
+                        }
+
+                        @Override
+                        public void onDialogCloseClick(String value) {
+
+                        }
+                    });
                 }
             }
         });
@@ -164,7 +163,7 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
                     ToastUtils.showLongToast("自动查询操作当中，请稍后");
                     return;
                 }
-                info.setGroupRunTime(info.getGroupTime());
+                MessageSend.doAutoNext();
             }
         });
 

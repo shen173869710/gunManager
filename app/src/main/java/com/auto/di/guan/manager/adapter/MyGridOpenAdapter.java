@@ -12,6 +12,7 @@ import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.dialog.MainoptionDialog;
 import com.auto.di.guan.manager.entity.Entiy;
+import com.auto.di.guan.manager.rtm.MessageSend;
 import com.auto.di.guan.manager.utils.DensityUtil;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -143,29 +144,13 @@ public class MyGridOpenAdapter extends BaseQuickAdapter<DeviceInfo, BaseViewHold
         MainoptionDialog.ShowDialog((Activity) getContext(),controlInfo , "手动操作",status,new MainoptionDialog.ItemClick() {
             @Override
             public void onItemClick(int index) {
-
-//                MessageFactory.clas
-
-                /**
-                 *    index = 0  读
-                 *    index = 1  开阀
-                 *    index = 2  关阀
-                 */
-//                if (index == 0) {
-//                    TaskFactory.createReadSingleTask(controlInfo, TaskEntiy.TASK_OPTION_READ ,Entiy.ACTION_TYPE_4);
-//                    TaskFactory.createReadEndTask(TaskEntiy.TASK_OPTION_READ);
-//                    TaskManager.getInstance().startTask();
-//                }else if (index == 1) {
-//                    TaskFactory.createOpenTask(controlInfo);
-//                    TaskFactory.createReadSingleTask(controlInfo, TaskEntiy.TASK_OPTION_OPEN_READ ,Entiy.ACTION_TYPE_4);
-//                    TaskFactory.createReadEndTask(TaskEntiy.TASK_OPTION_OPEN_READ);
-//                    TaskManager.getInstance().startTask();
-//                }else if (index == 2) {
-//                    TaskFactory.createCloseTask(controlInfo);
-//                    TaskFactory.createReadSingleTask(controlInfo, TaskEntiy.TASK_OPTION_CLOSE_READ ,Entiy.ACTION_TYPE_4);
-//                    TaskFactory.createReadEndTask(TaskEntiy.TASK_OPTION_CLOSE_READ);
-//                    TaskManager.getInstance().startTask();
-//                }
+                if (index == 0) {
+                    MessageSend.doSingleRead(controlInfo);
+                }else if (index == 1) {
+                    MessageSend.doSingleOpen(controlInfo);
+                }else if (index == 2) {
+                    MessageSend.doSingleClose(controlInfo);
+                }
             }
         });
     }

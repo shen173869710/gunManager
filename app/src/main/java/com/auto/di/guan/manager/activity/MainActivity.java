@@ -13,8 +13,10 @@ import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
+import com.auto.di.guan.manager.entity.CmdStatus;
 import com.auto.di.guan.manager.event.UserStatusEvent;
 import com.auto.di.guan.manager.fragment.ArticleListFragment;
+import com.auto.di.guan.manager.utils.FloatWindowUtil;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.ToastUtils;
 
@@ -141,6 +143,11 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.finish();
             }
         }
-
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onStatsuEvent(CmdStatus event) {
+        FloatWindowUtil.getInstance().onStatsuEvent(event);
+    }
+
 }

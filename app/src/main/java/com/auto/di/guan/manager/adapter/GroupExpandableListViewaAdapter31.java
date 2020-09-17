@@ -14,8 +14,11 @@ import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.GroupList;
 import com.auto.di.guan.manager.dialog.Main31Dialog;
 import com.auto.di.guan.manager.fragment.FragmentTab31;
+import com.auto.di.guan.manager.rtm.MessageSend;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
+import com.auto.di.guan.manager.utils.SendUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -192,15 +195,14 @@ public class GroupExpandableListViewaAdapter31 extends BaseExpandableListAdapter
         }
 
         Main31Dialog.ShowDialog((Activity) mContext,title, new Main31Dialog.ItemClick(){
-
             @Override
             public void onItemClick(int index) {
+                List<GroupInfo> groupInfos = new ArrayList<>();
+                groupInfos.add(groupInfo);
                 if (index == 1) {
-//                    TaskFactory.createGroupOpenTask(groupInfo);
-//                    TaskManager.getInstance().startTask();
+                    MessageSend.doGroupOpen(groupInfos);
                 }else if (index == 2) {
-//                    TaskFactory.createGroupCloseTask(groupInfo);
-//                    TaskManager.getInstance().startTask();
+                    MessageSend.doGroupClose(groupInfos);
                 }
             }
         });

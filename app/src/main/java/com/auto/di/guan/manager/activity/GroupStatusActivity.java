@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.GroupStatusAdapter;
 import com.auto.di.guan.manager.adapter.StatusAdapter;
@@ -17,13 +16,12 @@ import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.sql.GroupInfoSql;
 import com.auto.di.guan.manager.dialog.GroupOptionDialog;
 import com.auto.di.guan.manager.event.DateChangeEvent;
+import com.auto.di.guan.manager.rtm.MessageSend;
 import com.auto.di.guan.manager.utils.DiffStatusCallback;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +56,7 @@ public class GroupStatusActivity extends FragmentActivity {
 
         title_bar_status = (TextView) view.findViewById(R.id.title_bar_status);
         title_bar_status.setVisibility(View.VISIBLE);
-        title_bar_status.setText("轮灌操作");
+            title_bar_status.setText("轮灌操作");
         title_bar_status.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +66,13 @@ public class GroupStatusActivity extends FragmentActivity {
                 GroupOptionDialog.ShowDialog(GroupStatusActivity.this, "自动轮灌操作", new GroupOptionDialog.ItemClick() {
                     @Override
                     public void onItemClick(int index) {
+                        if (index == 1) {
+                            MessageSend.doAutoOpen();
+                        }else if (index == 2) {
+                            MessageSend.doAutoClose();
+                        }else if (index == 3) {
 
+                        }
                     }
                 });
             }
@@ -101,14 +105,16 @@ public class GroupStatusActivity extends FragmentActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onGroupEvent(DateChangeEvent event) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

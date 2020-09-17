@@ -58,9 +58,7 @@ public class FragmentTab2 extends BaseFragment {
 	private void initData() {
 		groupInfos.clear();
 		groupLists.clear();
-
 		groupInfos = GroupInfoSql.getJoinGroup();
-
 		int size = groupInfos.size();
 		if (size > 0) {
 			for (int i = 0; i < size; i++) {
@@ -88,6 +86,6 @@ public class FragmentTab2 extends BaseFragment {
 
 	@Override
 	public void dataChange(DateChangeEvent event) {
-
+		initData();
 	}
 }

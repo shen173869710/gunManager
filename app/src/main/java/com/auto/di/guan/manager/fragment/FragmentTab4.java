@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
 
-
 public class FragmentTab4 extends BaseFragment {
 
     @BindView(R.id.fragment_4_expand)
@@ -42,7 +41,6 @@ public class FragmentTab4 extends BaseFragment {
 					groupLists.add(list);
 				}
 			}
-
 			if (adapter != null) {
 				adapter.setData(groupLists);
 			}

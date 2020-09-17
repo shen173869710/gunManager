@@ -30,7 +30,9 @@ public class FragmentTab0 extends BaseFragment {
 
     @Override
     public void dataChange(DateChangeEvent event) {
-        adapter.replaceData(BaseApp.getDeviceInfos());
+        if (!event.isGroup()) {
+            adapter.replaceData(BaseApp.getDeviceInfos());
+        }
     }
 
 

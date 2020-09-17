@@ -1,25 +1,15 @@
 package com.auto.di.guan.manager.event;
 
 public class DateChangeEvent {
+
+    public DateChangeEvent(boolean group) {
+        this.group = group;
+    }
+
     /**
-     *    是否是单个操作
+     *    是否要更新组信息
      */
-    private boolean singleType;
     private boolean group;
-
-
-    public DateChangeEvent(boolean singleType) {
-        this.singleType = singleType;
-    }
-
-    public boolean isSingleType() {
-        return singleType;
-    }
-
-    public void setSingleType(boolean singleType) {
-        this.singleType = singleType;
-    }
-
     public boolean isGroup() {
         return group;
     }

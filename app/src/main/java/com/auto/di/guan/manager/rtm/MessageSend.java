@@ -4,8 +4,6 @@ import com.auto.di.guan.manager.activity.IBaseActivity;
 import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
-import java.util.ArrayList;
-import java.util.List;
 public class MessageSend {
     public static void send(MessageInfo info) {
         BaseApp.getInstance().getChatManager().sendPeerMessage(info.toJson());
@@ -30,71 +28,60 @@ public class MessageSend {
 
     /**
      *        单个读
-     * @param controlInfos
      */
-    public static void doSingleRead(ArrayList<ControlInfo> controlInfos) {
+    public static void doSingleRead(ControlInfo controlInfo) {
         MessageInfo info = new MessageInfo();
         info.setType(MessageEntiy.TYPE_SINGLE_READ);
-        info.setControlInfos(controlInfos);
+        info.setControlInfo(controlInfo);
         send(info);
     }
 
     /**
      *        单个开
-     * @param controlInfos
      */
-    public static void doSingleOpen(ArrayList<ControlInfo> controlInfos) {
+    public static void doSingleOpen(ControlInfo controlInfo) {
         MessageInfo info = new MessageInfo();
         info.setType(MessageEntiy.TYPE_SINGLE_OPEN);
-        info.setControlInfos(controlInfos);
+        info.setControlInfo(controlInfo);
         send(info);
     }
 
     /**
      *        单个关
-     * @param controlInfos
      */
-    public static void doSingleClose(ArrayList<ControlInfo> controlInfos) {
+    public static void doSingleClose(ControlInfo controlInfo) {
         MessageInfo info = new MessageInfo();
         info.setType(MessageEntiy.TYPE_SINGLE_CLOSE);
-        info.setControlInfos(controlInfos);
+        info.setControlInfo(controlInfo);
         send(info);
     }
 
     /**
      *        单组开
-     * @param controlInfos
      */
-    public static void doGroupOpen(ArrayList<ControlInfo> controlInfos, List<GroupInfo> groupInfos) {
+    public static void doGroupOpen(GroupInfo groupInfo) {
         MessageInfo info = new MessageInfo();
         info.setType(MessageEntiy.TYPE_GROUP_OPEN);
-        info.setGroupInfos(groupInfos);
-        info.setControlInfos(controlInfos);
+        info.setGroupInfo(groupInfo);
         send(info);
     }
 
     /**
-     *        单组开
-     * @param controlInfos
+     *        单组关
      */
-    public static void doGroupClose(ArrayList<ControlInfo> controlInfos, List<GroupInfo> groupInfos) {
+    public static void doGroupClose(GroupInfo groupInfo) {
         MessageInfo info = new MessageInfo();
         info.setType(MessageEntiy.TYPE_GROUP_CLOSE);
-        info.setGroupInfos(groupInfos);
-        info.setControlInfos(controlInfos);
+        info.setGroupInfo(groupInfo);
         send(info);
     }
 
     /**
      *        自动轮灌开
-     * @param controlInfos
-     * @param groupInfos
      */
-    public static void doAutoOpen(ArrayList<ControlInfo> controlInfos, List<GroupInfo> groupInfos) {
+    public static void doAutoOpen() {
         MessageInfo info = new MessageInfo();
         info.setType(MessageEntiy.TYPE_AUTO_OPEN);
-        info.setGroupInfos(groupInfos);
-        info.setControlInfos(controlInfos);
         send(info);
     }
 
@@ -117,6 +104,15 @@ public class MessageSend {
     }
 
     /**
+     *        自动轮灌开始
+     */
+    public static void doAutoClose() {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_AUTO_CLOSE);
+        send(info);
+    }
+
+    /**
      *        自动轮灌下一组
      */
     public static void doAutoNext() {
@@ -126,6 +122,22 @@ public class MessageSend {
     }
 
 
+    /**
+     *       自动查询开
+     */
+    public static void doAutoPollStart() {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_AUTO_POLL_START);
+        send(info);
+    }
 
+    /**
+     *       自动查询关
+     */
+    public static void doAutoPollClose() {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_AUTO_POLL_CLOSE);
+        send(info);
+    }
 
 }

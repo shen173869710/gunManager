@@ -3,6 +3,7 @@ package com.auto.di.guan.manager.fragment;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.activity.GroupStatusActivity;
 import com.auto.di.guan.manager.adapter.GroupExpandableListViewaAdapter;
@@ -13,8 +14,10 @@ import com.auto.di.guan.manager.db.sql.ControlInfoSql;
 import com.auto.di.guan.manager.db.sql.GroupInfoSql;
 import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 /**
