@@ -19,9 +19,11 @@ import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.rtm.MessageSend;
 import com.auto.di.guan.manager.utils.DiffStatusCallback;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,7 +86,6 @@ public class GroupStatusActivity extends FragmentActivity {
                 GroupStatusActivity.this.finish();
             }
         });
-
         groupInfos = GroupInfoSql.getJoinGroup();
         recyclerView = (RecyclerView) findViewById(R.id.group_option_view);
         adapter = new GroupStatusAdapter(groupInfos);
@@ -92,12 +93,10 @@ public class GroupStatusActivity extends FragmentActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         openList = findViewById(R.id.group_option_open);
         openList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false));
         openAdapter = new StatusAdapter(openInfos);
         openList.setAdapter(openAdapter);
-
         closeList = findViewById(R.id.group_option_close);
         closeList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false));
         closeAdapter = new StatusAdapter(closeInfos);

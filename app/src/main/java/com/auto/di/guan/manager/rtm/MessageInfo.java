@@ -4,9 +4,7 @@ import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.entity.CmdStatus;
 import com.google.gson.Gson;
-
 import java.util.List;
-
 public class MessageInfo {
 
     private int type;

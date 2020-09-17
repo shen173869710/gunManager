@@ -1,15 +1,18 @@
 package com.auto.di.guan.manager.adapter;
 
+import android.app.Activity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.sql.GroupInfoSql;
 import com.auto.di.guan.manager.dialog.DialogUtil;
 import com.auto.di.guan.manager.dialog.OnDialogClick;
+import com.auto.di.guan.manager.dialog.SetTimeDialog;
 import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.rtm.MessageSend;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
@@ -18,14 +21,10 @@ import com.auto.di.guan.manager.utils.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.daimajia.numberprogressbar.NumberProgressBar;
-
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.greendao.annotation.NotNull;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 
 public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHolder> {
     private List<GroupInfo> mItems = new ArrayList<>();
@@ -91,23 +90,22 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
                 if (NoFastClickUtils.isFastClick()) {
                     return;
                 }
-//                SetTimeDialog.ShowDialog((Activity) getContext(),
-//                        new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                String tag = v.getTag().toString();
-//                                if (!TextUtils.isEmpty(tag)) {
-//                                    int i = Integer.valueOf(tag);
-//                                    if (i <= 0) {
-//
-//                                        Toast.makeText(getContext(), "设置的时间不能小于20分钟", Toast.LENGTH_LONG).show();
-//                                        return;
-//                                    }
-//                                    info.setGroupTime(i * Entiy.RUN_TIME + info.getGroupTime());
-//                                    GroupInfoSql.updateGroup(info);
-//                                }
-//                            }
-//                        });
+                SetTimeDialog.ShowDialog((Activity) getContext(),
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String tag = v.getTag().toString();
+                                if (!TextUtils.isEmpty(tag)) {
+                                    int i = Integer.valueOf(tag);
+                                    if (i <= 0) {
+                                        Toast.makeText(getContext(), "设置的时间不能小于20分钟", Toast.LENGTH_LONG).show();
+                                        return;
+                                    }
+                                    info.setGroupTime(i * Entiy.RUN_TIME + info.getGroupTime());
+                                    MessageSend.doAutoTime(info);
+                                }
+                            }
+                        });
             }
         });
 

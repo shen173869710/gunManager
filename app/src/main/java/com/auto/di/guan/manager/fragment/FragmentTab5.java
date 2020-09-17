@@ -14,10 +14,8 @@ import com.auto.di.guan.manager.db.sql.ControlInfoSql;
 import com.auto.di.guan.manager.db.sql.GroupInfoSql;
 import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 /**

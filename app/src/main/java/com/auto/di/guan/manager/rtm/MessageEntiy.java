@@ -26,10 +26,13 @@ public class MessageEntiy {
     public static final int TYPE_AUTO_CLOSE = 11;
     // 单组自动轮灌 下一组
     public static final int TYPE_AUTO_NEXT = 12;
+    // 单组自动轮灌 下一组
+    public static final int TYPE_AUTO_TIME = 13;
+
     // 自动轮灌查询开启
-    public static final int TYPE_AUTO_POLL_START = 13;
+    public static final int TYPE_AUTO_POLL_START = 1113;
     // 自动轮灌查询关闭
-    public static final int TYPE_AUTO_POLL_CLOSE = 14;
+    public static final int TYPE_AUTO_POLL_CLOSE = 1114;
     // 轮灌操作相关信息
     public static final int TYPE_MESSAGE = 100;
 

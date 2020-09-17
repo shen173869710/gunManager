@@ -121,6 +121,17 @@ public class MessageSend {
         send(info);
     }
 
+    /**
+     *        设置自动轮灌时间
+     * @param groupInfo
+     */
+    public static void doAutoTime(GroupInfo groupInfo) {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_AUTO_TIME);
+        info.setGroupInfo(groupInfo);
+        send(info);
+    }
+
 
     /**
      *       自动查询开
