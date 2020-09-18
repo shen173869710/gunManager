@@ -6,7 +6,6 @@ import java.util.List;
 
 public class ControlInfoSql {
     /**
-     *
      * @return
      */
     public static List<ControlInfo> queryControlList () {
@@ -59,6 +58,5 @@ public class ControlInfoSql {
                 }
             }
         }
-
     }
 }

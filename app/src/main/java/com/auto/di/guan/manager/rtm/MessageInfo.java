@@ -1,18 +1,23 @@
 package com.auto.di.guan.manager.rtm;
 
 import com.auto.di.guan.manager.db.ControlInfo;
+import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.entity.CmdStatus;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
 import java.util.List;
 public class MessageInfo {
 
     private int type;
     private ControlInfo controlInfo;
     private GroupInfo groupInfo;
-    private List<ControlInfo> controlInfos;
-    private List<GroupInfo>groupInfos;
+    private ArrayList<ControlInfo> controlInfos;
+    private ArrayList<GroupInfo>groupInfos;
     private CmdStatus cmdStatus;
+
+    private ArrayList<DeviceInfo>deviceInfos;
 
     public ControlInfo getControlInfo() {
         return controlInfo;
@@ -38,19 +43,19 @@ public class MessageInfo {
         this.type = type;
     }
 
-    public List<ControlInfo> getControlInfos() {
+    public ArrayList<ControlInfo> getControlInfos() {
         return controlInfos;
     }
 
-    public void setControlInfos(List<ControlInfo> controlInfos) {
+    public void setControlInfos(ArrayList<ControlInfo> controlInfos) {
         this.controlInfos = controlInfos;
     }
 
-    public List<GroupInfo> getGroupInfos() {
+    public ArrayList<GroupInfo> getGroupInfos() {
         return groupInfos;
     }
 
-    public void setGroupInfos(List<GroupInfo> groupInfos) {
+    public void setGroupInfos(ArrayList<GroupInfo> groupInfos) {
         this.groupInfos = groupInfos;
     }
 
@@ -64,5 +69,13 @@ public class MessageInfo {
 
     public String toJson() {
         return new Gson().toJson(this);
+    }
+
+    public ArrayList<DeviceInfo> getDeviceInfos() {
+        return deviceInfos;
+    }
+
+    public void setDeviceInfos(ArrayList<DeviceInfo> deviceInfos) {
+        this.deviceInfos = deviceInfos;
     }
 }

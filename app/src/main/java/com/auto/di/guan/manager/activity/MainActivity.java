@@ -18,6 +18,7 @@ import com.auto.di.guan.manager.event.UserStatusEvent;
 import com.auto.di.guan.manager.fragment.ArticleListFragment;
 import com.auto.di.guan.manager.utils.FloatWindowUtil;
 import com.auto.di.guan.manager.utils.LogUtils;
+import com.auto.di.guan.manager.utils.PollingUtils;
 import com.auto.di.guan.manager.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -128,6 +129,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        PollingUtils.stopPollingService(this);
+        FloatWindowUtil.getInstance().distory();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

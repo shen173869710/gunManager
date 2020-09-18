@@ -13,11 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.ChooseGridAdapter;
+import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.sql.DeviceSql;
 import com.auto.di.guan.manager.dialog.MainShowDialog;
 import com.auto.di.guan.manager.entity.Entiy;
+import com.auto.di.guan.manager.rtm.MessageSend;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
 
 import java.util.ArrayList;
@@ -32,16 +34,13 @@ public class ChooseGroupctivity extends Activity {
 	private ChooseGridAdapter adapter;
 	private List<DeviceInfo> deviceInfos = new ArrayList<>();
 	private GroupInfo groupInfo;
-	private int groupId;
 	View view;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.choose_group_layout);
-
-		groupId = getIntent().getIntExtra("groupId", 0);
-
+		groupInfo = (GroupInfo) getIntent().getSerializableExtra("groupInfo");
 		view = findViewById(R.id.title_bar);
 		((TextView)view.findViewById(R.id.title_bar_title)).setText("设备分组");
 		view.findViewById(R.id.title_bar_back_layout).setOnClickListener(new View.OnClickListener() {
@@ -67,14 +66,21 @@ public class ChooseGroupctivity extends Activity {
 				}
 				int count = 0;
 				int size = deviceInfos.size();
+
+				List<ControlInfo> list = new ArrayList<>();
 				for (int i = 0; i < size; i++) {
-					if (deviceInfos.get(i).getValveDeviceSwitchList().get(0).isSelect()) {
-						count++;
+					DeviceInfo deviceInfo = deviceInfos.get(i);
+					ControlInfo controlInfo0 = deviceInfo.getValveDeviceSwitchList().get(0);
+					ControlInfo controlInfo1 = deviceInfo.getValveDeviceSwitchList().get(1);
+					if (controlInfo0.isSelect()) {
+						list.add(controlInfo0);
 					}
-					if (deviceInfos.get(i).getValveDeviceSwitchList().get(1).isSelect()) {
-						count++;
+					if (controlInfo1.isSelect()) {
+						list.add(controlInfo1);
 					}
 				}
+
+				count = list.size();
 				if (count == 0) {
 					Toast.makeText(ChooseGroupctivity.this, "没有选中设备",Toast.LENGTH_LONG).show();
 					return;
@@ -83,7 +89,7 @@ public class ChooseGroupctivity extends Activity {
 				MainShowDialog.ShowDialog(ChooseGroupctivity.this, "创建分组", "是否创建当前分组", new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-
+						MessageSend.doCreateGroup(groupInfo, deviceInfos);
 					}
 				});
 

@@ -3,7 +3,11 @@ package com.auto.di.guan.manager.rtm;
 import com.auto.di.guan.manager.activity.IBaseActivity;
 import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.db.ControlInfo;
+import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
+
+import java.util.List;
+
 public class MessageSend {
     public static void send(MessageInfo info) {
         BaseApp.getInstance().getChatManager().sendPeerMessage(info.toJson());
@@ -25,7 +29,6 @@ public class MessageSend {
         send(info,loginId);
         baseActivity.showDialog();
     }
-
     /**
      *        单个读
      */
@@ -45,7 +48,6 @@ public class MessageSend {
         info.setControlInfo(controlInfo);
         send(info);
     }
-
     /**
      *        单个关
      */
@@ -55,7 +57,6 @@ public class MessageSend {
         info.setControlInfo(controlInfo);
         send(info);
     }
-
     /**
      *        单组开
      */
@@ -151,4 +152,55 @@ public class MessageSend {
         send(info);
     }
 
+    /**
+     *        创建一个分组
+     * @param groupInfo
+     */
+    public static void doCreateGroup(GroupInfo groupInfo, List<DeviceInfo> deviceInfos) {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_CREATE_GROUP);
+        info.setGroupInfo(groupInfo);
+        info.setDeviceInfos(deviceInfos);
+        send(info);
+    }
+
+    /**
+     *        删除全部分组
+     */
+    public static void doDelGroup() {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_DEL_GROUP);
+        send(info);
+    }
+
+    /**
+     *         退出当前组
+     * @param controlInfo
+     */
+    public static void doExitGroup(ControlInfo controlInfo) {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_EXIT_GROUP);
+        info.setControlInfo(controlInfo);
+        send(info);
+    }
+
+    /**
+     *       解散一个小组
+     */
+    public static void doDissGroup(GroupInfo groupInfo) {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_DISS_GROUP);
+        info.setGroupInfo(groupInfo);
+        send(info);
+    }
+
+    /**
+     *    轮灌设置相关
+     */
+    public static void doGroupLevel(List<GroupInfo> groupInfos) {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_GROUP_LEVEL);
+        info.setGroupInfos(groupInfos);
+        send(info);
+    }
 }

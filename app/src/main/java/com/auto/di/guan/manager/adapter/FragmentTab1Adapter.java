@@ -129,11 +129,7 @@ public class FragmentTab1Adapter extends BaseExpandableListAdapter {
 //                     "    轮灌时长"+groupLists.get(groupPosition).groupInfo.getGroupTime()+"分钟";
 //        holder.expand_list_group_time.setText(txt);
         holder.expand_list_group_time.setText("");
-//        if (groupLists.get(groupPosition).groupInfo.getGroupStatus() == 0) {
-//            holder.expand_list_group_state.setText("关闭中");
-//        }else {
         holder.expand_list_group_state.setText("编辑分组");
-//        }
         holder.expand_list_group_state.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +137,7 @@ public class FragmentTab1Adapter extends BaseExpandableListAdapter {
                     return;
                 }
                 Intent intent = new Intent(context, GroupEditctivity.class);
-                intent.putExtra("groupId", groupLists.get(groupPosition).groupInfo.getGroupId());
+                intent.putExtra("groupInfo", groupLists.get(groupPosition).groupInfo);
                 context.startActivity(intent);
             }
         });

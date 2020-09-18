@@ -11,10 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.GroupEditListAdapter;
 import com.auto.di.guan.manager.db.ControlInfo;
+import com.auto.di.guan.manager.db.GroupInfo;
+import com.auto.di.guan.manager.db.LevelInfo;
 import com.auto.di.guan.manager.db.sql.ControlInfoSql;
+import com.auto.di.guan.manager.db.sql.GroupInfoSql;
 import com.auto.di.guan.manager.dialog.MainShowDialog;
 import com.auto.di.guan.manager.rtm.MessageSend;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
+import com.auto.di.guan.manager.utils.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +34,8 @@ public class GroupEditctivity extends Activity {
 	private TextView textView;
 	private RecyclerView group_edit_listview;
 	private GroupEditListAdapter adapter;
-	private int groupId;
+
+	private GroupInfo groupInfo;
 	private List<ControlInfo> controls = new ArrayList<>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +44,8 @@ public class GroupEditctivity extends Activity {
 		view = findViewById(R.id.title_bar);
 		textView = (TextView)view.findViewById(R.id.title_bar_title);
 		textView.setText("编辑阀门组");
-		groupId = getIntent().getIntExtra("groupId", 0);
+		groupInfo = (GroupInfo) getIntent().getSerializableExtra("groupInfo");
+
 		view.findViewById(R.id.title_bar_back_layout).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -52,13 +61,13 @@ public class GroupEditctivity extends Activity {
 					return;
 				}
 				Intent intent = new Intent(GroupEditctivity.this, ChooseGroupctivity.class);
-				intent.putExtra("groupId", groupId);
+				intent.putExtra("groupInfo", groupInfo.getGroupId());
 				startActivity(intent);
 				GroupEditctivity.this.finish();
 			}
 		});
 
-		controls = ControlInfoSql.queryControlList(groupId);
+		controls = ControlInfoSql.queryControlList(groupInfo.getGroupId());
 		group_edit_listview = (RecyclerView) findViewById(R.id.group_edit_listview);
 		group_edit_listview.setLayoutManager(new LinearLayoutManager(this));
 		adapter = new GroupEditListAdapter(controls);
@@ -69,7 +78,7 @@ public class GroupEditctivity extends Activity {
 				MainShowDialog.ShowDialog(GroupEditctivity.this, "解散分组", "是否解散当前分组", new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-					//	MessageSend.disbandGroup();
+						MessageSend.doDissGroup(groupInfo);
 					}
 				});
 

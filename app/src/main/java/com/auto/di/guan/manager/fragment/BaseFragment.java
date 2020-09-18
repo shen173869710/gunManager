@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.auto.di.guan.manager.event.DateChangeEvent;
+import com.auto.di.guan.manager.utils.LogUtils;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -73,9 +75,8 @@ public abstract class BaseFragment extends Fragment{
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onDataChangeEvent(DateChangeEvent event) {
+        LogUtils.e(this.getClass().getSimpleName(), "--------数据更新");
         dataChange(event);
     }
-
-
 
 }

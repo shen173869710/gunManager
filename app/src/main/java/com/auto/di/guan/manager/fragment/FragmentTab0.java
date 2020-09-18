@@ -34,6 +34,4 @@ public class FragmentTab0 extends BaseFragment {
             adapter.replaceData(BaseApp.getDeviceInfos());
         }
     }
-
-
 }

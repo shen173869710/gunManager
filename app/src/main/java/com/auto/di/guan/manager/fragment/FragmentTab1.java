@@ -15,6 +15,7 @@ import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.GroupList;
 import com.auto.di.guan.manager.dialog.MainShowDialog;
 import com.auto.di.guan.manager.event.DateChangeEvent;
+import com.auto.di.guan.manager.rtm.MessageSend;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +95,7 @@ public class FragmentTab1 extends BaseFragment {
                 MainShowDialog.ShowDialog(getActivity(), "删所有分组除", "当前操作会删除所有的分组", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        MessageSend.doDelGroup();
                     }
                 });
                 break;

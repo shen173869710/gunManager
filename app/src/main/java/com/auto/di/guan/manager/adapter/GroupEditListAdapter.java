@@ -51,7 +51,7 @@ public class GroupEditListAdapter extends BaseQuickAdapter<ControlInfo, BaseView
                                 Toast.makeText(getContext(), "当前小组只有一个阀控器, 如果要退出, 请点击解散分组", Toast.LENGTH_LONG).show();
                                 return;
                             }
-//                            MessageSend.exitGroup();
+                            MessageSend.doExitGroup(info);
                         }
                     });
 

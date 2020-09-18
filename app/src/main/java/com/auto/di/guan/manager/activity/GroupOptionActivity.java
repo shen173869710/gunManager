@@ -12,6 +12,7 @@ import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.RecyclerListAdapter;
 import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.sql.GroupInfoSql;
+import com.auto.di.guan.manager.rtm.MessageSend;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
 import com.auto.di.guan.manager.utils.SPUtils;
@@ -39,29 +40,7 @@ public class GroupOptionActivity extends Activity  {
 		setContentView(R.layout.activity_group_option_layout);
 		view = findViewById(R.id.title_bar);
 
-
 		groupInfos = GroupInfoSql.getJoinGroup();
-//		String local = SPUtils.getInstance().getString(SPUtils.DEVICE_OPTION);
-//		LogUtils.e(TAG, "local  = "+ local);
-//		if (!TextUtils.isEmpty(local)) {
-//			List<GroupInfo> localGroup = new Gson().fromJson(local, new TypeToken<List<GroupInfo>>(){}.getType());
-//			if (localGroup != null) {
-//				int size = localGroup.size();
-//				for (int i = 0; i < size; i++) {
-//					int length = groupInfos.size();
-//					GroupInfo localInfo = localGroup.get(i);
-//					for (int j = 0; j < length; j++) {
-//						GroupInfo info = groupInfos.get(j);
-//						if (localInfo.getGroupId() == info.getGroupId()) {
-//							info.setGroupIsJoin(localInfo.getGroupIsJoin());
-//							info.setGroupRunTime(0);
-//							info.setGroupTime(localInfo.getGroupTime());
-//							info.setGroupLevel(localInfo.getGroupLevel());
-//						}
-//					}
-//				}
-//			}
-//		}
 
 		textView = (TextView)view.findViewById(R.id.title_bar_title);
 		textView.setText("自动轮灌设置");
@@ -99,7 +78,7 @@ public class GroupOptionActivity extends Activity  {
 					}
 				}
 
-				GroupOptionActivity.this.finish();
+				MessageSend.doGroupLevel(groupInfos);
 			}
 		});
 		view.findViewById(R.id.title_bar_back_layout).setOnClickListener(new View.OnClickListener() {

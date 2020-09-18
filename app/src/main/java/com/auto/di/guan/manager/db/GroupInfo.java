@@ -1,14 +1,12 @@
 package com.auto.di.guan.manager.db;
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.annotation.Id;
+import java.io.Serializable;
 
 /**
  * Created by Administrator on 2017/7/9.
  */
 
-public class GroupInfo {
+public class GroupInfo implements Serializable {
     private Long id;
     private int groupId;
     private String groupName;

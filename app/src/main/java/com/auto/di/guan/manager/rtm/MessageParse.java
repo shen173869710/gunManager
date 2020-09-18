@@ -2,6 +2,7 @@ package com.auto.di.guan.manager.rtm;
 
 import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.db.ControlInfo;
+import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.sql.ControlInfoSql;
 import com.auto.di.guan.manager.db.sql.GroupInfoSql;
@@ -10,8 +11,10 @@ import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.event.LoginEvent;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.google.gson.Gson;
+
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,9 +29,6 @@ public class MessageParse {
             LogUtils.e(TAG, "gson 数据解析异常");
             return;
         }
-
-
-
         switch (info.getType()) {
             case MessageEntiy.TYPE_LOGIN:
                 // 登录
@@ -52,6 +52,7 @@ public class MessageParse {
             case MessageEntiy.TYPE_GROUP_OPEN:
                 LogUtils.e(TAG, "单组轮灌开启成功");
                 // 单组操作 开
+                dealSingle(info.getControlInfo());
                 break;
             case MessageEntiy.TYPE_GROUP_CLOSE:
                 LogUtils.e(TAG, "单组轮灌关闭成功");
@@ -72,11 +73,21 @@ public class MessageParse {
             case MessageEntiy.TYPE_AUTO_NEXT:
                 LogUtils.e(TAG, "自动轮灌下一组成功");
                 // 单组自动轮灌 下一组
-
                 if (info.getGroupInfos() != null && info.getControlInfos() != null) {
                     dealAuto(info.getControlInfos(), info.getGroupInfos());
                 }
                 break;
+
+            case MessageEntiy.TYPE_CREATE_GROUP:
+            case MessageEntiy.TYPE_DEL_GROUP:
+            case MessageEntiy.TYPE_EXIT_GROUP:
+            case MessageEntiy.TYPE_DISS_GROUP:
+                dealGoupOption(info.getDeviceInfos(), info.getGroupInfos());
+                break;
+            case MessageEntiy.TYPE_GROUP_LEVEL:
+                if (info.getGroupInfos() != null) {
+                    dealGoupLevel(info.getGroupInfos());
+                }
             case MessageEntiy.TYPE_MESSAGE:
                 if (info.getCmdStatus() != null) {
                     dealMessage(info.getCmdStatus());
@@ -120,4 +131,19 @@ public class MessageParse {
     public static void dealMessage(CmdStatus cmdStatus) {
         EventBus.getDefault().post(cmdStatus);
     }
+
+    /**
+     *  同步 组设置相关信息
+     */
+    public static void dealGoupOption(ArrayList<DeviceInfo>deviceInfos, ArrayList<GroupInfo> groupInfos) {
+        BaseApp.setDeviceInfos(deviceInfos);
+        BaseApp.setGroupInfos(groupInfos);
+        EventBus.getDefault().post(new DateChangeEvent(true));
+    }
+
+    public static void dealGoupLevel(ArrayList<GroupInfo> groupInfos) {
+        BaseApp.setGroupInfos(groupInfos);
+        EventBus.getDefault().post(new DateChangeEvent(true));
+    }
+
 }
