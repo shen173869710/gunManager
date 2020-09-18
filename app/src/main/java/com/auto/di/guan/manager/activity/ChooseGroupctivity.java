@@ -32,7 +32,7 @@ public class ChooseGroupctivity extends Activity {
 	private Button button;
 	private RecyclerView recyclerView;
 	private ChooseGridAdapter adapter;
-	private List<DeviceInfo> deviceInfos = new ArrayList<>();
+	private ArrayList<DeviceInfo> deviceInfos = new ArrayList<>();
 	private GroupInfo groupInfo;
 	View view;
 

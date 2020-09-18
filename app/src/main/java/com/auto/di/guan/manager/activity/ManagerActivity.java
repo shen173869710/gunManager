@@ -54,23 +54,8 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
 
     @Override
     protected void init() {
-        User loginUser = new User();
-        loginUser.setLoginName("123456");
-        loginUser.setPhonenumber("123456");
-        loginUser.setProjectName("123456");
-        loginUser.setProjectId("123456");
-        BaseApp.setUser(loginUser);
 
-        users = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            User user = new User();
-            user.setAvatar("");
-            user.setProjectName("项目名称"+i);
-            user.setPhonenumber("10000000"+i);
-            user.setLoginName("1330000000"+i);
-            user.setLoginStatus(-1);
-            users.add(user);
-        }
+        users = (List<User>) getIntent().getSerializableExtra("list");
 
         int count= DensityUtil.getWidth()/ DensityUtil.dip2px(this, 180);
         LogUtils.e("Main", "count ="+count);
@@ -96,15 +81,13 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
                 }
             }
         });
-
         mChatManager = BaseApp.getInstance().getChatManager();
         mChatManager.doLogin();
         Set<String> user = new HashSet<>();
-        user.add("13300000000");
-        user.add("13300000001");
-        user.add("13300000002");
-        user.add("13300000003");
-        user.add("13300000004");
+        int size = users.size();
+        for (int i = 0; i < size; i++) {
+            user.add(users.get(i).getUserId().toString());
+        }
         mChatManager.addPeersOnlineStatusListen(user);
     }
 

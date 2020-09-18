@@ -5,6 +5,7 @@ package com.auto.di.guan.manager.basemodel.presenter;
 
 import com.auto.di.guan.manager.api.HttpManager;
 import com.auto.di.guan.manager.basemodel.model.request.BaseRequest;
+import com.auto.di.guan.manager.basemodel.model.request.LoginRequest;
 import com.auto.di.guan.manager.basemodel.model.respone.BaseRespone;
 import com.auto.di.guan.manager.basemodel.view.IBaseView;
 
@@ -23,11 +24,10 @@ public class LoginPresenter extends BasePresenter<IBaseView>{
      * **/
     public void doLogin(String userName, final String pwd) {
 //        String password = Md5Util.md5(pwd);
-        TreeMap<String, Object> treeMap = new TreeMap<>();
-        treeMap.put("loginName",userName);
-        treeMap.put("password",pwd);
-        treeMap.put("mac", "mac");
-        doHttpTask(getApiService().login(BaseRequest.toMerchantTreeMap(treeMap)), new HttpManager.OnResultListener() {
+        LoginRequest request = new LoginRequest();
+        request.setLoginName(userName);
+        request.setPassword(pwd);
+        doHttpTask(getApiService().login(request), new HttpManager.OnResultListener() {
             @Override
             public void onSuccess(BaseRespone respone) {
                 getBaseView().success(respone);

@@ -200,9 +200,9 @@ public class GroupExpandableListViewaAdapter31 extends BaseExpandableListAdapter
                 List<GroupInfo> groupInfos = new ArrayList<>();
                 groupInfos.add(groupInfo);
                 if (index == 1) {
-                    MessageSend.doGroupOpen(groupInfos);
+                    MessageSend.doGroupOpen(groupInfo);
                 }else if (index == 2) {
-                    MessageSend.doGroupClose(groupInfos);
+                    MessageSend.doGroupClose(groupInfo);
                 }
             }
         });

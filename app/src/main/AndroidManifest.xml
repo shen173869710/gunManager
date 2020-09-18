@@ -34,7 +34,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ManagerActivity"
+        <activity android:name=".activity.LoginActivity"
             android:screenOrientation="landscape"
             >
             <intent-filter>
@@ -44,7 +44,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity" android:screenOrientation="landscape"/>
-        <activity android:name=".activity.LoginActivity" android:screenOrientation="landscape"/>
+        <activity android:name=".activity.ManagerActivity" android:screenOrientation="landscape"/>
         <activity android:name=".activity.ChooseGroupctivity" android:screenOrientation="landscape"/>
         <activity android:name=".activity.GroupEditctivity" android:screenOrientation="landscape"/>
         <activity android:name=".activity.GroupOptionActivity" android:screenOrientation="landscape"/>

@@ -13,6 +13,7 @@ import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
+import com.auto.di.guan.manager.db.User;
 import com.auto.di.guan.manager.entity.CmdStatus;
 import com.auto.di.guan.manager.event.UserStatusEvent;
 import com.auto.di.guan.manager.fragment.ArticleListFragment;
@@ -35,13 +36,14 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTransaction transaction;
     private final String TAG = "MainActivity";
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         EventBus.getDefault().register(this);
-
         windowTop = getStatusBarHeight();
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
@@ -79,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
            info2.setValveAlias(i+"-"+2);
            info2.setValveStatus(1);
            ArrayList<ControlInfo> controlInfos = new ArrayList<>(2);
-
            int id = 0;
            if (i < 3) {
                id = 1;
@@ -111,8 +112,8 @@ public class MainActivity extends AppCompatActivity {
            groupInfo.setGroupTime(i + 60);
            groupInfos.add(groupInfo);
        }
-       BaseApp.setDeviceInfos(deviceInfos);
-        BaseApp.setGroupInfos(groupInfos);
+//       BaseApp.setDeviceInfos(deviceInfos);
+//        BaseApp.setGroupInfos(groupInfos);
     }
 
 

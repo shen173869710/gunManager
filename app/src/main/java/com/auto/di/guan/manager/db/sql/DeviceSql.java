@@ -19,7 +19,7 @@ public class DeviceSql {
         return controlInfos;
     }
 
-    public static List<DeviceInfo> getAllDevice() {
+    public static ArrayList<DeviceInfo> getAllDevice() {
         return BaseApp.getDeviceInfos();
     }
 }

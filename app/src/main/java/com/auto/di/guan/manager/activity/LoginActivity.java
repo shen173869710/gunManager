@@ -1,5 +1,6 @@
 package com.auto.di.guan.manager.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -8,11 +9,15 @@ import android.widget.Toast;
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.basemodel.model.respone.BaseRespone;
+import com.auto.di.guan.manager.basemodel.model.respone.LoginRespone;
 import com.auto.di.guan.manager.basemodel.presenter.LoginPresenter;
 import com.auto.di.guan.manager.basemodel.view.IBaseView;
 import com.auto.di.guan.manager.customview.XEditText;
 import com.auto.di.guan.manager.db.User;
 import com.auto.di.guan.manager.utils.ToastUtils;
+
+import java.io.Serializable;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +40,6 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements IBas
     @Override
     protected void init() {
 
-
     }
 
     @Override
@@ -46,9 +50,15 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements IBas
 
     @Override
     public void success(BaseRespone respone) {
-        User user = (User) respone.getData();
-        if (user != null) {
-            BaseApp.setUser(user);
+        LoginRespone loginRespone = (LoginRespone) respone.getData();
+        if (loginRespone != null && loginRespone.getLoginUser() != null) {
+            BaseApp.setUser(loginRespone.getLoginUser());
+            List<User>users = loginRespone.getMemberList();
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.putExtra("list", (Serializable)users);
+            startActivity(intent);
+        }else {
+            ToastUtils.showLongToast(respone.getMessage()+"");
         }
     }
 
@@ -68,13 +78,13 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements IBas
     @OnClick(R.id.login)
     public void onViewClicked() {
         String name = loginName.getText().toString().trim();
-//        id = "13300000000";
+        name = "18675570791";
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(LoginActivity.this, "请输入账号", Toast.LENGTH_LONG).show();
             return;
         }
         String pwd = loginPwd.getText().toString().trim();
-//        pwd = "123456";
+        pwd = "123456";
         if (TextUtils.isEmpty(pwd)) {
             Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_LONG).show();
             return;

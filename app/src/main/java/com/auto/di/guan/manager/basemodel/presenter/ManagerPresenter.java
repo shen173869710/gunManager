@@ -21,20 +21,7 @@ public class ManagerPresenter extends BasePresenter<IBaseView>{
      * **/
     public void getUsers(String userName, final String pwd) {
 //        String password = Md5Util.md5(pwd);
-        TreeMap<String, Object> treeMap = new TreeMap<>();
-        treeMap.put("loginName",userName);
-        treeMap.put("password",pwd);
-        treeMap.put("mac", "mac");
-        doHttpTask(getApiService().login(BaseRequest.toMerchantTreeMap(treeMap)), new HttpManager.OnResultListener() {
-            @Override
-            public void onSuccess(BaseRespone respone) {
-                getBaseView().success(respone);
-            }
-            @Override
-            public void onError(Throwable error, Integer code,String msg) {
-                getBaseView().fail(error,code,msg);
-            }
-        });
+
     }
 
 }

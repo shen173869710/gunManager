@@ -5,16 +5,15 @@ package com.auto.di.guan.manager.basemodel.model.request;
  */
 
 public class LoginRequest extends BaseRequest{
-    public String id;
-    public String username;
+    public String loginName;
     public String password;
 
-    public String getUsername() {
-        return username;
+    public String getLoginName() {
+        return loginName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 
     public String getPassword() {

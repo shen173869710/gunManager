@@ -45,7 +45,7 @@ public class BaseApp extends Application {
 
     private static User user = new User();
 
-    private  static List<DeviceInfo> deviceInfos = new ArrayList<>();
+    private  static ArrayList<DeviceInfo> deviceInfos = new ArrayList<>();
 
     private static Context mContext=null;//上下文
 
@@ -198,11 +198,11 @@ public class BaseApp extends Application {
     }
 
 
-    public static List<DeviceInfo> getDeviceInfos() {
+    public static ArrayList<DeviceInfo> getDeviceInfos() {
         return deviceInfos;
     }
 
-    public static void setDeviceInfos(List<DeviceInfo> deviceInfos) {
+    public static void setDeviceInfos(ArrayList<DeviceInfo> deviceInfos) {
         BaseApp.deviceInfos = deviceInfos;
     }
 

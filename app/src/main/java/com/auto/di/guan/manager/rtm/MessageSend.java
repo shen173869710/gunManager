@@ -6,6 +6,7 @@ import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MessageSend {
@@ -156,7 +157,7 @@ public class MessageSend {
      *        创建一个分组
      * @param groupInfo
      */
-    public static void doCreateGroup(GroupInfo groupInfo, List<DeviceInfo> deviceInfos) {
+    public static void doCreateGroup(GroupInfo groupInfo, ArrayList<DeviceInfo> deviceInfos) {
         MessageInfo info = new MessageInfo();
         info.setType(MessageEntiy.TYPE_CREATE_GROUP);
         info.setGroupInfo(groupInfo);
@@ -200,7 +201,7 @@ public class MessageSend {
     public static void doGroupLevel(List<GroupInfo> groupInfos) {
         MessageInfo info = new MessageInfo();
         info.setType(MessageEntiy.TYPE_GROUP_LEVEL);
-        info.setGroupInfos(groupInfos);
+//        info.setGroupInfos(groupInfos);
         send(info);
     }
 }
