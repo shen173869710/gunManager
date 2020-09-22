@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import butterknife.BindView;
 
 public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements IBaseView {
@@ -54,15 +55,13 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
 
     @Override
     protected void init() {
-
         users = (List<User>) getIntent().getSerializableExtra("list");
-
+        titleBarTitle.setText("轮灌操作");
         int count= DensityUtil.getWidth()/ DensityUtil.dip2px(this, 180);
         LogUtils.e("Main", "count ="+count);
         LinearLayoutManager linearLayoutManager = new GridLayoutManager(this, count);
         // 添加间距
-        managerList.addItemDecoration(new GridSpaceItemDecoration(count, DensityUtil.dip2px(this, 20),
-                DensityUtil.dip2px(this, 20)));
+        managerList.addItemDecoration(new GridSpaceItemDecoration(count, DensityUtil.dip2px(this, 20), DensityUtil.dip2px(this, 20)));
         managerList.setLayoutManager(linearLayoutManager);
         mAdapter = new ManagerAdapter(users);
         managerList.setAdapter(mAdapter);
@@ -119,15 +118,20 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
         int size = users.size();
         for (int i = 0; i < size; i++) {
             User user = users.get(i);
-            if (event.getPeerId().equals(user.getLoginName())) {
+            if (event.getPeerId().equals(user.getUserId().toString())) {
                 user.setLoginStatus(event.getStatus());
             }
         }
-
         if (mAdapter != null) {
             mAdapter.notifyDataSetChanged();
         }
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mChatManager != null) {
+            mChatManager.doLogout();
+        }
+    }
 }

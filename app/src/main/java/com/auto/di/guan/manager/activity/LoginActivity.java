@@ -15,8 +15,10 @@ import com.auto.di.guan.manager.basemodel.view.IBaseView;
 import com.auto.di.guan.manager.customview.XEditText;
 import com.auto.di.guan.manager.db.User;
 import com.auto.di.guan.manager.utils.ToastUtils;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -54,9 +56,13 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements IBas
         if (loginRespone != null && loginRespone.getLoginUser() != null) {
             BaseApp.setUser(loginRespone.getLoginUser());
             List<User>users = loginRespone.getMemberList();
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            Intent intent = new Intent(LoginActivity.this, ManagerActivity.class);
+            if (users == null) {
+                users = new ArrayList<>();
+            }
             intent.putExtra("list", (Serializable)users);
             startActivity(intent);
+            finish();
         }else {
             ToastUtils.showLongToast(respone.getMessage()+"");
         }

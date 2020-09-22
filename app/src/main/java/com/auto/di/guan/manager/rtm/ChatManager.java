@@ -128,7 +128,7 @@ public class ChatManager {
      *    用户登录
      */
     public void doLogin() {
-        mRtmClient.login(null, BaseApp.getUser().getLoginName(), new ResultCallback<Void>() {
+        mRtmClient.login(null, BaseApp.getUser().getUserId().toString(), new ResultCallback<Void>() {
             @Override
             public void onSuccess(Void responseInfo) {
                 LogUtils.e(TAG, "login success");

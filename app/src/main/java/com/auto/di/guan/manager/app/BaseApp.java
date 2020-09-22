@@ -7,7 +7,9 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.text.TextUtils;
+
 import androidx.multidex.MultiDex;
+
 import com.auto.di.guan.manager.basemodel.model.respone.LoginRespone;
 import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
@@ -20,10 +22,10 @@ import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.SPUtils;
 import com.facebook.stetho.Stetho;
 import com.tencent.bugly.crashreport.CrashReport;
+
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 /**
@@ -59,8 +61,11 @@ public class BaseApp extends Application {
         Stetho.initializeWithDefaults(this);
         LogUtils.setFilterLevel(LogUtils.ALL);
         FloatWindowUtil.getInstance().initFloatWindow(this);
-        CrashReport.initCrashReport(getApplicationContext(), "cc201614d7", false);
-        CrashHandler.getInstance().init(this);
+
+
+//        CrashHandler.getInstance().init(this);
+        CrashReport.initCrashReport(getApplicationContext(), "cc201614d7", true);
+
 
         mChatManager = new ChatManager(this);
         mChatManager.init();

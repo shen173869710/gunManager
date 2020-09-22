@@ -66,7 +66,7 @@ public class User implements Serializable {
     private String parentLoginName;
 
 
-    private int loginStatus;
+    private int loginStatus = 1;
 
     public User() {
     }
