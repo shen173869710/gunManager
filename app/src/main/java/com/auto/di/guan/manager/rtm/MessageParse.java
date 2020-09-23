@@ -9,6 +9,8 @@ import com.auto.di.guan.manager.db.sql.GroupInfoSql;
 import com.auto.di.guan.manager.entity.CmdStatus;
 import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.event.LoginEvent;
+import com.auto.di.guan.manager.socket.SocketBengEvent;
+import com.auto.di.guan.manager.socket.SocketResult;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.google.gson.Gson;
 
@@ -88,6 +90,12 @@ public class MessageParse {
                 if (info.getGroupInfos() != null) {
                     dealGoupLevel(info.getGroupInfos());
                 }
+
+            case MessageEntiy.TYPE_BENG_CLOSE:
+            case MessageEntiy.TYPE_BENG_OPEN:
+                if (info.getSocketResults()!= null) {
+                    dealBengOption(info.getSocketResults());
+                }
             case MessageEntiy.TYPE_MESSAGE:
                 if (info.getCmdStatus() != null) {
                     dealMessage(info.getCmdStatus());
@@ -95,6 +103,8 @@ public class MessageParse {
                 break;
         }
     }
+
+
 
     /**
      *   处理单个操作
@@ -146,4 +156,11 @@ public class MessageParse {
         EventBus.getDefault().post(new DateChangeEvent(true));
     }
 
+    /**
+     *        处理开泵相关信息
+     * @param socketResults
+     */
+    public static void dealBengOption(List<SocketResult> socketResults) {
+        EventBus.getDefault().post(new SocketBengEvent(socketResults));
+    }
 }

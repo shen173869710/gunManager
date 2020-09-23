@@ -12,9 +12,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.auto.di.guan.manager.R;
-
 
 public class SetTimeDialog extends Dialog {
 

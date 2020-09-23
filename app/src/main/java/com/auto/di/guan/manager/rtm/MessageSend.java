@@ -6,6 +6,7 @@ import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -204,4 +205,26 @@ public class MessageSend {
 //        info.setGroupInfos(groupInfos);
         send(info);
     }
+
+
+    /**
+     *  开泵
+     */
+    public static void doBengOpen(int postion) {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_BENG_OPEN);
+        info.setPostion(postion);
+        send(info);
+    }
+
+    /**
+     *  开泵
+     */
+    public static void doBengClose(int postion) {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_BENG_CLOSE);
+        info.setPostion(postion);
+        send(info);
+    }
+
 }

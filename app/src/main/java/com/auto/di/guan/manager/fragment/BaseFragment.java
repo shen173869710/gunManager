@@ -25,7 +25,7 @@ public abstract class BaseFragment extends Fragment{
 
     public Activity activity;
     private Unbinder mUnbinder; //用于解除 butterknife 的绑定
-    private View mRootView;
+    public View mRootView;
 
 
     @Override

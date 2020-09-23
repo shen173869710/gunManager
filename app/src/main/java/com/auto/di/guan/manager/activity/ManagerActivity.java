@@ -76,7 +76,7 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
                         ToastUtils.showLongToast("用户不在线");
                         return;
                     }
-                    MessageSend.doLogin(ManagerActivity.this, users.get(position).getLoginName());
+                    MessageSend.doLogin(ManagerActivity.this, users.get(position).getUserId().toString());
                 }
             }
         });
