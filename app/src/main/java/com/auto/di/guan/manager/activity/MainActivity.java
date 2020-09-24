@@ -15,6 +15,7 @@ import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.User;
 import com.auto.di.guan.manager.entity.CmdStatus;
+import com.auto.di.guan.manager.event.LoginEvent;
 import com.auto.di.guan.manager.event.UserStatusEvent;
 import com.auto.di.guan.manager.fragment.ArticleListFragment;
 import com.auto.di.guan.manager.utils.FloatWindowUtil;
@@ -154,4 +155,12 @@ public class MainActivity extends AppCompatActivity {
         FloatWindowUtil.getInstance().onStatsuEvent(event);
     }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLoginEvent(LoginEvent event) {
+       if (event != null && !event.isLogin()) {
+           ToastUtils.showLongToast("被app端踢下线");
+           MainActivity.this.finish();
+       }
+    }
 }

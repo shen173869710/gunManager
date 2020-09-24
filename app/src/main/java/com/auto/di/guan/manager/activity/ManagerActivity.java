@@ -109,6 +109,7 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLoginEvent(LoginEvent event) {
         if (event.isLogin()) {
+            dismissDialog();
             startActivity(new Intent(ManagerActivity.this, MainActivity.class));
         }
     }

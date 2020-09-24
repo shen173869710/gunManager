@@ -30,7 +30,7 @@ public class InputDialog extends Dialog {
 
     private void init(DialogContent content, OnDialogClick onDialogClick) {
         setContentView(R.layout.dialog_input);
-         setCancelable(true);
+         setCancelable(false);
         TextView input_title = findViewById(R.id.input_title);
         input_title.setText(content.desc);
         EditText input_edittext = findViewById(R.id.input_edittext);
