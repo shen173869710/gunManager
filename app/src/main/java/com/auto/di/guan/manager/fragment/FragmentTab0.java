@@ -3,13 +3,13 @@ package com.auto.di.guan.manager.fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.MyGridAdapter;
 import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.event.DateChangeEvent;
 import butterknife.BindView;
+
 public class FragmentTab0 extends BaseFragment {
     @BindView(R.id.fragment_0_list)
     RecyclerView fragment0List;

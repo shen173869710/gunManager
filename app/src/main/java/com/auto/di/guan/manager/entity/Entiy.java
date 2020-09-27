@@ -91,8 +91,8 @@ public class Entiy {
     public static final int VIDEO_READ_ERROR = 5;
 
     public static String ALERM_ACTION = "com.auto.di.guan.utils.LongRunningService";
-    public static int GRID_ROW = 3;
-    public static int GRID_COLUMNS = 3;
+
+    public static int GRID_COLUMNS = 5;
 
 //    public static String []TAB_TITLE = {"减阀控器",
 //            "绑定阀门",

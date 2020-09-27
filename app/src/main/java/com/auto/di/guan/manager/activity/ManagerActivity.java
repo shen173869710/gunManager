@@ -4,11 +4,9 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.ManagerAdapter;
 import com.auto.di.guan.manager.app.BaseApp;
@@ -66,6 +64,7 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
         mAdapter = new ManagerAdapter(users);
         managerList.setAdapter(mAdapter);
 
+        titleBarBackLayout.setVisibility(View.GONE);
         mAdapter.addChildClickViewIds(R.id.manager_item_login);
         mAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
             @Override
@@ -106,6 +105,10 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
 
     }
 
+    /**
+     *        远程登录相关事件
+     * @param event
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLoginEvent(LoginEvent event) {
         if (event.isLogin()) {
@@ -114,6 +117,10 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
         }
     }
 
+    /**
+     *        用户状态变化
+     * @param event
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUserStatusEvent(UserStatusEvent event) {
         int size = users.size();

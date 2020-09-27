@@ -1,24 +1,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/main_table_height"
-        android:background="@color/blue">
-        <TextView
-            android:id="@+id/title_bar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="点击设置项目名称"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-    </RelativeLayout>
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/main_title_bar" />
 
     <LinearLayout
         android:layout_width="match_parent"

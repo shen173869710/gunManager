@@ -7,6 +7,7 @@ import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.sql.ControlInfoSql;
 import com.auto.di.guan.manager.db.sql.GroupInfoSql;
 import com.auto.di.guan.manager.entity.CmdStatus;
+import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.event.LoginEvent;
 import com.auto.di.guan.manager.socket.SocketBengEvent;
@@ -34,8 +35,13 @@ public class MessageParse {
         switch (info.getType()) {
             case MessageEntiy.TYPE_LOGIN:
                 // 登录
-                EventBus.getDefault().post(new LoginEvent(true));
-                BaseApp.getInstance().getChatManager().setLoginId(peerId);
+                if (info.getDeviceInfos() != null && info.getGroupInfos() != null) {
+                    BaseApp.setDeviceInfos(info.getDeviceInfos());
+                    BaseApp.setGroupInfos(info.getGroupInfos());
+                    Entiy.GRID_COLUMNS = info.getCloumn();
+                    EventBus.getDefault().post(new LoginEvent(true));
+                    BaseApp.getInstance().getChatManager().setLoginId(peerId);
+                }
                 break;
             case MessageEntiy.TYPE_LOGOUT:
                 // 登出

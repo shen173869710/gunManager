@@ -10,14 +10,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.app.BaseApp;
-import com.auto.di.guan.manager.db.ControlInfo;
-import com.auto.di.guan.manager.db.DeviceInfo;
-import com.auto.di.guan.manager.db.GroupInfo;
-import com.auto.di.guan.manager.db.User;
 import com.auto.di.guan.manager.entity.CmdStatus;
 import com.auto.di.guan.manager.event.LoginEvent;
 import com.auto.di.guan.manager.event.UserStatusEvent;
 import com.auto.di.guan.manager.fragment.ArticleListFragment;
+import com.auto.di.guan.manager.rtm.MessageSend;
 import com.auto.di.guan.manager.utils.FloatWindowUtil;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.PollingUtils;
@@ -27,17 +24,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class MainActivity extends AppCompatActivity {
     public static int windowTop;
     private FragmentManager manager;
     private FragmentTransaction transaction;
     private final String TAG = "MainActivity";
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +44,20 @@ public class MainActivity extends AppCompatActivity {
         transaction.add(R.id.center, articleListFragment, "center");
         transaction.commitAllowingStateLoss();
 
+        View view = findViewById(R.id.title_bar);
+        view.findViewById(R.id.title_bar_back_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+//        findViewById(R.id.title_bar_back_layout).setVisibility(View.VISIBLE);
+//        findViewById(R.id.title_bar_back_layout).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
         findViewById(R.id.title_bar_title).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,57 +68,57 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void inttTest() {
-        List<DeviceInfo> deviceInfos = new ArrayList<>();
-       for (int i = 1; i < 10; i++) {
-           DeviceInfo deviceInfo = new DeviceInfo();
-           deviceInfo.setDeviceId(i);
-           deviceInfo.setDeviceSort(i);
-           deviceInfo.setDeviceStatus(i);
-           deviceInfo.setDeviceName(i+"");
-           ControlInfo info1 = new ControlInfo();
-           info1.setDeviceId(i);
-           info1.setDeviceId(deviceInfo.getDeviceId());
-           info1.setValveName("0");
-           info1.setValveStatus(1);
-           info1.setValveAlias(i+"-"+1);
-           ControlInfo info2 = new ControlInfo();
-           info2.setDeviceId(i);
-           info2.setDeviceId(deviceInfo.getDeviceId());
-           info2.setValveName("1");
-           info2.setValveAlias(i+"-"+2);
-           info2.setValveStatus(1);
-           ArrayList<ControlInfo> controlInfos = new ArrayList<>(2);
-           int id = 0;
-           if (i < 3) {
-               id = 1;
-           }else if ( i >= 3 && i < 5) {
-               id = 2;
-           }else if ( i >= 5 && i < 7) {
-               id = 3;
-           }else if ( i >= 7 && i < 8) {
-               id = 4;
-           }else {
-               id = 5;
-           }
-           info1.setValveGroupId(id);
-           info2.setValveGroupId(id);
-           controlInfos.add(info1);
-           controlInfos.add(info2);
-           deviceInfo.setValveDeviceSwitchList(controlInfos);
-           deviceInfos.add(deviceInfo);
-       }
+//        List<DeviceInfo> deviceInfos = new ArrayList<>();
+//       for (int i = 1; i < 10; i++) {
+//           DeviceInfo deviceInfo = new DeviceInfo();
+//           deviceInfo.setDeviceId(i);
+//           deviceInfo.setDeviceSort(i);
+//           deviceInfo.setDeviceStatus(i);
+//           deviceInfo.setDeviceName(i+"");
+//           ControlInfo info1 = new ControlInfo();
+//           info1.setDeviceId(i);
+//           info1.setDeviceId(deviceInfo.getDeviceId());
+//           info1.setValveName("0");
+//           info1.setValveStatus(1);
+//           info1.setValveAlias(i+"-"+1);
+//           ControlInfo info2 = new ControlInfo();
+//           info2.setDeviceId(i);
+//           info2.setDeviceId(deviceInfo.getDeviceId());
+//           info2.setValveName("1");
+//           info2.setValveAlias(i+"-"+2);
+//           info2.setValveStatus(1);
+//           ArrayList<ControlInfo> controlInfos = new ArrayList<>(2);
+//           int id = 0;
+//           if (i < 3) {
+//               id = 1;
+//           }else if ( i >= 3 && i < 5) {
+//               id = 2;
+//           }else if ( i >= 5 && i < 7) {
+//               id = 3;
+//           }else if ( i >= 7 && i < 8) {
+//               id = 4;
+//           }else {
+//               id = 5;
+//           }
+//           info1.setValveGroupId(id);
+//           info2.setValveGroupId(id);
+//           controlInfos.add(info1);
+//           controlInfos.add(info2);
+//           deviceInfo.setValveDeviceSwitchList(controlInfos);
+//           deviceInfos.add(deviceInfo);
+//       }
 
-        ArrayList<GroupInfo> groupInfos = new ArrayList<>();
-       for (int i = 1; i < 6; i++) {
-           GroupInfo groupInfo = new GroupInfo();
-           groupInfo.setGroupId(i);
-           groupInfo.setGroupIsJoin(true);
-           groupInfo.setGroupLevel(i);
-           groupInfo.setGroupName(i+"");
-           groupInfo.setGroupRunTime(0);
-           groupInfo.setGroupTime(i + 60);
-           groupInfos.add(groupInfo);
-       }
+//        ArrayList<GroupInfo> groupInfos = new ArrayList<>();
+//       for (int i = 1; i < 6; i++) {
+//           GroupInfo groupInfo = new GroupInfo();
+//           groupInfo.setGroupId(i);
+//           groupInfo.setGroupIsJoin(true);
+//           groupInfo.setGroupLevel(i);
+//           groupInfo.setGroupName(i+"");
+//           groupInfo.setGroupRunTime(0);
+//           groupInfo.setGroupTime(i + 60);
+//           groupInfos.add(groupInfo);
+//       }
 //       BaseApp.setDeviceInfos(deviceInfos);
 //        BaseApp.setGroupInfos(groupInfos);
     }
@@ -133,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
         PollingUtils.stopPollingService(this);
         FloatWindowUtil.getInstance().distory();
+        MessageSend.doLogout();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

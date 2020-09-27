@@ -6,11 +6,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.ChooseGridAdapter;
 import com.auto.di.guan.manager.db.ControlInfo;
@@ -19,12 +17,15 @@ import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.sql.DeviceSql;
 import com.auto.di.guan.manager.dialog.MainShowDialog;
 import com.auto.di.guan.manager.entity.Entiy;
+import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.rtm.MessageSend;
+import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
-
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  *
  */
@@ -40,6 +41,7 @@ public class ChooseGroupctivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.choose_group_layout);
+		EventBus.getDefault().register(this);
 		groupInfo = (GroupInfo) getIntent().getSerializableExtra("groupInfo");
 		view = findViewById(R.id.title_bar);
 		((TextView)view.findViewById(R.id.title_bar_title)).setText("设备分组");
@@ -95,5 +97,19 @@ public class ChooseGroupctivity extends Activity {
 
 			}
 		});
+	}
+
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		EventBus.getDefault().unregister(this);
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onDataChangeEvent(DateChangeEvent event) {
+		LogUtils.e(this.getClass().getSimpleName(), "--------数据更新");
+		deviceInfos = DeviceSql.getAllDevice();
+		adapter.notifyDataSetChanged();
 	}
 }

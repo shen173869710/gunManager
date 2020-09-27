@@ -24,13 +24,23 @@ public class MessageSend {
      *  登录
      */
     public static void doLogin(IBaseActivity baseActivity, String loginId) {
-        MessageLoginInfo info  = new MessageLoginInfo();
+        MessageInfo info  = new MessageInfo();
         info.setType(MessageEntiy.TYPE_LOGIN);
         info.setManagerId(BaseApp.getUser().getUserId());
-        BaseApp.getInstance().getChatManager().sendPeerMessage(info.toJson());
         send(info,loginId);
         baseActivity.showDialog();
     }
+
+    /**
+     *  管理员登出
+     */
+    public static void doLogout() {
+        MessageInfo info  = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_LOGOUT);
+        info.setManagerId(BaseApp.getUser().getUserId());
+        send(info);
+    }
+
     /**
      *        单个读
      */
