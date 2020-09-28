@@ -9,6 +9,8 @@ import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.GroupList;
 import com.auto.di.guan.manager.db.sql.ControlInfoSql;
 import com.auto.di.guan.manager.event.DateChangeEvent;
+import com.auto.di.guan.manager.utils.LogUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
@@ -19,7 +21,7 @@ public class FragmentTab4 extends BaseFragment {
     ExpandableListView fragment4Expand;
 
 	private List<GroupList> groupLists = new ArrayList<>();
-	private  List<GroupInfo> groupInfos = BaseApp.getGroupInfos();
+	private  List<GroupInfo> groupInfos;
 
     private GroupExpandableListViewaAdapter31 adapter;
 
@@ -30,6 +32,8 @@ public class FragmentTab4 extends BaseFragment {
 
     @Override
     public void init() {
+		groupInfos = BaseApp.getGroupInfos();
+		groupLists.clear();
 		int size = groupInfos.size();
 		if (size > 0) {
 			for (int i = 0; i < size; i++) {
@@ -52,6 +56,7 @@ public class FragmentTab4 extends BaseFragment {
 
 	@Override
 	public void dataChange(DateChangeEvent event) {
+		LogUtils.e("fragmenttab4", "更新数据");
 		init();
 	}
 }

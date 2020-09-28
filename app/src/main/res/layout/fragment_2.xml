@@ -17,7 +17,7 @@
         android:textColor="@color/white"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/bg_red_buttom_rect"
         />
 </RelativeLayout>

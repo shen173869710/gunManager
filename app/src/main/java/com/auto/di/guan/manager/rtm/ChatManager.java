@@ -3,15 +3,20 @@ package com.auto.di.guan.manager.rtm;
 import android.content.Context;
 import android.util.Log;
 
+import com.auto.di.guan.manager.activity.IBaseActivity;
 import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.entity.Entiy;
+import com.auto.di.guan.manager.event.DialogEvent;
 import com.auto.di.guan.manager.event.UserStatusEvent;
 import com.auto.di.guan.manager.utils.LogUtils;
+
 import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import io.agora.rtm.ErrorInfo;
 import io.agora.rtm.ResultCallback;
 import io.agora.rtm.RtmClient;
@@ -25,6 +30,7 @@ import io.agora.rtm.SendMessageOptions;
 public class ChatManager {
     private static final String TAG = ChatManager.class.getSimpleName();
 
+    private IBaseActivity IBaseActivity;
     private Context mContext;
     private RtmClient mRtmClient;
     private List<RtmClientListener> mListenerList = new ArrayList<>();
@@ -39,7 +45,6 @@ public class ChatManager {
 
     public void init() {
         String appID = "2aa0369d8f7e48d2b993df37ca325897";
-
         try {
             mRtmClient = RtmClient.createInstance(mContext, appID, new RtmClientListener() {
                 @Override
@@ -60,6 +65,7 @@ public class ChatManager {
 //                    }
                     LogUtils.e(TAG, "onMessageReceived   peerid = "+peerId + "message" +rtmMessage.getText());
                     MessageParse.praseData(rtmMessage.getText(), peerId);
+                    EventBus.getDefault().post(new DialogEvent(false));
 
                 }
 
@@ -127,7 +133,9 @@ public class ChatManager {
     /**
      *    用户登录
      */
-    public void doLogin() {
+    public void doLogin(Set<String> user, IBaseActivity activity) {
+
+        IBaseActivity = activity;
         mRtmClient.login(null, BaseApp.getUser().getUserId().toString(), new ResultCallback<Void>() {
             @Override
             public void onSuccess(Void responseInfo) {
@@ -135,6 +143,7 @@ public class ChatManager {
 //                runOnUiThread(() -> {
 //
 //                });
+                addPeersOnlineStatusListen(user);
             }
 
             @Override
@@ -160,14 +169,26 @@ public class ChatManager {
     }
 
 
-    public void doLogout() {
-        mRtmClient.logout(null);
+    public void doLogout(Set<String> user) {
+            mRtmClient.unsubscribePeersOnlineStatus(user, new ResultCallback(){
+                @Override
+                public void onSuccess(Object o) {
+
+                }
+
+                @Override
+                public void onFailure(ErrorInfo errorInfo) {
+
+                }
+            });
+            mRtmClient.logout(null);
         MessageUtil.cleanMessageListBeanList();
     }
 
 
 
     public void sendPeerMessage(String content) {
+        EventBus.getDefault().post(new DialogEvent(true));
         final RtmMessage message = mRtmClient.createMessage();
         message.setText(content);
         SendMessageOptions option = new SendMessageOptions();
@@ -187,6 +208,10 @@ public class ChatManager {
     }
 
     public void sendLoginPeerMessage(String id,String content) {
+        if (IBaseActivity != null) {
+            IBaseActivity.showWaitingDialog("");
+        }
+
         final RtmMessage message = mRtmClient.createMessage();
         message.setText(content);
         SendMessageOptions option = new SendMessageOptions();

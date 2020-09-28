@@ -18,7 +18,5 @@
         android:divider="@color/main_bg"
         android:scrollbars="none"
         android:fadingEdge="none"
-        android:layout_marginBottom="70dp"
         android:listSelector="@drawable/dialogue_listview_selector" />
-
 </LinearLayout>

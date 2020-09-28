@@ -1,12 +1,13 @@
 package com.auto.di.guan.manager.rtm;
 
+import android.app.Activity;
+
 import com.auto.di.guan.manager.activity.IBaseActivity;
 import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,6 @@ public class MessageSend {
         info.setType(MessageEntiy.TYPE_LOGIN);
         info.setManagerId(BaseApp.getUser().getUserId());
         send(info,loginId);
-        baseActivity.showDialog();
     }
 
     /**
@@ -209,10 +209,10 @@ public class MessageSend {
     /**
      *    轮灌设置相关
      */
-    public static void doGroupLevel(List<GroupInfo> groupInfos) {
+    public static void doGroupLevel(ArrayList<GroupInfo> groupInfos) {
         MessageInfo info = new MessageInfo();
         info.setType(MessageEntiy.TYPE_GROUP_LEVEL);
-//        info.setGroupInfos(groupInfos);
+        info.setGroupInfos(groupInfos);
         send(info);
     }
 

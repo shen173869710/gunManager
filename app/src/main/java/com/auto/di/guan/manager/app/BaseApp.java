@@ -66,7 +66,6 @@ public class BaseApp extends Application {
 //        CrashHandler.getInstance().init(this);
         CrashReport.initCrashReport(getApplicationContext(), "cc201614d7", true);
 
-
         mChatManager = new ChatManager(this);
         mChatManager.init();
     }

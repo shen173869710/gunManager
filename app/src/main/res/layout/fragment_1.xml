@@ -10,11 +10,10 @@
     <LinearLayout
         android:id="@+id/addBtn_layout"
         android:layout_width="340dp"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:orientation="horizontal">
         <Button

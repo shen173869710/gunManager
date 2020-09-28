@@ -85,7 +85,6 @@ public class MessageParse {
                     dealAuto(info.getControlInfos(), info.getGroupInfos());
                 }
                 break;
-
             case MessageEntiy.TYPE_CREATE_GROUP:
             case MessageEntiy.TYPE_DEL_GROUP:
             case MessageEntiy.TYPE_EXIT_GROUP:

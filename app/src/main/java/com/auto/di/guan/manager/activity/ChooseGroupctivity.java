@@ -21,6 +21,8 @@ import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.rtm.MessageSend;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
+import com.auto.di.guan.manager.utils.ToastUtils;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -51,14 +53,22 @@ public class ChooseGroupctivity extends Activity {
 				finish();
 			}
 		});
+
 		TextView textView = view.findViewById(R.id.title_bar_status);
 		recyclerView = findViewById(R.id.choose_gridview);
 		deviceInfos = DeviceSql.getAllDevice();
+
+		for (int i = 0; i < deviceInfos.size(); i++) {
+			LogUtils.e("i----", ""+i);
+			LogUtils.e("0----", ""+deviceInfos.get(i).getValveDeviceSwitchList().get(0).isSelect());
+			LogUtils.e("1----", ""+deviceInfos.get(i).getValveDeviceSwitchList().get(1).isSelect());
+		}
 		adapter = new ChooseGridAdapter( deviceInfos);
 		LinearLayoutManager manager = new GridLayoutManager(this, Entiy.GRID_COLUMNS);
 		recyclerView.setLayoutManager(manager);
 		recyclerView.setAdapter(adapter);
 		textView.setVisibility(View.VISIBLE);
+		textView.setText("保存分组");
 		textView.setTextColor(getResources().getColor(R.color.white));
 		textView.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -109,7 +119,8 @@ public class ChooseGroupctivity extends Activity {
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	public void onDataChangeEvent(DateChangeEvent event) {
 		LogUtils.e(this.getClass().getSimpleName(), "--------数据更新");
+		ToastUtils.showLongToast("创建分组成功");
 		deviceInfos = DeviceSql.getAllDevice();
-		adapter.notifyDataSetChanged();
+		adapter.setNewData(deviceInfos);
 	}
 }

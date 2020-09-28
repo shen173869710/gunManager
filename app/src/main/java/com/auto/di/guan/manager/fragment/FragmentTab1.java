@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
-
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.activity.ChooseGroupctivity;
 import com.auto.di.guan.manager.adapter.FragmentTab1Adapter;
@@ -16,6 +15,7 @@ import com.auto.di.guan.manager.db.GroupList;
 import com.auto.di.guan.manager.dialog.MainShowDialog;
 import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.rtm.MessageSend;
+import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,8 +45,6 @@ public class FragmentTab1 extends BaseFragment {
 
     @Override
     public void init() {
-        deviceInfos = BaseApp.getDeviceInfos();
-        groupInfos = BaseApp.getGroupInfos();
         adapter = new FragmentTab1Adapter(getActivity(), groupLists);
         expandableListView.setAdapter(adapter);
         expandableListView.setGroupIndicator(null);
@@ -54,6 +52,9 @@ public class FragmentTab1 extends BaseFragment {
     }
 
     private void initData() {
+        deviceInfos = BaseApp.getDeviceInfos();
+        groupInfos = BaseApp.getGroupInfos();
+
         groupLists.clear();
         controlInfos.clear();
         int size = deviceInfos.size();
@@ -104,8 +105,7 @@ public class FragmentTab1 extends BaseFragment {
 
     @Override
     public void dataChange(DateChangeEvent event) {
-        if (event.isGroup()) {
-            initData();
-        }
+        LogUtils.e("FragmentTab1", "更新组信息");
+        initData();
     }
 }

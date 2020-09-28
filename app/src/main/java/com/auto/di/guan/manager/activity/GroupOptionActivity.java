@@ -10,8 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.RecyclerListAdapter;
+import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.sql.GroupInfoSql;
+import com.auto.di.guan.manager.dialog.DialogUtil;
+import com.auto.di.guan.manager.dialog.OnDialogClick;
 import com.auto.di.guan.manager.rtm.MessageSend;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
@@ -33,15 +36,13 @@ public class GroupOptionActivity extends Activity  {
 	private TextView textView;
 	private TextView title_bar_status;
 	private RecyclerView recyclerView;
-	private List<GroupInfo> groupInfos = new ArrayList<>();
+	private ArrayList<GroupInfo> groupInfos = new ArrayList<>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_group_option_layout);
 		view = findViewById(R.id.title_bar);
-
-		groupInfos = GroupInfoSql.getJoinGroup();
-
+		groupInfos = BaseApp.getGroupInfos();
 		textView = (TextView)view.findViewById(R.id.title_bar_title);
 		textView.setText("自动轮灌设置");
 		title_bar_status  = (TextView)view.findViewById(R.id.title_bar_status);
@@ -67,7 +68,6 @@ public class GroupOptionActivity extends Activity  {
 						groupInfo.setGroupLevel(0);
 						groupInfo.setGroupTime(0);
 					}
-
 					int level = groupInfo.getGroupLevel();
 					if (level > 0) {
 						if (lv.containsKey(level)) {
@@ -78,7 +78,18 @@ public class GroupOptionActivity extends Activity  {
 					}
 				}
 
-				MessageSend.doGroupLevel(groupInfos);
+				DialogUtil.setGunLevel(GroupOptionActivity.this, new OnDialogClick() {
+					@Override
+					public void onDialogOkClick(String value) {
+						MessageSend.doGroupLevel(groupInfos);
+					}
+
+					@Override
+					public void onDialogCloseClick(String value) {
+
+					}
+				});
+
 			}
 		});
 		view.findViewById(R.id.title_bar_back_layout).setOnClickListener(new View.OnClickListener() {

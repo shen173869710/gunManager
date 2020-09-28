@@ -16,11 +16,16 @@ import com.auto.di.guan.manager.db.LevelInfo;
 import com.auto.di.guan.manager.db.sql.ControlInfoSql;
 import com.auto.di.guan.manager.db.sql.GroupInfoSql;
 import com.auto.di.guan.manager.dialog.MainShowDialog;
+import com.auto.di.guan.manager.event.DateChangeEvent;
+import com.auto.di.guan.manager.event.LoginEvent;
 import com.auto.di.guan.manager.rtm.MessageSend;
+import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
 import com.auto.di.guan.manager.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +46,8 @@ public class GroupEditctivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_group_layout);
+
+		EventBus.getDefault().register(this);
 		view = findViewById(R.id.title_bar);
 		textView = (TextView)view.findViewById(R.id.title_bar_title);
 		textView.setText("编辑阀门组");
@@ -61,7 +68,7 @@ public class GroupEditctivity extends Activity {
 					return;
 				}
 				Intent intent = new Intent(GroupEditctivity.this, ChooseGroupctivity.class);
-				intent.putExtra("groupInfo", groupInfo.getGroupId());
+				intent.putExtra("groupInfo", groupInfo);
 				startActivity(intent);
 				GroupEditctivity.this.finish();
 			}
@@ -84,5 +91,20 @@ public class GroupEditctivity extends Activity {
 
 			}
 		});
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onDataChangeEvent(DateChangeEvent event) {
+		LogUtils.e(this.getClass().getSimpleName(), "--------数据更新");
+		controls = ControlInfoSql.queryControlList(groupInfo.getGroupId());
+		adapter.setNewData(controls);
+	}
+
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onLoginEvent(LoginEvent event) {
+		if (event != null && !event.isLogin()) {
+			GroupEditctivity.this.finish();
+		}
 	}
 }

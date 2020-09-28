@@ -10,7 +10,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.app.BaseApp;
+import com.auto.di.guan.manager.basemodel.presenter.BasePresenter;
 import com.auto.di.guan.manager.entity.CmdStatus;
+import com.auto.di.guan.manager.event.DialogEvent;
 import com.auto.di.guan.manager.event.LoginEvent;
 import com.auto.di.guan.manager.event.UserStatusEvent;
 import com.auto.di.guan.manager.fragment.ArticleListFragment;
@@ -25,18 +27,19 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends IBaseActivity {
     public static int windowTop;
     private FragmentManager manager;
     private FragmentTransaction transaction;
     private final String TAG = "MainActivity";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected int setLayout() {
+        return R.layout.activity_main;
+    }
 
-        EventBus.getDefault().register(this);
+    @Override
+    protected void init() {
         windowTop = getStatusBarHeight();
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
@@ -51,20 +54,18 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-//        findViewById(R.id.title_bar_back_layout).setVisibility(View.VISIBLE);
-//        findViewById(R.id.title_bar_back_layout).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
+
         findViewById(R.id.title_bar_title).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                mChatManager.sendPeerMessage( "来着222222222的消息");
             }
         });
-        inttTest();
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
     }
 
     private void inttTest() {
@@ -169,5 +170,20 @@ public class MainActivity extends AppCompatActivity {
            ToastUtils.showLongToast("被app端踢下线");
            MainActivity.this.finish();
        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onDialogEvent(DialogEvent event) {
+        if (event == null) {
+            return;
+        }
+
+        if (event.isShow()) {
+            LogUtils.e(TAG, "显示dialog");
+            showWaitingDialog("");
+        }else {
+            LogUtils.e(TAG, "隐藏dialog");
+            dismissDialog();
+        }
     }
 }

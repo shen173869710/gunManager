@@ -48,4 +48,16 @@ public class DialogUtil {
         content.ok = "关闭";
         OptionDialog.show(context,content,onDialogClick);
     }
+
+
+    /**
+     *   开启水泵
+     */
+    public static void setGunLevel(Context context, OnDialogClick onDialogClick) {
+        DialogContent content = new DialogContent();
+        content.desc = "保存轮灌设置";
+        content.cancle = "取消";
+        content.ok = "确定";
+        OptionDialog.show(context,content,onDialogClick);
+    }
 }

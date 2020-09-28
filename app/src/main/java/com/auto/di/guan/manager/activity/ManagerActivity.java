@@ -1,6 +1,7 @@
 package com.auto.di.guan.manager.activity;
 
 import android.content.Intent;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -58,8 +59,12 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
         int count= DensityUtil.getWidth()/ DensityUtil.dip2px(this, 180);
         LogUtils.e("Main", "count ="+count);
         LinearLayoutManager linearLayoutManager = new GridLayoutManager(this, count);
+
+        if (count < 5) {
+            count = 5;
+        }
         // 添加间距
-        managerList.addItemDecoration(new GridSpaceItemDecoration(count, DensityUtil.dip2px(this, 20), DensityUtil.dip2px(this, 20)));
+        managerList.addItemDecoration(new GridSpaceItemDecoration(count, DensityUtil.dip2px(this, 10), DensityUtil.dip2px(this, 10)));
         managerList.setLayoutManager(linearLayoutManager);
         mAdapter = new ManagerAdapter(users);
         managerList.setAdapter(mAdapter);
@@ -75,18 +80,18 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
                         ToastUtils.showLongToast("用户不在线");
                         return;
                     }
+                    showWaitingDialog("");
                     MessageSend.doLogin(ManagerActivity.this, users.get(position).getUserId().toString());
                 }
             }
         });
         mChatManager = BaseApp.getInstance().getChatManager();
-        mChatManager.doLogin();
         Set<String> user = new HashSet<>();
         int size = users.size();
         for (int i = 0; i < size; i++) {
             user.add(users.get(i).getUserId().toString());
         }
-        mChatManager.addPeersOnlineStatusListen(user);
+        mChatManager.doLogin(user, this);
     }
 
     @Override
@@ -139,7 +144,29 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
     protected void onDestroy() {
         super.onDestroy();
         if (mChatManager != null) {
-            mChatManager.doLogout();
+
+            Set<String> user = new HashSet<>();
+            int size = users.size();
+            for (int i = 0; i < size; i++) {
+                user.add(users.get(i).getUserId().toString());
+            }
+            mChatManager.doLogout(user);
         }
     }
+    private long firstTime=0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK && event.getAction()==KeyEvent.ACTION_DOWN){
+            if (System.currentTimeMillis()-firstTime>2000){
+                ToastUtils.showToast("再按一次退出");
+                firstTime=System.currentTimeMillis();
+            }else{
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 }

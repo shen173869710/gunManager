@@ -2,12 +2,12 @@ package com.auto.di.guan.manager.db;
 
 import org.greenrobot.greendao.annotation.Transient;
 import java.io.Serializable;
-
 /**
  * Created by Administrator on 2017/6/29.
  */
 public class ControlInfo implements Serializable {
 
+    private Long id;
     private int valveSwitchId;
     private int valveGroupId;
     //设备 组 id
