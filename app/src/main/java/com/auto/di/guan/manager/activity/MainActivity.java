@@ -160,6 +160,7 @@ public class MainActivity extends IBaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStatsuEvent(CmdStatus event) {
+        FloatWindowUtil.getInstance().show();
         FloatWindowUtil.getInstance().onStatsuEvent(event);
     }
 

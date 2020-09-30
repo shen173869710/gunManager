@@ -1,5 +1,6 @@
 package com.auto.di.guan.manager.entity;
 
+import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.utils.LogUtils;
 
 /**
@@ -24,19 +25,26 @@ public class Entiy {
      **/
     public static final int ALERM_TIME = 10 * 60;
 
+
     /**
-     *   绑定     上开关  右
-     *            下开关  右
-     *            按下复位  写
-     *
-     *   操作     上开关  左
-     *            按下复位
-     *            操作
-     *
-     *
-     *
-     *
+     *   根据状态获取图片信息
      */
+    public static int getImageResource(int status) {
+        int resourceId = 0;
+        switch (status) {
+            case CONTROL_STATUS＿CONNECT:
+                resourceId = R.mipmap.lighe_1;
+                break;
+            case CONTROL_STATUS＿RUN:
+                resourceId = R.mipmap.lighe_2;
+                break;
+            case CONTROL_STATUS＿NOTCLOSE:
+            case CONTROL_STATUS＿ERROR:
+                resourceId = R.mipmap.lighe_3;
+                break;
+        }
+        return resourceId;
+    }
 
     /**
      *  施肥管理相关参数设置
@@ -169,13 +177,13 @@ public class Entiy {
      */
     public static final int DEVEICE_BIND = 1;
     /**控制阀已经链接成功**/
-    public static final int CONTROL_STATUS＿CONNECT = 100;
+    public static final int CONTROL_STATUS＿CONNECT = 1;
     /**设备已经处于运行状态**/
-    public static final int CONTROL_STATUS＿RUN = 200;
+    public static final int CONTROL_STATUS＿RUN = 2;
     /**设备已经处于错误状态**/
-    public static final int CONTROL_STATUS＿ERROR = 300;
+    public static final int CONTROL_STATUS＿ERROR = 3;
     /**设备无法关闭**/
-    public static final int CONTROL_STATUS＿NOTCLOSE = 400;
+    public static final int CONTROL_STATUS＿NOTCLOSE = 4;
     /**设备断开链接**/
     public static final int CONTROL_STATUS＿DISCONNECT = 0;
 

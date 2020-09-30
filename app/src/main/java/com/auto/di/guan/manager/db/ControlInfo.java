@@ -92,9 +92,6 @@ public class ControlInfo implements Serializable {
         this.valveImgagePath = valveImgagePath;
     }
 
-    public int getValveImgageId() {
-        return valveImgageId;
-    }
 
     public void setValveImgageId(int valveImgageId) {
         this.valveImgageId = valveImgageId;

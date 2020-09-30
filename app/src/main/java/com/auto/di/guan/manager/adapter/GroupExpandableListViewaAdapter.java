@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.GroupList;
+import com.auto.di.guan.manager.entity.Entiy;
 
 import java.util.List;
 
@@ -68,7 +69,7 @@ public class GroupExpandableListViewaAdapter extends BaseExpandableListAdapter {
     private void bindChildView(final ChildHolder holder, final int groupPosition, int childPosition) {
         ControlInfo controlInfo = groupLists.get(groupPosition).controlInfos.get(childPosition);
         holder.group_item_name.setText(controlInfo.getValveName()+" 号控制阀");
-        holder.group_item_icon.setImageResource(controlInfo.getValveImgageId());
+        holder.group_item_icon.setImageResource(Entiy.getImageResource(controlInfo.getValveStatus()));
         holder.group_item_type.setText(controlInfo.getValveAlias());
     }
 

@@ -75,7 +75,7 @@ public class ChooseGridAdapter extends BaseQuickAdapter<DeviceInfo, BaseViewHold
             }else {
                 grid_item_left_layout.setVisibility(View.VISIBLE);
                 grid_item_left_image.setVisibility(View.VISIBLE);
-                grid_item_left_image.setImageResource(info1.getValveImgageId());
+                grid_item_left_image.setImageResource(Entiy.getImageResource(info1.getValveStatus()));
                 grid_item_left_sel.setVisibility(View.VISIBLE);
                 grid_item_left_id.setText(info1.getValveAlias()+"");
                 if (info1.isSelect()) {
@@ -93,7 +93,7 @@ public class ChooseGridAdapter extends BaseQuickAdapter<DeviceInfo, BaseViewHold
 
                 if (info1.getValveGroupId() > 0) {
                     grid_item_left_sel.setVisibility(View.GONE);
-                    deviceInfo.getValveDeviceSwitchList().get(0).setSelect(false);
+                    info1.setSelect(false);
                 }else {
                     grid_item_left_layout.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -101,7 +101,7 @@ public class ChooseGridAdapter extends BaseQuickAdapter<DeviceInfo, BaseViewHold
                             if(NoFastClickUtils.isFastClick()){
                                 return;
                             }
-                            deviceInfo.getValveDeviceSwitchList().get(0).setSelect(!deviceInfo.getValveDeviceSwitchList().get(0).isSelect());
+                            info1.setSelect(!info1.isSelect());
                             notifyDataSetChanged();
                         }
                     });
@@ -114,7 +114,7 @@ public class ChooseGridAdapter extends BaseQuickAdapter<DeviceInfo, BaseViewHold
             }else {
                 grid_item_right_layout.setVisibility(View.VISIBLE);
                 grid_item_right_image.setVisibility(View.VISIBLE);
-                grid_item_right_image.setImageResource(info1.getValveImgageId());
+                grid_item_right_image.setImageResource(Entiy.getImageResource(info2.getValveStatus()));
                 grid_item_right_sel.setVisibility(View.VISIBLE);
                 grid_item_right_id.setText(info2.getValveAlias()+"");
                 if (info2.isSelect()) {
@@ -132,7 +132,7 @@ public class ChooseGridAdapter extends BaseQuickAdapter<DeviceInfo, BaseViewHold
 
                 if (info2.getValveGroupId() > 0) {
                     grid_item_right_sel.setVisibility(View.GONE);
-                    deviceInfo.getValveDeviceSwitchList().get(1).setSelect(false);
+                    info2.setSelect(false);
                 }else {
                     grid_item_right_layout.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -140,7 +140,7 @@ public class ChooseGridAdapter extends BaseQuickAdapter<DeviceInfo, BaseViewHold
                             if(NoFastClickUtils.isFastClick()){
                                 return;
                             }
-                            deviceInfo.getValveDeviceSwitchList().get(1).setSelect(!deviceInfo.getValveDeviceSwitchList().get(1).isSelect());
+                            info2.setSelect(!info2.isSelect());
                             notifyDataSetChanged();
                         }
                     });

@@ -201,7 +201,7 @@ public class MyGridAdapter  extends BaseQuickAdapter<DeviceInfo, BaseViewHolder>
                 grid_item_left_id.setText("");
             }else {
                 grid_item_left_image.setVisibility(View.VISIBLE);
-                grid_item_left_image.setImageResource(controlInfo0.getValveImgageId());
+                grid_item_left_image.setImageResource(Entiy.getImageResource(controlInfo0.getValveStatus()));
                 grid_item_left_id.setText(controlInfo0.getValveAlias()+"");
             }
 
@@ -220,7 +220,7 @@ public class MyGridAdapter  extends BaseQuickAdapter<DeviceInfo, BaseViewHolder>
                 grid_item_right_id.setText("");
             }else {
                 grid_item_right_image.setVisibility(View.VISIBLE);
-                grid_item_right_image.setImageResource(controlInfo1.getValveImgageId());
+                grid_item_right_image.setImageResource(Entiy.getImageResource(controlInfo1.getValveStatus()));
                 grid_item_right_id.setText(controlInfo1.getValveAlias()+"");
             }
         }

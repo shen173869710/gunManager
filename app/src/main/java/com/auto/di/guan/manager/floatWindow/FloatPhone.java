@@ -93,8 +93,12 @@ class FloatPhone extends FloatView {
 
     private void req() {
 
-        mLayoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
-
+//        mLayoutParams.type = WindowManager.LayoutParams.TYPE_TOAST;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            mLayoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+        } else {
+            mLayoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+        }
         FloatActivity.request(mContext, new PermissionListener() {
             @Override
             public void onSuccess() {

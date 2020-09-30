@@ -14,9 +14,7 @@ import com.auto.di.guan.manager.socket.SocketBengEvent;
 import com.auto.di.guan.manager.socket.SocketResult;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.google.gson.Gson;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +51,7 @@ public class MessageParse {
                 // 单个操作 开
             case MessageEntiy.TYPE_SINGLE_CLOSE:
                 // 单个操作 关
+                LogUtils.e(TAG, "收到单个操作数据 ========="+new Gson().toJson(info));
                 if (info.getControlInfo() != null) {
                     dealSingle(info.getControlInfo());
                 }
@@ -60,7 +59,7 @@ public class MessageParse {
             case MessageEntiy.TYPE_GROUP_OPEN:
                 LogUtils.e(TAG, "单组轮灌开启成功");
                 // 单组操作 开
-                dealSingle(info.getControlInfo());
+                dealGroup(info.getControlInfos(), info.getGroupInfo());
                 break;
             case MessageEntiy.TYPE_GROUP_CLOSE:
                 LogUtils.e(TAG, "单组轮灌关闭成功");
@@ -108,14 +107,15 @@ public class MessageParse {
                 break;
         }
     }
-
-
-
     /**
      *   处理单个操作
      */
     public static void dealSingle(ControlInfo controlInfo) {
         LogUtils.e(TAG, "单个操作成功");
+        if (controlInfo == null) {
+            LogUtils.e(TAG, "单个操作数据异常");
+            return;
+        }
         ControlInfoSql.updataControlInfo(controlInfo);
         EventBus.getDefault().post(new DateChangeEvent(false));
     }
@@ -125,6 +125,10 @@ public class MessageParse {
      */
     public static void dealGroup(List<ControlInfo>list, GroupInfo groupInfo) {
         LogUtils.e(TAG, "单组操作成功");
+        if (list == null || groupInfo == null) {
+            LogUtils.e(TAG, "单组操作  传递数据异常");
+            return;
+        }
         ControlInfoSql.updataControlList(list);
         GroupInfoSql.updateGroup(groupInfo);
         EventBus.getDefault().post(new DateChangeEvent(true));
@@ -144,6 +148,7 @@ public class MessageParse {
      * @param cmdStatus
      */
     public static void dealMessage(CmdStatus cmdStatus) {
+        LogUtils.e(TAG, "收到操作信息同步");
         EventBus.getDefault().post(cmdStatus);
     }
 

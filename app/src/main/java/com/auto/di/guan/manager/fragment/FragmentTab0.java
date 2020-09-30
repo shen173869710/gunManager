@@ -33,6 +33,6 @@ public class FragmentTab0 extends BaseFragment {
     @Override
     public void dataChange(DateChangeEvent event) {
         LogUtils.e("FragmentTab0", "更新组信息");
-       adapter.replaceData(BaseApp.getDeviceInfos());
+        adapter.notifyDataSetChanged();
     }
 }

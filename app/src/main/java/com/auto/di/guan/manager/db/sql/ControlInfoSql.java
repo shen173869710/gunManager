@@ -38,11 +38,10 @@ public class ControlInfoSql {
         int size = controlInfos.size();
         for (int i = 0; i < size; i++) {
             ControlInfo co = controlInfos.get(i);
-            if (co.getValveSwitchId() == info.getValveSwitchId()) {
+            if (co.getValveId() == info.getValveId()) {
                 co.setValveStatus(info.getValveStatus());
             }
         }
-
     }
 
     public static void updataControlList(List<ControlInfo> list) {
