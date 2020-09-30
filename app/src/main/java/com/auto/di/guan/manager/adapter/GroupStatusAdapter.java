@@ -7,9 +7,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.db.GroupInfo;
-import com.auto.di.guan.manager.db.sql.GroupInfoSql;
 import com.auto.di.guan.manager.dialog.DialogUtil;
 import com.auto.di.guan.manager.dialog.OnDialogClick;
 import com.auto.di.guan.manager.dialog.SetTimeDialog;
@@ -21,7 +21,9 @@ import com.auto.di.guan.manager.utils.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.daimajia.numberprogressbar.NumberProgressBar;
+
 import org.greenrobot.greendao.annotation.NotNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -114,7 +116,6 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
         } else {
             status_stop.setText("暂停计时");
         }
-
         status_stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,7 +127,7 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
                     DialogUtil.showStartCount(getContext(), new OnDialogClick() {
                         @Override
                         public void onDialogOkClick(String value) {
-                            MessageSend.doAutoStart();
+                            MessageSend.doAutoStart(info);
                         }
 
                         @Override
@@ -139,7 +140,7 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
                     DialogUtil.showStopCount(getContext(), new OnDialogClick() {
                         @Override
                         public void onDialogOkClick(String value) {
-                            MessageSend.doAutoStop();
+                            MessageSend.doAutoStop(info);
                         }
 
                         @Override

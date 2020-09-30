@@ -8,6 +8,7 @@ import com.auto.di.guan.manager.db.sql.ControlInfoSql;
 import com.auto.di.guan.manager.db.sql.GroupInfoSql;
 import com.auto.di.guan.manager.entity.CmdStatus;
 import com.auto.di.guan.manager.entity.Entiy;
+import com.auto.di.guan.manager.event.AutoTimeEvent;
 import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.event.LoginEvent;
 import com.auto.di.guan.manager.socket.SocketBengEvent;
@@ -17,7 +18,6 @@ import com.google.gson.Gson;
 import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  *     解析消息
  */
@@ -81,8 +81,18 @@ public class MessageParse {
             case MessageEntiy.TYPE_AUTO_NEXT:
                 LogUtils.e(TAG, "自动轮灌下一组成功");
                 // 单组自动轮灌 下一组
-                if (info.getGroupInfos() != null && info.getControlInfos() != null) {
-                    dealAuto(info.getControlInfos(), info.getGroupInfos());
+                if (info.getGroupInfos() != null && info.getDeviceInfos() != null) {
+                    dealAuto(info.getDeviceInfos(), info.getGroupInfos());
+                }
+                break;
+            case MessageEntiy.TYPE_AUTO_TIME:
+                if (info.getGroupInfo() != null) {
+                    dealAutoTime(info.getGroupInfo());
+                }
+                break;
+            case MessageEntiy.TYPE_AUTO_STATUS:
+                if (info.getGroupInfos() != null && info.getDeviceInfos() != null) {
+                    dealAutoStatus(info.getDeviceInfos(), info.getGroupInfos());
                 }
                 break;
             case MessageEntiy.TYPE_CREATE_GROUP:
@@ -95,7 +105,7 @@ public class MessageParse {
                 if (info.getGroupInfos() != null) {
                     dealGoupLevel(info.getGroupInfos());
                 }
-
+                break;
             case MessageEntiy.TYPE_BENG_CLOSE:
             case MessageEntiy.TYPE_BENG_OPEN:
                 if (info.getSocketResults()!= null) {
@@ -135,14 +145,6 @@ public class MessageParse {
         EventBus.getDefault().post(new DateChangeEvent(true, postion));
     }
 
-    /**
-     *  处理自动轮灌
-     */
-    public static void dealAuto(List<ControlInfo>list, List<GroupInfo> infos) {
-        ControlInfoSql.updataControlList(list);
-        GroupInfoSql.updateGroups(infos);
-        EventBus.getDefault().post(new DateChangeEvent(true));
-    }
 
     /**
      *        处理操作信息同步
@@ -162,9 +164,15 @@ public class MessageParse {
         EventBus.getDefault().post(new DateChangeEvent(true));
     }
 
+    /**
+     *        同步自动轮灌时间设置
+     * @param groupInfos
+     */
     public static void dealGoupLevel(ArrayList<GroupInfo> groupInfos) {
         BaseApp.setGroupInfos(groupInfos);
-        EventBus.getDefault().post(new DateChangeEvent(true));
+        DateChangeEvent event = new DateChangeEvent(true);
+        event.setType(MessageEntiy.TYPE_GROUP_LEVEL);
+        EventBus.getDefault().post(event);
     }
 
     /**
@@ -173,5 +181,33 @@ public class MessageParse {
      */
     public static void dealBengOption(List<SocketResult> socketResults) {
         EventBus.getDefault().post(new SocketBengEvent(socketResults));
+    }
+
+    /**
+     *  处理自动轮灌
+     */
+    public static void dealAuto(ArrayList<DeviceInfo>deviceInfos, ArrayList<GroupInfo> infos) {
+        LogUtils.i(TAG, "收到自动轮灌-----------命令同步信息");
+        BaseApp.setDeviceInfos(deviceInfos);
+        BaseApp.setGroupInfos(infos);
+        EventBus.getDefault().post(new DateChangeEvent(true));
+    }
+
+    /**
+     *  处理自动轮灌设备状态
+     */
+    public static void dealAutoStatus(ArrayList<DeviceInfo>deviceInfos, ArrayList<GroupInfo> infos) {
+        LogUtils.i(TAG, "收到自动轮灌------------状态同步");
+        BaseApp.setDeviceInfos(deviceInfos);
+        BaseApp.setGroupInfos(infos);
+        EventBus.getDefault().post(new DateChangeEvent(true));
+    }
+
+    /**
+     *  同步自动轮时间
+     */
+    public static void dealAutoTime(GroupInfo groupInfo) {
+        LogUtils.i(TAG, "收到自动轮灌------------时间信息同步");
+        EventBus.getDefault().post(new AutoTimeEvent(groupInfo));
     }
 }

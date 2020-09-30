@@ -4,10 +4,19 @@ public class DateChangeEvent {
     private boolean group;
     private int postion;
 
+    private int type;
+
     public DateChangeEvent(boolean group) {
         this.group = group;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public DateChangeEvent(boolean group, int postion) {
         this.group = group;

@@ -1,17 +1,17 @@
 package com.auto.di.guan.manager.rtm;
 
-import android.app.Activity;
-
 import com.auto.di.guan.manager.activity.IBaseActivity;
 import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
+import com.auto.di.guan.manager.utils.LogUtils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MessageSend {
+
+    private static final String TAG = "MessageSend";
     public static void send(MessageInfo info) {
         BaseApp.getInstance().getChatManager().sendPeerMessage(info.toJson());
     }
@@ -101,17 +101,21 @@ public class MessageSend {
     /**
      *        自动轮灌暂停
      */
-    public static void doAutoStop() {
+    public static void doAutoStop(GroupInfo groupInfo) {
+        LogUtils.e("TAG", "发送暂停操作");
         MessageInfo info = new MessageInfo();
         info.setType(MessageEntiy.TYPE_AUTO_STOP);
+        info.setGroupInfo(groupInfo);
         send(info);
     }
 
     /**
      *        自动轮灌开始
      */
-    public static void doAutoStart() {
+    public static void doAutoStart(GroupInfo groupInfo) {
+        LogUtils.e("TAG", "发送开始操作");
         MessageInfo info = new MessageInfo();
+        info.setGroupInfo(groupInfo);
         info.setType(MessageEntiy.TYPE_AUTO_START);
         send(info);
     }
@@ -144,8 +148,6 @@ public class MessageSend {
         info.setGroupInfo(groupInfo);
         send(info);
     }
-
-
     /**
      *       自动查询开
      */

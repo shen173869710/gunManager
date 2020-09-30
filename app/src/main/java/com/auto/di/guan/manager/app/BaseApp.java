@@ -220,5 +220,6 @@ public class BaseApp extends Application {
 
     public static void setGroupInfos(ArrayList<GroupInfo> groupInfos) {
         BaseApp.groupInfos = groupInfos;
+
     }
 }

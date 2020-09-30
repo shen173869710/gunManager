@@ -6,10 +6,10 @@ import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.entity.CmdStatus;
 import com.auto.di.guan.manager.socket.SocketResult;
 import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 public class MessageInfo {
-
     /**
      *    管水员的ID
      */

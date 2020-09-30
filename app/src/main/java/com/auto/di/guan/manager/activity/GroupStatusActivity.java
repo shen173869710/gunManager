@@ -1,26 +1,27 @@
 package com.auto.di.guan.manager.activity;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.GroupStatusAdapter;
 import com.auto.di.guan.manager.adapter.StatusAdapter;
+import com.auto.di.guan.manager.basemodel.presenter.BasePresenter;
 import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
+import com.auto.di.guan.manager.db.sql.ControlInfoSql;
 import com.auto.di.guan.manager.db.sql.GroupInfoSql;
 import com.auto.di.guan.manager.dialog.GroupOptionDialog;
+import com.auto.di.guan.manager.event.AutoTimeEvent;
 import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.rtm.MessageSend;
 import com.auto.di.guan.manager.utils.DiffStatusCallback;
+import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -30,7 +31,9 @@ import java.util.List;
 /**
  *   轮灌设置
  */
-public class GroupStatusActivity extends FragmentActivity {
+public class GroupStatusActivity extends IBaseActivity {
+
+    private String TAG = "GroupStatusActivity";
     private View view;
     private TextView textView;
     private TextView title_bar_status;
@@ -40,25 +43,23 @@ public class GroupStatusActivity extends FragmentActivity {
 
     private StatusAdapter openAdapter;
     private RecyclerView openList;
-    private StatusAdapter closeAdapter;
-    private RecyclerView closeList;
-
     private List<ControlInfo> openInfos = new ArrayList<>();
-    private List<ControlInfo> closeInfos = new ArrayList<>();
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_group_status_layout);
 
+    @Override
+    protected int setLayout() {
+        return R.layout.activity_group_status_layout;
+    }
+
+    @Override
+    protected void init() {
         view = findViewById(R.id.title_bar);
-        EventBus.getDefault().register(this);
 
         textView = (TextView) view.findViewById(R.id.title_bar_title);
-        textView.setText("自动轮灌状态");
+        textView.setText("自动轮灌");
 
         title_bar_status = (TextView) view.findViewById(R.id.title_bar_status);
         title_bar_status.setVisibility(View.VISIBLE);
-            title_bar_status.setText("轮灌操作");
+        title_bar_status.setText("轮灌操作");
         title_bar_status.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,38 +83,73 @@ public class GroupStatusActivity extends FragmentActivity {
         view.findViewById(R.id.title_bar_back_layout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 GroupStatusActivity.this.finish();
             }
         });
-        groupInfos = GroupInfoSql.getJoinGroup();
         recyclerView = (RecyclerView) findViewById(R.id.group_option_view);
+        groupInfos = GroupInfoSql.getJoinGroup();
         adapter = new GroupStatusAdapter(groupInfos);
         adapter.setDiffCallback(new DiffStatusCallback());
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+
         openList = findViewById(R.id.group_option_open);
         openList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false));
         openAdapter = new StatusAdapter(openInfos);
         openList.setAdapter(openAdapter);
-        closeList = findViewById(R.id.group_option_close);
-        closeList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false));
-        closeAdapter = new StatusAdapter(closeInfos);
-        closeList.setAdapter(closeAdapter);
-
-    }
-
-
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onGroupEvent(DateChangeEvent event) {
-
+        initOpenControl();
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
+    protected BasePresenter createPresenter() {
+        return null;
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAutoTimeEvent(AutoTimeEvent event) {
+        if (event == null || event.getGroupInfo() == null) {
+            LogUtils.e(TAG, " 轮灌时间更新 数据异常");
+            return;
+        }
+//        LogUtils.e(TAG, " 轮灌时间更新");
+        GroupInfo groupInfo = event.getGroupInfo();
+        int groupId = groupInfo.getGroupId();
+        groupInfos = GroupInfoSql.getJoinGroup();
+        int size = groupInfos.size();
+        int positin = 0;
+        for (int i = 0; i < size; i++) {
+            if (groupId == groupInfos.get(i).getGroupId()) {
+                positin = i;
+            }
+        }
+        adapter.getData().set(positin, groupInfo);
+        adapter.notifyItemChanged(positin, positin);
+//        if (openInfos != null && openInfos.size() == 0) {
+//            onGroupStatusEvent(groupInfo);
+//        }
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onDateChangeEvent(DateChangeEvent event) {
+        LogUtils.e(TAG, " 设备状态数据更--------------------------");
+        if (adapter != null) {
+            groupInfos = GroupInfoSql.getJoinGroup();
+            adapter.notifyDataSetChanged();
+            initOpenControl();
+        }
+    }
+
+    public void initOpenControl() {
+        GroupInfo info = GroupInfoSql.getRunGroup();
+        LogUtils.e(TAG,  "正在运行的设备信息");
+        if ( info != null) {
+            openAdapter.setData(ControlInfoSql.queryControlList(info.getGroupId()));
+        }else {
+            LogUtils.e("GroupStatusActivity",  "更新设备失败   设备信息为空-----------------------------");
+        }
+    }
+
+
 }

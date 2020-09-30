@@ -71,4 +71,20 @@ public class GroupInfoSql {
         }
         return postion;
     }
+
+    /**
+     *        获取正在运行的设备
+     * @return
+     */
+    public static GroupInfo getRunGroup() {
+        GroupInfo groupInfo = null;
+        int size = BaseApp.getGroupInfos().size();
+        for (int i = 0; i < size; i++) {
+            GroupInfo info = BaseApp.getGroupInfos().get(i);
+            if (info.getGroupIsJoin() && info.getGroupStatus() == 1) {
+                groupInfo = info;
+            }
+        }
+        return groupInfo;
+    }
 }

@@ -28,7 +28,8 @@ public class MessageEntiy {
     public static final int TYPE_AUTO_NEXT = 12;
     // 单组自动轮灌 下一组
     public static final int TYPE_AUTO_TIME = 13;
-
+    // 自动轮灌 设备状态
+    public static final int TYPE_AUTO_STATUS = 14;
 
     // 创建分组
     public static final int TYPE_CREATE_GROUP = 20;

@@ -1,6 +1,7 @@
 package com.auto.di.guan.manager.fragment;
 
 import android.widget.ExpandableListView;
+
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.GroupExpandableListViewaAdapter31;
 import com.auto.di.guan.manager.app.BaseApp;
@@ -10,7 +11,6 @@ import com.auto.di.guan.manager.db.GroupList;
 import com.auto.di.guan.manager.db.sql.ControlInfoSql;
 import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.utils.LogUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
