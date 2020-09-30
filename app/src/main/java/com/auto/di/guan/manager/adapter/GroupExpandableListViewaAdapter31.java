@@ -131,7 +131,6 @@ public class GroupExpandableListViewaAdapter31 extends BaseExpandableListAdapter
     }
 
     private void bindGroupView(GroupHolder holder, final int groupPosition) {
-
         GroupInfo groupInfo = groupLists.get(groupPosition).groupInfo;
         holder.expand_list_group_num.setText("第 "+groupInfo.getGroupName()+"组");
         if(groupInfo.getGroupStatus() == 0) {
@@ -157,7 +156,6 @@ public class GroupExpandableListViewaAdapter31 extends BaseExpandableListAdapter
                 }
             });
         }
-
     }
 
     @Override

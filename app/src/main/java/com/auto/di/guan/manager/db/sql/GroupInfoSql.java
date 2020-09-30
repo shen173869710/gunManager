@@ -52,9 +52,10 @@ public class GroupInfoSql {
      *
      * @param info
      */
-    public static void updateGroup(GroupInfo info) {
+    public static int updateGroup(GroupInfo info) {
         List<GroupInfo> groupInfos = BaseApp.getGroupInfos();
         int size = groupInfos.size();
+        int postion = -1;
         for (int i = 0; i < size; i++) {
             GroupInfo groupInfo = groupInfos.get(i);
             if (groupInfo.getId() == info.getId()) {
@@ -65,7 +66,9 @@ public class GroupInfoSql {
                 groupInfo.setGroupRunTime(info.getGroupRunTime());
                 groupInfo.setGroupStop(info.getGroupStop());
                 groupInfo.setGroupIsJoin(info.getGroupIsJoin());
+                postion = i;
             }
         }
+        return postion;
     }
 }

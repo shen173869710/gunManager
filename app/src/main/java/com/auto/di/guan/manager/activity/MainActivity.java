@@ -180,10 +180,10 @@ public class MainActivity extends IBaseActivity {
         }
 
         if (event.isShow()) {
-            LogUtils.e(TAG, "显示dialog");
+//            LogUtils.e(TAG, "显示dialog");
             showWaitingDialog("");
         }else {
-            LogUtils.e(TAG, "隐藏dialog");
+//            LogUtils.e(TAG, "隐藏dialog");
             dismissDialog();
         }
     }

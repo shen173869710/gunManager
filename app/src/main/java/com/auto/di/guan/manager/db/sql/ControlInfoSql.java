@@ -44,16 +44,20 @@ public class ControlInfoSql {
         }
     }
 
+    /**
+     *        更新一组设备信息
+     * @param list
+     */
     public static void updataControlList(List<ControlInfo> list) {
         List<ControlInfo> controlInfos = queryControlList();
         int size = controlInfos.size();
         int listSize = list.size();
         for (int i = 0; i < size; i++) {
-            ControlInfo iInfo = controlInfos.get(i);
+            ControlInfo info = controlInfos.get(i);
             for (int j = 0; j < listSize; j++) {
-                ControlInfo jInfo = list.get(j);
-                if (iInfo.getValveSwitchId() == jInfo.getValveSwitchId()) {
-                    iInfo.setValveStatus(jInfo.getValveStatus());
+                ControlInfo newInfo = list.get(j);
+                if (info.getValveId() == newInfo.getValveId()) {
+                    info.setValveStatus(newInfo.getValveStatus());
                 }
             }
         }

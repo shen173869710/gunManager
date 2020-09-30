@@ -64,6 +64,7 @@ public class MessageParse {
             case MessageEntiy.TYPE_GROUP_CLOSE:
                 LogUtils.e(TAG, "单组轮灌关闭成功");
                 // 单组操作 关
+                dealGroup(info.getControlInfos(), info.getGroupInfo());
                 break;
             case MessageEntiy.TYPE_AUTO_OPEN:
                 LogUtils.e(TAG, "自动轮灌开启成功");
@@ -130,8 +131,8 @@ public class MessageParse {
             return;
         }
         ControlInfoSql.updataControlList(list);
-        GroupInfoSql.updateGroup(groupInfo);
-        EventBus.getDefault().post(new DateChangeEvent(true));
+        int postion = GroupInfoSql.updateGroup(groupInfo);
+        EventBus.getDefault().post(new DateChangeEvent(true, postion));
     }
 
     /**
@@ -148,7 +149,7 @@ public class MessageParse {
      * @param cmdStatus
      */
     public static void dealMessage(CmdStatus cmdStatus) {
-        LogUtils.e(TAG, "收到操作信息同步");
+        LogUtils.i(TAG, "收到操作信息同步");
         EventBus.getDefault().post(cmdStatus);
     }
 

@@ -57,6 +57,12 @@ public class FragmentTab4 extends BaseFragment {
 	@Override
 	public void dataChange(DateChangeEvent event) {
 		LogUtils.e("fragmenttab4", "更新数据");
+		if (event == null) {
+			return;
+		}
 		init();
+		if (event.getPostion() >= 0 && fragment4Expand != null) {
+			fragment4Expand.expandGroup(event.getPostion());
+		}
 	}
 }

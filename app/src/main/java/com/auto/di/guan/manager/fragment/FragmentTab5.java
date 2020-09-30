@@ -3,7 +3,6 @@ package com.auto.di.guan.manager.fragment;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.ExpandableListView;
-
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.activity.GroupStatusActivity;
 import com.auto.di.guan.manager.adapter.GroupExpandableListViewaAdapter;
@@ -19,7 +18,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 /**
- *
  */
 public class FragmentTab5 extends BaseFragment {
 
