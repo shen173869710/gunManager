@@ -14,6 +14,8 @@ import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.activity.MainActivity;
 import com.auto.di.guan.manager.adapter.MyListAdapter;
 import com.auto.di.guan.manager.entity.Entiy;
+import com.auto.di.guan.manager.rtm.MessageEntiy;
+import com.auto.di.guan.manager.rtm.MessageSend;
 import com.auto.di.guan.manager.utils.LogUtils;
 
 import java.util.ArrayList;
@@ -48,6 +50,8 @@ public class ArticleListFragment extends ListFragment {
 		fragments.add(new FragmentTab7());
 		fragments.add(new FragmentTab8());
 		fragments.add(new FragmentTab9());
+		fragments.add(new FragmentTab10());
+		fragments.add(new FragmentTab11());
 		transaction = manager.beginTransaction();
 		transaction.add(R.id.right, fragments.get(0), Entiy.TAB_TITLE[0]).show(fragments.get(0));
 		transaction.commitAllowingStateLoss();
@@ -59,26 +63,14 @@ public class ArticleListFragment extends ListFragment {
 		super.onListItemClick(l, v, position, id);
 		activity.setTitle(Entiy.TAB_TITLE[position]);
 		adapter.setSelectedPosition(position);
-//
-//		for (int i = 0; i < fragments.size(); i++) {
-//			if (position  == i) {
-//                if (fragments.get(i).isAdded()) {
-//                    transaction.show(fragments.get(i));
-//                }else {
-//                    transaction.add(R.id.right, fragments.get(i)).show(fragments.get(i));
-//                }
-//			}else {
-//                if (fragments.get(i).isAdded()) {
-//                    transaction.hide(fragments.get(i));
-//                }else {
-//                    transaction.add(R.id.right, fragments.get(i)).hide(fragments.get(i));
-//                }
-//			}
-//		}
-//		transaction.commitAllowingStateLoss();
-		LogUtils.e("ArticleListFragment", "start = "+System.currentTimeMillis());
 		showFragment(fragments.get(position));
 		adapter.notifyDataSetChanged();
+		/*发送点击事件*/
+		int index = position;
+		if (position > 0) {
+			index = position + 1;
+		}
+		MessageSend.doClickEvent(index);
 	}
 
 

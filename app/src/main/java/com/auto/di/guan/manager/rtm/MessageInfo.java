@@ -30,6 +30,10 @@ public class MessageInfo {
      *     设备的列
      */
     private int cloumn;
+    /**
+     *   当前显示的页面
+     */
+    private int index;
 
 
     private ControlInfo controlInfo;
@@ -139,5 +143,13 @@ public class MessageInfo {
 
     public void setCloumn(int cloumn) {
         this.cloumn = cloumn;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 }

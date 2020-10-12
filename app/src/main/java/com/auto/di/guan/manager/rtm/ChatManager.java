@@ -9,6 +9,7 @@ import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.event.DialogEvent;
 import com.auto.di.guan.manager.event.UserStatusEvent;
 import com.auto.di.guan.manager.utils.LogUtils;
+import com.auto.di.guan.manager.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -66,7 +67,6 @@ public class ChatManager {
                     LogUtils.e(TAG, "onMessageReceived   peerid = "+peerId + "message" +rtmMessage.getText());
                     MessageParse.praseData(rtmMessage.getText(), peerId);
                     EventBus.getDefault().post(new DialogEvent(false));
-
                 }
 
                 @Override
@@ -203,6 +203,7 @@ public class ChatManager {
             @Override
             public void onFailure(ErrorInfo errorInfo) {
                 Entiy.onPeerError(TAG, errorInfo.getErrorCode());
+
             }
         });
     }

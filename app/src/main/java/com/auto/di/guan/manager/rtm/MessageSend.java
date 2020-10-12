@@ -239,4 +239,14 @@ public class MessageSend {
         send(info);
     }
 
+
+    /***
+     *    点击事件
+     */
+    public static void doClickEvent(int index) {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_CLICK);
+        info.setIndex(index);
+        send(info);
+    }
 }
