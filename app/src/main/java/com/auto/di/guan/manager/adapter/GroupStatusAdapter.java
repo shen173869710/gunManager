@@ -29,14 +29,14 @@ import java.util.HashMap;
 import java.util.List;
 
 public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHolder> {
-    private List<GroupInfo> mItems = new ArrayList<>();
+
     private HashMap<Integer, Integer> hashMap = new HashMap<>();
 
     public GroupStatusAdapter(@Nullable List<GroupInfo> data) {
         super(R.layout.group_status_item, data);
-        int size = mItems.size();
+        int size = getData().size();
         for (int i = 0; i < size; i++) {
-            hashMap.put(mItems.get(i).getGroupId(), mItems.get(i).getGroupTime() / Entiy.RUN_TIME);
+            hashMap.put(getData().get(i).getGroupId(), getData().get(i).getGroupTime() / Entiy.RUN_TIME);
         }
     }
 
@@ -178,8 +178,8 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
     }
 
     public void setData(List<GroupInfo> data) {
-        mItems.clear();
-        mItems.addAll(data);
+        getData().clear();
+        getData().addAll(data);
         notifyDataSetChanged();
     }
 

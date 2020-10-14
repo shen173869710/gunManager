@@ -5,18 +5,18 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ListView;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.ListFragment;
+
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.activity.MainActivity;
 import com.auto.di.guan.manager.adapter.MyListAdapter;
 import com.auto.di.guan.manager.entity.Entiy;
-import com.auto.di.guan.manager.rtm.MessageEntiy;
 import com.auto.di.guan.manager.rtm.MessageSend;
-import com.auto.di.guan.manager.utils.LogUtils;
 
 import java.util.ArrayList;
 
@@ -37,7 +37,6 @@ public class ArticleListFragment extends ListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		manager = getFragmentManager();
-
 		adapter = new MyListAdapter(activity, Entiy.TAB_TITLE);
 		setListAdapter(adapter);
 		fragments.add(new FragmentTab0());

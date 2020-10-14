@@ -249,4 +249,14 @@ public class MessageSend {
         info.setIndex(index);
         send(info);
     }
+
+    /**
+     *   点击事件的activity 事件
+     */
+    public static void doActivityEvent(int index) {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_ACTIVITY);
+        info.setIndex(index);
+        send(info);
+    }
 }

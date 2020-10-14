@@ -2,8 +2,10 @@ package com.auto.di.guan.manager.activity;
 
 import android.view.View;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.GroupStatusAdapter;
 import com.auto.di.guan.manager.adapter.StatusAdapter;
@@ -15,12 +17,15 @@ import com.auto.di.guan.manager.db.sql.GroupInfoSql;
 import com.auto.di.guan.manager.dialog.GroupOptionDialog;
 import com.auto.di.guan.manager.event.AutoTimeEvent;
 import com.auto.di.guan.manager.event.DateChangeEvent;
+import com.auto.di.guan.manager.rtm.MessageEntiy;
 import com.auto.di.guan.manager.rtm.MessageSend;
 import com.auto.di.guan.manager.utils.DiffStatusCallback;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
+
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,12 +88,15 @@ public class GroupStatusActivity extends IBaseActivity {
             }
         });
         recyclerView = (RecyclerView) findViewById(R.id.group_option_view);
-        groupInfos = GroupInfoSql.getJoinGroup();
+
         adapter = new GroupStatusAdapter(groupInfos);
         adapter.setDiffCallback(new DiffStatusCallback());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+        adapter.setData(GroupInfoSql.getJoinGroup());
+
 
         openList = findViewById(R.id.group_option_open);
         openList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false));
@@ -111,7 +119,7 @@ public class GroupStatusActivity extends IBaseActivity {
 //        LogUtils.e(TAG, " 轮灌时间更新");
         GroupInfo groupInfo = event.getGroupInfo();
         int groupId = groupInfo.getGroupId();
-        groupInfos = GroupInfoSql.getJoinGroup();
+
         int size = groupInfos.size();
         int positin = 0;
         for (int i = 0; i < size; i++) {
@@ -131,8 +139,7 @@ public class GroupStatusActivity extends IBaseActivity {
     public void onDateChangeEvent(DateChangeEvent event) {
         LogUtils.e(TAG, " 设备状态数据更--------------------------");
         if (adapter != null) {
-            groupInfos = GroupInfoSql.getJoinGroup();
-            adapter.notifyDataSetChanged();
+            adapter.setData(GroupInfoSql.getJoinGroup());
             initOpenControl();
         }
     }
@@ -148,4 +155,9 @@ public class GroupStatusActivity extends IBaseActivity {
     }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MessageSend.doActivityEvent(MessageEntiy.TYPE_ACTIVITY_STATUS_FINISH);
+    }
 }

@@ -1,5 +1,4 @@
 package com.auto.di.guan.manager.fragment;
-
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -43,14 +42,14 @@ public class FragmentTab2 extends BaseFragment {
 		adapter = new GroupExpandableListViewaAdapter(getActivity(), groupLists);
 		fragment2Expand.setGroupIndicator(null);
 		fragment2Expand.setAdapter(adapter);
-		fragment2Expand.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Intent intent = new Intent(getActivity(), OptionSettingActivity.class);
-				intent.putExtra("id",groupLists.get(position).groupInfo.getGroupId());
-				startActivity(intent);
-			}
-		});
+//		fragment2Expand.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//			@Override
+//			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//				Intent intent = new Intent(getActivity(), OptionSettingActivity.class);
+//				intent.putExtra("id",groupLists.get(position).groupInfo.getGroupId());
+//				startActivity(intent);
+//			}
+//		});
 		initData();
     }
 

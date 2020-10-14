@@ -1,10 +1,8 @@
 package com.auto.di.guan.manager.activity;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -13,7 +11,6 @@ import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.basemodel.presenter.BasePresenter;
 import com.auto.di.guan.manager.entity.CmdStatus;
 import com.auto.di.guan.manager.event.DialogEvent;
-import com.auto.di.guan.manager.event.LoginEvent;
 import com.auto.di.guan.manager.event.UserStatusEvent;
 import com.auto.di.guan.manager.fragment.ArticleListFragment;
 import com.auto.di.guan.manager.rtm.MessageSend;
@@ -165,13 +162,7 @@ public class MainActivity extends IBaseActivity {
     }
 
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onLoginEvent(LoginEvent event) {
-       if (event != null && !event.isLogin()) {
-           ToastUtils.showLongToast("被app端踢下线");
-           MainActivity.this.finish();
-       }
-    }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onDialogEvent(DialogEvent event) {
@@ -179,10 +170,8 @@ public class MainActivity extends IBaseActivity {
             return;
         }
         if (event.isShow()) {
-//            LogUtils.e(TAG, "显示dialog");
             showDialog();
         }else {
-//            LogUtils.e(TAG, "隐藏dialog");
             dismissDialog();
         }
     }

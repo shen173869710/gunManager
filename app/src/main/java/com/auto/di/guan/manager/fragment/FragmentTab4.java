@@ -32,6 +32,11 @@ public class FragmentTab4 extends BaseFragment {
 
     @Override
     public void init() {
+
+		adapter = new GroupExpandableListViewaAdapter31(activity, groupLists);
+		fragment4Expand.setAdapter(adapter);
+		fragment4Expand.setGroupIndicator(null);
+
 		groupInfos = BaseApp.getGroupInfos();
 		groupLists.clear();
 		int size = groupInfos.size();
@@ -49,9 +54,7 @@ public class FragmentTab4 extends BaseFragment {
 				adapter.setData(groupLists);
 			}
 		}
-		adapter = new GroupExpandableListViewaAdapter31(activity, groupLists);
-		fragment4Expand.setAdapter(adapter);
-		fragment4Expand.setGroupIndicator(null);
+
     }
 
 	@Override

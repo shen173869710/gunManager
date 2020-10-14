@@ -15,7 +15,6 @@ import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.User;
 import com.auto.di.guan.manager.rtm.ChatManager;
-import com.auto.di.guan.manager.utils.CrashHandler;
 import com.auto.di.guan.manager.utils.FloatWindowUtil;
 import com.auto.di.guan.manager.utils.GsonUtil;
 import com.auto.di.guan.manager.utils.LogUtils;
@@ -86,9 +85,6 @@ public class BaseApp extends Application {
     }
 
 
-
-
-
     public void exit() {
         new Timer().schedule(new TimerTask() {
             @Override
@@ -97,8 +93,6 @@ public class BaseApp extends Application {
             }
         }, 200);
     }
-
-
 
 
     /**

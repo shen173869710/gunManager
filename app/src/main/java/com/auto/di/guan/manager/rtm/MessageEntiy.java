@@ -55,6 +55,10 @@ public class MessageEntiy {
      *   tab点击事件
      */
     public static final int TYPE_CLICK = 999999;
-
-
+    /**
+     *   Activity 跳转
+     */
+    public static final int TYPE_ACTIVITY = 10000000;
+    public static final int TYPE_ACTIVITY_STATUS_START = 100000001;
+    public static final int TYPE_ACTIVITY_STATUS_FINISH = 100000002;
 }
