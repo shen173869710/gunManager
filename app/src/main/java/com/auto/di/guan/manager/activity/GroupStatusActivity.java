@@ -5,7 +5,6 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.GroupStatusAdapter;
 import com.auto.di.guan.manager.adapter.StatusAdapter;
@@ -22,10 +21,8 @@ import com.auto.di.guan.manager.rtm.MessageSend;
 import com.auto.di.guan.manager.utils.DiffStatusCallback;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
-
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
 import java.util.List;
 
