@@ -1,7 +1,6 @@
 package com.auto.di.guan.manager.fragment;
 
 import android.widget.ExpandableListView;
-
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.GroupExpandableListViewaAdapter31;
 import com.auto.di.guan.manager.app.BaseApp;

@@ -11,7 +11,6 @@ import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.basemodel.presenter.BasePresenter;
 import com.auto.di.guan.manager.basemodel.view.BaseView;
 import com.auto.di.guan.manager.dialog.LoadingDialog;
-import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.event.LoginEvent;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.ToastUtils;
