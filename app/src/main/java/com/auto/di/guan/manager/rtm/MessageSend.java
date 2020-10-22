@@ -132,9 +132,10 @@ public class MessageSend {
     /**
      *        自动轮灌下一组
      */
-    public static void doAutoNext() {
+    public static void doAutoNext(GroupInfo groupInfo) {
         MessageInfo info = new MessageInfo();
         info.setType(MessageEntiy.TYPE_AUTO_NEXT);
+        info.setGroupInfo(groupInfo);
         send(info);
     }
 

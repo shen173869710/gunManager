@@ -162,7 +162,7 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
                     ToastUtils.showLongToast("自动查询操作当中，请稍后");
                     return;
                 }
-                MessageSend.doAutoNext();
+                MessageSend.doAutoNext(info);
             }
         });
 

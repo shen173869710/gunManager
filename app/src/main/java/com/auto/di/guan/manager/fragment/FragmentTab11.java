@@ -32,6 +32,6 @@ public class FragmentTab11 extends BaseFragment {
 
     @OnClick(R.id.exit)
     public void onViewClicked() {
-//        getActivity().finish();
+        getActivity().finish();
     }
 }
