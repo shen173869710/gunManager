@@ -144,12 +144,12 @@ public class MainActivity extends IBaseActivity {
     public void onUserStatusEvent(UserStatusEvent event) {
         String currentId = BaseApp.getInstance().getChatManager().getLoginId();
         LogUtils.e(TAG, "当前登录的 id = "+currentId+ "离线用户的id = "+event.getPeerId());
-        if (!TextUtils.isEmpty(currentId) && currentId.equals(event.getPeerId())){
+        if (String.valueOf(currentId).equals(event.getPeerId())){
             if (event.getStatus() == 0) {
                 LogUtils.e(TAG, "用户处于登录状态");
             }else {
                 ToastUtils.showLongToast("用户处于离线状态");
-                BaseApp.getInstance().getChatManager().setLoginId("");
+//                BaseApp.getInstance().getChatManager().setLoginId("");
                 MainActivity.this.finish();
             }
         }

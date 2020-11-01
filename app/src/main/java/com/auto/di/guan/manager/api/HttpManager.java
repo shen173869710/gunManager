@@ -167,4 +167,51 @@ public class HttpManager {
             return Observable.error(FactoryException.analysisExcetpion(throwable));
         }
     };
+
+
+    public static void syncData(Observable observable, final OnResultListener onResultListener) {
+        DisposableObserver disposableObserver = new DisposableObserver() {
+            @Override
+            public void onNext(Object obj) {
+                try {
+                    if (!isDisposed()) {
+                        BaseRespone respone = (BaseRespone) obj;
+                        if (null == respone) {
+                            onResultListener.onError(new Exception(), 500, GlobalConstant.SERVER_ERROR);
+                        } else {
+                            if (respone.isOk()) {
+                                onResultListener.onSuccess(respone);
+                            } else {
+                                String message = respone.getMessage();
+                                if (TextUtils.isEmpty(message)) {
+                                    message = "网络开小差,请重试";
+                                }
+                                onResultListener.onError(new Exception(), respone.getCode(), message);
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LogUtils.e(TAG, "onError===" + e.toString());
+            }
+
+            @Override
+            public void onComplete() {
+                if (!isDisposed()) {
+                    dispose();
+                }
+            }
+        };
+
+        observable.subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .onErrorResumeNext(funcException)
+                .observeOn(AndroidSchedulers.mainThread())
+                .onTerminateDetach()// 当执行了d.dispose()方法后将解除上下游的引用
+                .subscribeWith(disposableObserver);
+    }
 }

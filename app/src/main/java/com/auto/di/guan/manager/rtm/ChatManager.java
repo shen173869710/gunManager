@@ -65,8 +65,9 @@ public class ChatManager {
 //                        }
 //                    }
                     LogUtils.e(TAG, "onMessageReceived   peerid = "+peerId + "message" +rtmMessage.getText());
-                    MessageParse.praseData(rtmMessage.getText(), peerId);
                     EventBus.getDefault().post(new DialogEvent(false));
+                    MessageParse.praseData(rtmMessage.getText(), peerId);
+
                 }
 
                 @Override
@@ -193,7 +194,9 @@ public class ChatManager {
         message.setText(content);
         SendMessageOptions option = new SendMessageOptions();
         option.enableOfflineMessaging = false;
-        mRtmClient.sendMessageToPeer(loginId, message, option, new ResultCallback<Void>() {
+
+        LogUtils.e(TAG, "loginId = "+loginId);
+        mRtmClient.sendMessageToPeer(String.valueOf(loginId), message, option, new ResultCallback<Void>() {
 
             @Override
             public void onSuccess(Void aVoid) {
@@ -221,6 +224,7 @@ public class ChatManager {
 
             @Override
             public void onSuccess(Void aVoid) {
+                BaseApp.setLoginId(id);
                 setLoginId(id);
                 LogUtils.e(TAG, "sendPeerMessage : onSuccess");
             }

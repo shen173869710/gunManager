@@ -47,6 +47,10 @@ public class BaseApp extends Application {
 
     private static Context mContext=null;//上下文
 
+    private static String loginId;
+
+
+
     private static ArrayList<GroupInfo> groupInfos = new ArrayList<>();
 
     @Override
@@ -87,6 +91,13 @@ public class BaseApp extends Application {
         }, 200);
     }
 
+    public static String getLoginId() {
+        return loginId;
+    }
+
+    public static void setLoginId(String loginId) {
+        BaseApp.loginId = loginId;
+    }
 
     /**
      * 判断网络是否连接

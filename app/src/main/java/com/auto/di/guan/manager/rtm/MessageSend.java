@@ -16,11 +16,6 @@ public class MessageSend {
         BaseApp.getInstance().getChatManager().sendPeerMessage(info.toJson());
     }
 
-
-    public static void send(MessageInfo info, String loginId) {
-        BaseApp.getInstance().getChatManager().sendLoginPeerMessage(loginId,info.toJson());
-    }
-
     /**
      *  登录
      */
@@ -28,7 +23,7 @@ public class MessageSend {
         MessageInfo info  = new MessageInfo();
         info.setType(MessageEntiy.TYPE_LOGIN);
         info.setManagerId(BaseApp.getUser().getUserId());
-        send(info,loginId);
+        BaseApp.getInstance().getChatManager().sendLoginPeerMessage(loginId,info.toJson());
     }
 
     /**

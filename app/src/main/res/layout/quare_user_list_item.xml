@@ -6,7 +6,6 @@
     android:descendantFocusability="blocksDescendants"
     android:gravity="center"
     android:orientation="vertical" >
-
     <LinearLayout
         android:id="@+id/quare_user_layout"
         android:layout_width="fill_parent"

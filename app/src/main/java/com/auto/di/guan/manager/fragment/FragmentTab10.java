@@ -4,19 +4,33 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.QuareUserAdapter;
+import com.auto.di.guan.manager.api.ApiUtil;
+import com.auto.di.guan.manager.api.HttpManager;
+import com.auto.di.guan.manager.app.BaseApp;
+import com.auto.di.guan.manager.basemodel.model.request.BaseRequest;
+import com.auto.di.guan.manager.basemodel.model.respone.BaseRespone;
 import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.User;
 import com.auto.di.guan.manager.db.UserAction;
+import com.auto.di.guan.manager.db.sql.GroupInfoSql;
 import com.auto.di.guan.manager.dialog.MainChooseDialog;
 import com.auto.di.guan.manager.dialog.MainChooseIdDialog;
 import com.auto.di.guan.manager.entity.Entiy;
+import com.auto.di.guan.manager.entity.TableDataInfo;
 import com.auto.di.guan.manager.event.DateChangeEvent;
+import com.auto.di.guan.manager.rtm.ChatManager;
+import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 import butterknife.BindView;
 
@@ -27,7 +41,7 @@ public class FragmentTab10 extends BaseFragment {
 	@BindView(R.id.querybyid)
 	TextView querybyid;
 	@BindView(R.id.querylistview)
-	ListView querylistview;
+	RecyclerView querylistview;
 
 	private QuareUserAdapter adapter;
 	private List<User> users = new ArrayList<>();
@@ -125,6 +139,7 @@ public class FragmentTab10 extends BaseFragment {
 				if (NoFastClickUtils.isFastClick()) {
 					return;
 				}
+				int actionStatus = -1;
 				int type = 0;
 				switch (chooseDialog.currentItem) {
 					case 0:
@@ -141,9 +156,10 @@ public class FragmentTab10 extends BaseFragment {
 						break;
 					case 4:
 						type = Entiy.ACTION_TYPE_ERROR;
+						actionStatus = 0;
 						break;
 				}
-				showListByType(type);
+				showListByType(type, actionStatus);
 				chooseDialog.dismiss();
 			}
 
@@ -163,7 +179,7 @@ public class FragmentTab10 extends BaseFragment {
 //		showEnd(action);
 	}
 
-	private void showListByType(int type) {
+	private void showListByType(int type, int actionStatus) {
 //		List<UserAction>action= new ArrayList<>();
 //		if (type == 0) {
 //			action	= UserActionSql.queryUserActionlList();
@@ -176,6 +192,7 @@ public class FragmentTab10 extends BaseFragment {
 //
 //		}
 //		showEnd(action);
+		syncData(type, actionStatus);
 	}
 
 	private void showChooseListByTime(int type) {
@@ -214,7 +231,8 @@ public class FragmentTab10 extends BaseFragment {
 
 	@Override
 	public void init() {
-		adapter = new QuareUserAdapter(getActivity(), userActions);
+		adapter = new QuareUserAdapter(userActions);
+		querylistview.setLayoutManager(new LinearLayoutManager(getActivity()));
 		querylistview.setAdapter(adapter);
 
 		querybytime.setOnClickListener(new View.OnClickListener() {
@@ -236,10 +254,46 @@ public class FragmentTab10 extends BaseFragment {
 				showChooseIdDialog(querybyid);
 			}
 		});
+		syncData(0, -1);
 	}
 
 	@Override
 	public void dataChange(DateChangeEvent event) {
+
+	}
+
+
+
+	/**
+	 *  数据同步
+	 */
+	public void syncData(int actionType, int actionStatus) {
+		TreeMap<String, Object> treeMap = new TreeMap<>();
+		treeMap.put("userId", Integer.valueOf(BaseApp.getLoginId()));
+		if (actionStatus == -1) {
+			treeMap.put("actionType",actionType);
+		}else {
+			treeMap.put("actionStatus",actionStatus);
+		}
+		HttpManager.syncData(ApiUtil.createApiService().getActions(BaseRequest.toMerchantTreeMap(treeMap)), new HttpManager.OnResultListener() {
+			@Override
+			public void onSuccess(BaseRespone t) {
+				LogUtils.e("TAG", "获取数据成");
+				if (t != null && t.getData() != null) {
+
+					TableDataInfo info = (TableDataInfo) t.getData();
+					if (info != null && info.getRows() != null) {
+						showEnd(info.getRows());
+					}
+
+				}
+			}
+
+			@Override
+			public void onError(Throwable error, Integer code, String msg) {
+				LogUtils.e("TAG", "获取数据失败");
+			}
+		});
 
 	}
 

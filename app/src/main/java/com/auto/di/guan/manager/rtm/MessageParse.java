@@ -38,7 +38,7 @@ public class MessageParse {
                     BaseApp.setGroupInfos(info.getGroupInfos());
                     Entiy.GRID_COLUMNS = info.getCloumn();
                     EventBus.getDefault().post(new LoginEvent(true));
-                    BaseApp.getInstance().getChatManager().setLoginId(peerId);
+                    BaseApp.getInstance().getChatManager().setLoginId(String.valueOf(peerId));
                 }
                 break;
             case MessageEntiy.TYPE_LOGOUT:
