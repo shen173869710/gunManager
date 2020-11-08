@@ -11,8 +11,9 @@ import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.basemodel.presenter.BasePresenter;
 import com.auto.di.guan.manager.basemodel.view.BaseView;
 import com.auto.di.guan.manager.dialog.LoadingDialog;
-import com.auto.di.guan.manager.entity.Entiy;
+import com.auto.di.guan.manager.event.LoginEvent;
 import com.auto.di.guan.manager.utils.LogUtils;
+import com.auto.di.guan.manager.utils.ToastUtils;
 import com.trello.rxlifecycle3.LifecycleTransformer;
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
 
@@ -44,7 +45,6 @@ public abstract class IBaseActivity<T extends BasePresenter> extends RxAppCompat
 		if (mPresenter != null) {
 			mPresenter.attachView(this);
 		}
-
 		init();
 	}
 
@@ -129,5 +129,13 @@ public abstract class IBaseActivity<T extends BasePresenter> extends RxAppCompat
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	public void test(Object event) {
 
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onLoginEvent(LoginEvent event) {
+		if (event != null && !event.isLogin() && !(this instanceof ManagerActivity)) {
+			ToastUtils.showLongToast("被app端踢下线");
+			finish();
+		}
 	}
 }

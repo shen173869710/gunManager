@@ -7,22 +7,18 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.text.TextUtils;
-
 import androidx.multidex.MultiDex;
-
 import com.auto.di.guan.manager.basemodel.model.respone.LoginRespone;
 import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.User;
 import com.auto.di.guan.manager.rtm.ChatManager;
-import com.auto.di.guan.manager.utils.CrashHandler;
 import com.auto.di.guan.manager.utils.FloatWindowUtil;
 import com.auto.di.guan.manager.utils.GsonUtil;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.SPUtils;
 import com.facebook.stetho.Stetho;
 import com.tencent.bugly.crashreport.CrashReport;
-
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
@@ -51,6 +47,10 @@ public class BaseApp extends Application {
 
     private static Context mContext=null;//上下文
 
+    private static String loginId;
+
+
+
     private static ArrayList<GroupInfo> groupInfos = new ArrayList<>();
 
     @Override
@@ -61,16 +61,12 @@ public class BaseApp extends Application {
         Stetho.initializeWithDefaults(this);
         LogUtils.setFilterLevel(LogUtils.ALL);
         FloatWindowUtil.getInstance().initFloatWindow(this);
-
-
 //        CrashHandler.getInstance().init(this);
         CrashReport.initCrashReport(getApplicationContext(), "cc201614d7", true);
 
         mChatManager = new ChatManager(this);
         mChatManager.init();
     }
-
-
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -86,9 +82,6 @@ public class BaseApp extends Application {
     }
 
 
-
-
-
     public void exit() {
         new Timer().schedule(new TimerTask() {
             @Override
@@ -98,8 +91,13 @@ public class BaseApp extends Application {
         }, 200);
     }
 
+    public static String getLoginId() {
+        return loginId;
+    }
 
-
+    public static void setLoginId(String loginId) {
+        BaseApp.loginId = loginId;
+    }
 
     /**
      * 判断网络是否连接

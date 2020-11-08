@@ -38,7 +38,7 @@ public class MessageParse {
                     BaseApp.setGroupInfos(info.getGroupInfos());
                     Entiy.GRID_COLUMNS = info.getCloumn();
                     EventBus.getDefault().post(new LoginEvent(true));
-                    BaseApp.getInstance().getChatManager().setLoginId(peerId);
+                    BaseApp.getInstance().getChatManager().setLoginId(String.valueOf(peerId));
                 }
                 break;
             case MessageEntiy.TYPE_LOGOUT:
@@ -68,15 +68,35 @@ public class MessageParse {
                 break;
             case MessageEntiy.TYPE_AUTO_OPEN:
                 LogUtils.e(TAG, "自动轮灌开启成功");
+                // 单组自动轮灌 下一组
+                if (info.getGroupInfos() != null && info.getDeviceInfos() != null) {
+                    dealAuto(info.getDeviceInfos(), info.getGroupInfos());
+                }
+                break;
                 // 单组自动轮灌开
             case MessageEntiy.TYPE_AUTO_CLOSE:
                 LogUtils.e(TAG, "自动轮灌关闭成功");
+                // 单组自动轮灌 下一组
+                if (info.getGroupInfos() != null && info.getDeviceInfos() != null) {
+                    dealAuto(info.getDeviceInfos(), info.getGroupInfos());
+                }
+                break;
                 // 单组自动轮灌 开始
             case MessageEntiy.TYPE_AUTO_START:
                 LogUtils.e(TAG, "自动轮灌开始成功");
+                // 单组自动轮灌 下一组
+                if (info.getGroupInfos() != null && info.getDeviceInfos() != null) {
+                    dealAuto(info.getDeviceInfos(), info.getGroupInfos());
+                }
+                break;
                 // 单组自动轮灌 暂停
             case MessageEntiy.TYPE_AUTO_STOP:
                 LogUtils.e(TAG, "自动轮灌暂停成功");
+                // 单组自动轮灌 下一组
+                if (info.getGroupInfos() != null && info.getDeviceInfos() != null) {
+                    dealAuto(info.getDeviceInfos(), info.getGroupInfos());
+                }
+                break;
                 // 单组自动轮灌 开始
             case MessageEntiy.TYPE_AUTO_NEXT:
                 LogUtils.e(TAG, "自动轮灌下一组成功");
@@ -86,6 +106,13 @@ public class MessageParse {
                 }
                 break;
             case MessageEntiy.TYPE_AUTO_TIME:
+                LogUtils.e(TAG, "自动轮灌设置时间成功");
+                // 单组自动轮灌 下一组
+                if (info.getGroupInfos() != null && info.getDeviceInfos() != null) {
+                    dealAuto(info.getDeviceInfos(), info.getGroupInfos());
+                }
+                break;
+            case MessageEntiy.TYPE_TIME_COUNT:
                 if (info.getGroupInfo() != null) {
                     dealAutoTime(info.getGroupInfo());
                 }

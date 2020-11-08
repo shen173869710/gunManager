@@ -12,6 +12,8 @@ import com.auto.di.guan.manager.db.GroupList;
 import com.auto.di.guan.manager.db.sql.ControlInfoSql;
 import com.auto.di.guan.manager.db.sql.GroupInfoSql;
 import com.auto.di.guan.manager.event.DateChangeEvent;
+import com.auto.di.guan.manager.rtm.MessageEntiy;
+import com.auto.di.guan.manager.rtm.MessageSend;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +52,7 @@ public class FragmentTab5 extends BaseFragment {
 			return;
 		}
 		activity.startActivity(new Intent(activity, GroupStatusActivity.class));
+		MessageSend.doActivityEvent(MessageEntiy.TYPE_ACTIVITY_STATUS_START);
 	}
 
 	private void initData() {

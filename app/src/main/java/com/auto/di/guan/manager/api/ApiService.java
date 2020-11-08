@@ -3,9 +3,11 @@ package com.auto.di.guan.manager.api;
 
 import com.auto.di.guan.manager.basemodel.model.respone.BaseRespone;
 import com.auto.di.guan.manager.basemodel.model.respone.LoginRespone;
+import com.auto.di.guan.manager.db.UserAction;
+import com.auto.di.guan.manager.entity.TableDataInfo;
 
+import java.util.List;
 import java.util.Map;
-
 import io.reactivex.Observable;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -22,4 +24,13 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/api/user/group/login")
     Observable<BaseRespone<LoginRespone>> login(@FieldMap Map<String, Object> map);
+    /**
+     *  获取用户操作信息
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/project/perationlist")
+    Observable<BaseRespone<TableDataInfo>> getActions(@FieldMap Map<String, Object> map);
+
+
 }

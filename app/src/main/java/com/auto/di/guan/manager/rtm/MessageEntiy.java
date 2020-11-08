@@ -1,7 +1,6 @@
 package com.auto.di.guan.manager.rtm;
 
 public class MessageEntiy {
-
     // 登录
     public static final int TYPE_LOGIN = 1;
     // 登出
@@ -26,11 +25,10 @@ public class MessageEntiy {
     public static final int TYPE_AUTO_CLOSE = 11;
     // 单组自动轮灌 下一组
     public static final int TYPE_AUTO_NEXT = 12;
-    // 单组自动轮灌 下一组
+    // 单组自动轮灌 设置时间
     public static final int TYPE_AUTO_TIME = 13;
     // 自动轮灌 设备状态
     public static final int TYPE_AUTO_STATUS = 14;
-
     // 创建分组
     public static final int TYPE_CREATE_GROUP = 20;
     // 解散所有分组
@@ -53,4 +51,19 @@ public class MessageEntiy {
     // 轮灌操作相关信息
     public static final int TYPE_MESSAGE = 100;
 
+
+    /**
+     *  自动轮灌 时间同步
+     */
+    public static final int TYPE_TIME_COUNT = 8888888;
+    /**
+     *   tab点击事件
+     */
+    public static final int TYPE_CLICK = 999999;
+    /**
+     *   Activity 跳转
+     */
+    public static final int TYPE_ACTIVITY = 10000000;
+    public static final int TYPE_ACTIVITY_STATUS_START = 100000001;
+    public static final int TYPE_ACTIVITY_STATUS_FINISH = 100000002;
 }

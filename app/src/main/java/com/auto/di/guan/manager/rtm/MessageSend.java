@@ -16,11 +16,6 @@ public class MessageSend {
         BaseApp.getInstance().getChatManager().sendPeerMessage(info.toJson());
     }
 
-
-    public static void send(MessageInfo info, String loginId) {
-        BaseApp.getInstance().getChatManager().sendLoginPeerMessage(loginId,info.toJson());
-    }
-
     /**
      *  登录
      */
@@ -28,7 +23,7 @@ public class MessageSend {
         MessageInfo info  = new MessageInfo();
         info.setType(MessageEntiy.TYPE_LOGIN);
         info.setManagerId(BaseApp.getUser().getUserId());
-        send(info,loginId);
+        BaseApp.getInstance().getChatManager().sendLoginPeerMessage(loginId,info.toJson());
     }
 
     /**
@@ -132,9 +127,10 @@ public class MessageSend {
     /**
      *        自动轮灌下一组
      */
-    public static void doAutoNext() {
+    public static void doAutoNext(GroupInfo groupInfo) {
         MessageInfo info = new MessageInfo();
         info.setType(MessageEntiy.TYPE_AUTO_NEXT);
+        info.setGroupInfo(groupInfo);
         send(info);
     }
 
@@ -239,4 +235,24 @@ public class MessageSend {
         send(info);
     }
 
+
+    /***
+     *    点击事件
+     */
+    public static void doClickEvent(int index) {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_CLICK);
+        info.setIndex(index);
+        send(info);
+    }
+
+    /**
+     *   点击事件的activity 事件
+     */
+    public static void doActivityEvent(int index) {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_ACTIVITY);
+        info.setIndex(index);
+        send(info);
+    }
 }

@@ -1,7 +1,6 @@
 package com.auto.di.guan.manager.fragment;
 
 import android.widget.ExpandableListView;
-
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.GroupExpandableListViewaAdapter31;
 import com.auto.di.guan.manager.app.BaseApp;
@@ -32,6 +31,11 @@ public class FragmentTab4 extends BaseFragment {
 
     @Override
     public void init() {
+
+		adapter = new GroupExpandableListViewaAdapter31(activity, groupLists);
+		fragment4Expand.setAdapter(adapter);
+		fragment4Expand.setGroupIndicator(null);
+
 		groupInfos = BaseApp.getGroupInfos();
 		groupLists.clear();
 		int size = groupInfos.size();
@@ -49,9 +53,7 @@ public class FragmentTab4 extends BaseFragment {
 				adapter.setData(groupLists);
 			}
 		}
-		adapter = new GroupExpandableListViewaAdapter31(activity, groupLists);
-		fragment4Expand.setAdapter(adapter);
-		fragment4Expand.setGroupIndicator(null);
+
     }
 
 	@Override

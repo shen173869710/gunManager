@@ -1,10 +1,8 @@
 package com.auto.di.guan.manager.activity;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -13,7 +11,6 @@ import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.basemodel.presenter.BasePresenter;
 import com.auto.di.guan.manager.entity.CmdStatus;
 import com.auto.di.guan.manager.event.DialogEvent;
-import com.auto.di.guan.manager.event.LoginEvent;
 import com.auto.di.guan.manager.event.UserStatusEvent;
 import com.auto.di.guan.manager.fragment.ArticleListFragment;
 import com.auto.di.guan.manager.rtm.MessageSend;
@@ -147,12 +144,12 @@ public class MainActivity extends IBaseActivity {
     public void onUserStatusEvent(UserStatusEvent event) {
         String currentId = BaseApp.getInstance().getChatManager().getLoginId();
         LogUtils.e(TAG, "当前登录的 id = "+currentId+ "离线用户的id = "+event.getPeerId());
-        if (!TextUtils.isEmpty(currentId) && currentId.equals(event.getPeerId())){
+        if (String.valueOf(currentId).equals(event.getPeerId())){
             if (event.getStatus() == 0) {
                 LogUtils.e(TAG, "用户处于登录状态");
             }else {
                 ToastUtils.showLongToast("用户处于离线状态");
-                BaseApp.getInstance().getChatManager().setLoginId("");
+//                BaseApp.getInstance().getChatManager().setLoginId("");
                 MainActivity.this.finish();
             }
         }
@@ -165,25 +162,16 @@ public class MainActivity extends IBaseActivity {
     }
 
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onLoginEvent(LoginEvent event) {
-       if (event != null && !event.isLogin()) {
-           ToastUtils.showLongToast("被app端踢下线");
-           MainActivity.this.finish();
-       }
-    }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onDialogEvent(DialogEvent event) {
         if (event == null) {
             return;
         }
-
         if (event.isShow()) {
-//            LogUtils.e(TAG, "显示dialog");
-            showWaitingDialog("");
+            showDialog();
         }else {
-//            LogUtils.e(TAG, "隐藏dialog");
             dismissDialog();
         }
     }

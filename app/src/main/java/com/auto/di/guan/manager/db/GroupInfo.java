@@ -20,69 +20,103 @@ public class GroupInfo implements Serializable {
     /** 已经运行的时间**/
     private int groupRunTime;
     // 是否参与轮灌设置
-    private boolean groupIsJoin;
+    private int groupIsJoin;
     /**轮灌是否已经暂停计时**/
-    private boolean groupStop;
+    private int groupStop;
 
     public Long getId() {
-        return this.id;
+        return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
+
     public int getGroupId() {
-        return this.groupId;
+        return groupId;
     }
+
     public void setGroupId(int groupId) {
         this.groupId = groupId;
     }
+
     public String getGroupName() {
-        return this.groupName;
+        return groupName;
     }
+
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
+
     public int getGroupStatus() {
-        return this.groupStatus;
+        return groupStatus;
     }
+
     public void setGroupStatus(int groupStatus) {
         this.groupStatus = groupStatus;
     }
+
     public int getGroupImage() {
-        return this.groupImage;
+        return groupImage;
     }
+
     public void setGroupImage(int groupImage) {
         this.groupImage = groupImage;
     }
+
     public int getGroupLevel() {
-        return this.groupLevel;
+        return groupLevel;
     }
+
     public void setGroupLevel(int groupLevel) {
         this.groupLevel = groupLevel;
     }
+
     public int getGroupTime() {
-        return this.groupTime;
+        return groupTime;
     }
+
     public void setGroupTime(int groupTime) {
         this.groupTime = groupTime;
     }
+
     public int getGroupRunTime() {
-        return this.groupRunTime;
+        return groupRunTime;
     }
+
     public void setGroupRunTime(int groupRunTime) {
         this.groupRunTime = groupRunTime;
     }
+
     public boolean getGroupIsJoin() {
-        return this.groupIsJoin;
-    }
-    public void setGroupIsJoin(boolean groupIsJoin) {
-        this.groupIsJoin = groupIsJoin;
-    }
-    public boolean getGroupStop() {
-        return this.groupStop;
-    }
-    public void setGroupStop(boolean groupStop) {
-        this.groupStop = groupStop;
+        if (groupIsJoin == 1) {
+            return true;
+        }else {
+            return false;
+        }
     }
 
+    public void setGroupIsJoin(boolean groupIsJoin) {
+        if (groupIsJoin) {
+            this.groupIsJoin = 1;
+        }else {
+            this.groupIsJoin = 0;
+        }
+    }
+
+    public boolean getGroupStop() {
+        if (groupStop == 1) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public void setGroupStop(boolean groupStop) {
+        if (groupStop) {
+            this.groupStop = 1;
+        }else {
+            this.groupStop = 0;
+        }
+    }
 }

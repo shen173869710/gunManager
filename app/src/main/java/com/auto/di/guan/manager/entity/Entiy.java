@@ -1,12 +1,13 @@
 package com.auto.di.guan.manager.entity;
 
+import android.text.TextUtils;
+
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.utils.LogUtils;
-
+import com.auto.di.guan.manager.utils.ToastUtils;
 /**
  * Created by Administrator on 2017/7/16.
  */
-
 public class Entiy {
     /*设置项目的行数*/
     public static final int GUN_ROW = 16;
@@ -117,16 +118,21 @@ public class Entiy {
 //    };
 
     public static String []TAB_TITLE = {
-            "减阀状态",
+            "阀门状态",
             "轮灌分组",
             "轮灌设置",
+
             "单个操作",
             "单组操作",
             "自动轮灌",
-            "操作信息",
+
             "水泵控制",
             "农田信息",
-            "视频监控"
+            "视频监控",
+
+            "施肥管理",
+            "操作信息",
+            "退出登录"
     };
 
     /**
@@ -333,38 +339,53 @@ public class Entiy {
     public static String PEER_MESSAGE_ERR_USER_NOT_LOGGED_IN_VALUE = "发送点对点消息前未调用 login 方法或者 login 方法调用未成功";
 
     public static void onPeerError(String TAG,int code) {
+
+        String error = "";
         switch (code) {
             case 0:
                 LogUtils.e(TAG, PEER_MESSAGE_ERR_OK_VALUE);
+                error = PEER_MESSAGE_ERR_OK_VALUE;
                 break;
             case 1:
                 LogUtils.e(TAG, PEER_MESSAGE_ERR_FAILURE_VALUE);
+                error = PEER_MESSAGE_ERR_FAILURE_VALUE;
                 break;
             case 2:
                 LogUtils.e(TAG, PEER_MESSAGE_ERR_TIMEOUT_VALUE);
+                error = PEER_MESSAGE_ERR_TIMEOUT_VALUE;
                 break;
             case 3:
                 LogUtils.e(TAG, PEER_MESSAGE_ERR_PEER_UNREACHABLE_VALUE);
+                error = PEER_MESSAGE_ERR_PEER_UNREACHABLE_VALUE;
                 break;
             case 4:
                 LogUtils.e(TAG, PEER_MESSAGE_ERR_CACHED_BY_SERVER_VALUE);
+                error = PEER_MESSAGE_ERR_CACHED_BY_SERVER_VALUE;
                 break;
             case 5:
                 LogUtils.e(TAG, PEER_MESSAGE_ERR_TOO_OFTEN_VALUE);
+                error = PEER_MESSAGE_ERR_TOO_OFTEN_VALUE;
                 break;
             case 6:
                 LogUtils.e(TAG, PEER_MESSAGE_ERR_INVALID_USERID_VALUE);
+                error = PEER_MESSAGE_ERR_INVALID_USERID_VALUE;
                 break;
             case 7:
                 LogUtils.e(TAG, PEER_MESSAGE_ERR_INVALID_MESSAGE_VALUE);
+                error = PEER_MESSAGE_ERR_INVALID_MESSAGE_VALUE;
                 break;
             case 101:
                 LogUtils.e(TAG, PEER_MESSAGE_ERR_NOT_INITIALIZED_VALUE);
+                error = PEER_MESSAGE_ERR_NOT_INITIALIZED_VALUE;
                 break;
             case 102:
                 LogUtils.e(TAG, PEER_MESSAGE_ERR_USER_NOT_LOGGED_IN_VALUE);
+                error = PEER_MESSAGE_ERR_USER_NOT_LOGGED_IN_VALUE;
                 break;
+        }
 
+        if (!TextUtils.isEmpty(error)) {
+            ToastUtils.showLongToast(error);
         }
     }
 

@@ -36,7 +36,7 @@ public class UserAction {
     /**执行操作的描述**/
     private String actionTypeName;
     /**执行操作的状态**/
-    private boolean actionStatus;
+    private int actionStatus;
     /**执行操作的状态显示的内容**/
     private String actionStatusName;
     private String userName;
@@ -96,10 +96,18 @@ public class UserAction {
         this.actionTypeName = actionTypeName;
     }
     public boolean getActionStatus() {
-        return this.actionStatus;
+        if (this.actionStatus == 1) {
+            return true;
+        }else {
+            return false;
+        }
     }
     public void setActionStatus(boolean actionStatus) {
-        this.actionStatus = actionStatus;
+        if (actionStatus) {
+            this.actionStatus = 1;
+        }else {
+            this.actionStatus = 0;
+        }
     }
     public String getActionStatusName() {
         return this.actionStatusName;
