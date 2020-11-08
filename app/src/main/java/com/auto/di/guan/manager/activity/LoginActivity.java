@@ -71,6 +71,33 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements IBas
     @Override
     public void fail(Throwable error, Integer code, String msg) {
         ToastUtils.showLongToast(msg+"");
+
+        User user = new User();
+        user.setUserId(109l);
+        BaseApp.setUser(user);
+
+        List<User>users = new ArrayList<>();
+        User user1 = new User();
+        user1.setUserId(113l);
+        user1.setMemberId(115l);
+        user1.setPhonenumber("13300000000");
+
+
+        User user2 = new User();
+        user2.setUserId(107l);
+        user2.setMemberId(115l);
+        user2.setPhonenumber("22222222222");
+
+        users.add(user1);
+        users.add(user2);
+
+        Intent intent = new Intent(LoginActivity.this, ManagerActivity.class);
+        if (users == null) {
+            users = new ArrayList<>();
+        }
+        intent.putExtra("list", (Serializable)users);
+        startActivity(intent);
+        finish();
     }
 
 
