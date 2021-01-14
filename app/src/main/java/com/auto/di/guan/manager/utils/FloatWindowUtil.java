@@ -8,6 +8,7 @@ import android.view.View;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.auto.di.guan.manager.activity.GroupStatusActivity;
 import com.auto.di.guan.manager.activity.MainActivity;
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.DialogListViewAdapter;
@@ -85,7 +86,7 @@ public class FloatWindowUtil {
                     .setX(Screen.width,0.4f)
                     .setY(Screen.height,0.5f)
                     .setDesktopShow(true)
-                    .setFilter(true, MainActivity.class)
+                    .setFilter(true, MainActivity.class, GroupStatusActivity.class)
                     .setMoveType(MoveType.active)
                     .setTag(TAG)
                     .build();

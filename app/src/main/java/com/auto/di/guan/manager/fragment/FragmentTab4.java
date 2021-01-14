@@ -63,8 +63,8 @@ public class FragmentTab4 extends BaseFragment {
 			return;
 		}
 		init();
-		if (event.getPostion() >= 0 && fragment4Expand != null) {
-			fragment4Expand.expandGroup(event.getPostion());
-		}
+//		if (event.getPostion() >= 0 && fragment4Expand != null) {
+//			fragment4Expand.expandGroup(event.getPostion());
+//		}
 	}
 }
