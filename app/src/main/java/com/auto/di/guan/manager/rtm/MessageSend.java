@@ -116,7 +116,7 @@ public class MessageSend {
     }
 
     /**
-     *        自动轮灌开始
+     *        自动轮灌关闭
      */
     public static void doAutoClose() {
         MessageInfo info = new MessageInfo();
