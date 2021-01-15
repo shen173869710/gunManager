@@ -304,7 +304,7 @@ public class DialogManager {
 	 * @param title
 	 */
 	private void setButton(String title) {
-		builder.setTitle(title).setIcon(R.drawable.ic_launcher_foreground)
+		builder.setTitle(title).setIcon(R.drawable.ic_launcher)
 				.setPositiveButton("好", new positiveListener())
 				.setNeutralButton("中", new NeutralListener())
 				.setNegativeButton("差", new NegativeListener());
@@ -341,6 +341,6 @@ public class DialogManager {
 	}
 
 	private void showToast(String msg) {
-		Toast.makeText(mContext, msg, 0).show();
+		Toast.makeText(mContext, msg, 1000).show();
 	}
 }

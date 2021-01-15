@@ -15,12 +15,14 @@ import com.auto.di.guan.manager.dialog.OnDialogClick;
 import com.auto.di.guan.manager.dialog.SetTimeDialog;
 import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.rtm.MessageSend;
+import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
 import com.auto.di.guan.manager.utils.PollingUtils;
 import com.auto.di.guan.manager.utils.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.daimajia.numberprogressbar.NumberProgressBar;
+import com.google.gson.Gson;
 
 import org.greenrobot.greendao.annotation.NotNull;
 
@@ -53,12 +55,11 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
         TextView status_set_time = holder.getView(R.id.status_set_time);
         TextView status_status = holder.getView(R.id.status_status);
 
-        if (info.getGroupStatus() == 0) {
-            status_stop.setVisibility(View.GONE);
-            status_next.setVisibility(View.GONE);
-            status_cur_time.setVisibility(View.GONE);
-            status_set_time.setVisibility(View.GONE);
-        } else {
+        status_stop.setVisibility(View.GONE);
+        status_next.setVisibility(View.GONE);
+        status_cur_time.setVisibility(View.GONE);
+        status_set_time.setVisibility(View.GONE);
+        if (info.getGroupStatus() == 1) {
             status_stop.setVisibility(View.VISIBLE);
             status_next.setVisibility(View.VISIBLE);
             status_cur_time.setVisibility(View.VISIBLE);
@@ -180,6 +181,8 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
     public void setData(List<GroupInfo> data) {
         getData().clear();
         getData().addAll(data);
+
+        LogUtils.e("GroupStautsActivity", " 界面更  data = "+new Gson().toJson(getData()));
         notifyDataSetChanged();
     }
 
