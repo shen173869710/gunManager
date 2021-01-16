@@ -14,6 +14,8 @@ import com.auto.di.guan.manager.basemodel.presenter.LoginPresenter;
 import com.auto.di.guan.manager.basemodel.view.IBaseView;
 import com.auto.di.guan.manager.customview.XEditText;
 import com.auto.di.guan.manager.db.User;
+import com.auto.di.guan.manager.utils.GzipUtil;
+import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.ToastUtils;
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -33,6 +35,7 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements IBas
     XEditText loginPwd;
     @BindView(R.id.login)
     Button login;
+
 
     @Override
     protected int setLayout() {
@@ -72,32 +75,32 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements IBas
     public void fail(Throwable error, Integer code, String msg) {
         ToastUtils.showLongToast(msg+"");
 
-        User user = new User();
-        user.setUserId(109l);
-        BaseApp.setUser(user);
-
-        List<User>users = new ArrayList<>();
-        User user1 = new User();
-        user1.setUserId(113l);
-        user1.setMemberId(115l);
-        user1.setPhonenumber("13300000000");
-
-
-        User user2 = new User();
-        user2.setUserId(107l);
-        user2.setMemberId(115l);
-        user2.setPhonenumber("22222222222");
-
-        users.add(user1);
-        users.add(user2);
-
-        Intent intent = new Intent(LoginActivity.this, ManagerActivity.class);
-        if (users == null) {
-            users = new ArrayList<>();
-        }
-        intent.putExtra("list", (Serializable)users);
-        startActivity(intent);
-        finish();
+//        User user = new User();
+//        user.setUserId(109l);
+//        BaseApp.setUser(user);
+//
+//        List<User>users = new ArrayList<>();
+//        User user1 = new User();
+//        user1.setUserId(113l);
+//        user1.setMemberId(115l);
+//        user1.setPhonenumber("13300000000");
+//
+//
+//        User user2 = new User();
+//        user2.setUserId(107l);
+//        user2.setMemberId(115l);
+//        user2.setPhonenumber("22222222222");
+//
+//        users.add(user1);
+//        users.add(user2);
+//
+//        Intent intent = new Intent(LoginActivity.this, ManagerActivity.class);
+//        if (users == null) {
+//            users = new ArrayList<>();
+//        }
+//        intent.putExtra("list", (Serializable)users);
+//        startActivity(intent);
+//        finish();
     }
 
 
@@ -111,18 +114,40 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements IBas
     @OnClick(R.id.login)
     public void onViewClicked() {
         String name = loginName.getText().toString().trim();
-        name = "18675570791";
+//        name = "18675570791";
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(LoginActivity.this, "请输入账号", Toast.LENGTH_LONG).show();
             return;
         }
         String pwd = loginPwd.getText().toString().trim();
-        pwd = "123456";
+//        pwd = "123456";
         if (TextUtils.isEmpty(pwd)) {
             Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_LONG).show();
             return;
         }
 
         mPresenter.doLogin(name, pwd);
+
+//        LogUtils.e("--", "test = "+test.length() );
+//        String res = GzipUtil.compress(test);
+//        LogUtils.e("--", "res = "+res );
+//        LogUtils.e("--", "length = "+res.length() );
+//        String end = GzipUtil.decompress(res);
+//        LogUtils.e("--", "end = "+end );
+//        LogUtils.e("--", "length = "+end.length() );
+
+
+//        LogUtils.e("---", "test = "+test.length() );
+//        String res = GzipUtil.gzip(test);
+//        LogUtils.e("---", "res = "+res );
+//        LogUtils.e("---", "length = "+res.length() );
+//        String end = GzipUtil.ungzip(res);
+//        LogUtils.e("---", "end = "+end );
+//        LogUtils.e("---", "length = "+end.length() );
+
     }
+
+
+
+
 }

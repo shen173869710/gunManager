@@ -13,11 +13,19 @@ import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.event.LoginEvent;
 import com.auto.di.guan.manager.socket.SocketBengEvent;
 import com.auto.di.guan.manager.socket.SocketResult;
+import com.auto.di.guan.manager.utils.GzipUtil;
 import com.auto.di.guan.manager.utils.LogUtils;
+import com.facebook.stetho.common.LogUtil;
 import com.google.gson.Gson;
 import org.greenrobot.eventbus.EventBus;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.GZIPInputStream;
+
 /**
  *     解析消息
  */
@@ -25,7 +33,9 @@ public class MessageParse {
     public static final String TAG = "MessageParse----app 同步信息--";
 
     public static void praseData(String data, String peerId) {
-        MessageInfo info = new Gson().fromJson(data, MessageInfo.class);
+        String  res = GzipUtil.ungzip(data);
+//        LogUtil.e(TAG, "解压缩数据失败"+e.getMessage());
+        MessageInfo info = new Gson().fromJson(res, MessageInfo.class);
         if (info == null) {
             LogUtils.e(TAG, "gson 数据解析异常");
             return;
@@ -236,5 +246,21 @@ public class MessageParse {
     public static void dealAutoTime(GroupInfo groupInfo) {
         LogUtils.i(TAG, "收到自动轮灌------------时间信息同步");
         EventBus.getDefault().post(new AutoTimeEvent(groupInfo));
+    }
+
+    public static String uncompress(String str) throws IOException {
+        if (str == null || str.length() == 0) {
+            return str;
+        }
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ByteArrayInputStream in = new ByteArrayInputStream(str.getBytes("ISO-8859-1"));
+        GZIPInputStream gunzip = new GZIPInputStream(in);
+        byte[] buffer = new byte[256];
+        int n;
+        while ((n = gunzip.read(buffer)) >= 0) {
+            out.write(buffer, 0, n);
+        }
+        // toString()使用平台默认编码，也可以显式的指定如toString("GBK")
+        return out.toString();
     }
 }

@@ -6,6 +6,7 @@ import android.widget.ExpandableListView;
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.activity.GroupStatusActivity;
 import com.auto.di.guan.manager.adapter.GroupExpandableListViewaAdapter;
+import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.GroupList;
@@ -58,7 +59,7 @@ public class FragmentTab5 extends BaseFragment {
 	private void initData() {
 		groupInfos.clear();
 		groupLists.clear();
-		groupInfos = GroupInfoSql.getJoinGroup();
+		groupInfos = BaseApp.getGroupInfos();
 		int size = groupInfos.size();
 		if (size > 0) {
 			for (int i = 0; i < size; i++) {
