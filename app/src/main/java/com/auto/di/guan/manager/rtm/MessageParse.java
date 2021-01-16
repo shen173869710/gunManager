@@ -31,6 +31,7 @@ import java.util.zip.GZIPInputStream;
  */
 public class MessageParse {
     public static final String TAG = "MessageParse----app 同步信息--";
+    public static final String 收到自动轮灌_命令同步信息 = "收到自动轮灌-----------命令同步信息";
 
     public static void praseData(String data, String peerId) {
         String  res = GzipUtil.ungzip(data);
@@ -128,6 +129,8 @@ public class MessageParse {
                 }
                 break;
             case MessageEntiy.TYPE_AUTO_STATUS:
+                LogUtils.e(TAG, "===============================所有信息状态同步================================");
+
                 if (info.getGroupInfos() != null && info.getDeviceInfos() != null) {
                     dealAutoStatus(info.getDeviceInfos(), info.getGroupInfos());
                 }
@@ -177,6 +180,11 @@ public class MessageParse {
             LogUtils.e(TAG, "单组操作  传递数据异常");
             return;
         }
+
+        if (list.size() == 0) {
+            LogUtils.e(TAG, "单组操作  传递数据异常, 组的控制阀为0");
+            return;
+        }
         ControlInfoSql.updataControlList(list);
         int postion = GroupInfoSql.updateGroup(groupInfo);
         EventBus.getDefault().post(new DateChangeEvent(true, postion));
@@ -224,7 +232,7 @@ public class MessageParse {
      *  处理自动轮灌
      */
     public static void dealAuto(ArrayList<DeviceInfo>deviceInfos, ArrayList<GroupInfo> infos) {
-        LogUtils.i(TAG, "收到自动轮灌-----------命令同步信息");
+        LogUtils.i(TAG, 收到自动轮灌_命令同步信息);
         BaseApp.setDeviceInfos(deviceInfos);
         BaseApp.setGroupInfos(infos);
         EventBus.getDefault().post(new DateChangeEvent(true));
@@ -234,7 +242,7 @@ public class MessageParse {
      *  处理自动轮灌设备状态
      */
     public static void dealAutoStatus(ArrayList<DeviceInfo>deviceInfos, ArrayList<GroupInfo> infos) {
-        LogUtils.i(TAG, "收到自动轮灌------------状态同步");
+        LogUtils.e(TAG, "收到自动轮灌------------所有设备状态同步====================================");
         BaseApp.setDeviceInfos(deviceInfos);
         BaseApp.setGroupInfos(infos);
         EventBus.getDefault().post(new DateChangeEvent(true));

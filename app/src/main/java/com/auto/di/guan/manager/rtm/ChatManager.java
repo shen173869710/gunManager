@@ -64,7 +64,7 @@ public class ChatManager {
 //                            listener.onMessageReceived(rtmMessage, peerId);
 //                        }
 //                    }
-                    LogUtils.e(TAG, "onMessageReceived   peerid = "+peerId + "message" +rtmMessage.getText());
+//                    LogUtils.e(TAG, "onMessageReceived   peerid = "+peerId + "message" +rtmMessage.getText());
                     EventBus.getDefault().post(new DialogEvent(false));
                     MessageParse.praseData(rtmMessage.getText(), peerId);
 
