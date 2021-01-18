@@ -13,6 +13,7 @@ import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.event.LoginEvent;
 import com.auto.di.guan.manager.socket.SocketBengEvent;
 import com.auto.di.guan.manager.socket.SocketResult;
+import com.auto.di.guan.manager.utils.GzipUtil;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.google.gson.Gson;
 import org.greenrobot.eventbus.EventBus;
@@ -26,7 +27,15 @@ public class MessageParse {
     public static final String 收到自动轮灌_命令同步信息 = "收到自动轮灌-----------命令同步信息";
 
     public static void praseData(String data, String peerId) {
-        MessageInfo info = new Gson().fromJson(data, MessageInfo.class);
+
+        String  res = GzipUtil.ungzip(data);
+//        LogUtil.e(TAG, "解压缩数据失败"+e.getMessage());
+        MessageInfo info = new Gson().fromJson(res, MessageInfo.class);
+        if (info == null) {
+            LogUtils.e(TAG, "gson 数据解析异常");
+            return;
+        }
+//        MessageInfo info = new Gson().fromJson(data, MessageInfo.class);
         if (info == null) {
             LogUtils.e(TAG, "gson 数据解析异常");
             return;
