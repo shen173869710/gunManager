@@ -43,6 +43,11 @@ public class GroupStatusActivity extends IBaseActivity {
     private RecyclerView openList;
     private List<ControlInfo> openInfos = new ArrayList<>();
 
+    private StatusAdapter closeAdapter;
+    private RecyclerView closeList;
+    private List<ControlInfo> closeInfos = new ArrayList<>();
+    private int runGroupId = -1;
+
     @Override
     protected int setLayout() {
         return R.layout.activity_group_status_layout;
@@ -99,6 +104,14 @@ public class GroupStatusActivity extends IBaseActivity {
         openList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false));
         openAdapter = new StatusAdapter(openInfos);
         openList.setAdapter(openAdapter);
+
+
+
+        closeList = findViewById(R.id.group_option_close);
+        closeList.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
+        closeAdapter = new StatusAdapter(closeInfos);
+        closeList.setAdapter(closeAdapter);
+
         initOpenControl();
     }
 
@@ -144,8 +157,12 @@ public class GroupStatusActivity extends IBaseActivity {
     public void initOpenControl() {
         GroupInfo info = GroupInfoSql.getRunGroup();
         LogUtils.e(TAG,  "正在运行的设备信息");
-        if ( info != null) {
+        if (info != null) {
             openAdapter.setData(ControlInfoSql.queryControlList(info.getGroupId()));
+            if (runGroupId != -1 && runGroupId != info.getGroupId()) {
+                closeAdapter.setData(ControlInfoSql.queryControlList(runGroupId));
+            }
+            runGroupId = info.getGroupId();
         }else {
             LogUtils.e("GroupStatusActivity",  "更新设备失败   设备信息为空-----------------------------");
         }

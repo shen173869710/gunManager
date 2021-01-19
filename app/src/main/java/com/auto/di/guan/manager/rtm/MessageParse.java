@@ -62,8 +62,8 @@ public class MessageParse {
             case MessageEntiy.TYPE_SINGLE_CLOSE:
                 // 单个操作 关
                 LogUtils.e(TAG, "收到单个操作数据 ========="+new Gson().toJson(info));
-                if (info.getControlInfo() != null) {
-                    dealSingle(info.getControlInfo());
+                if (info.getDeviceInfos() != null) {
+                    dealSingle(info.getDeviceInfos());
                 }
                 break;
             case MessageEntiy.TYPE_GROUP_OPEN:
@@ -160,13 +160,9 @@ public class MessageParse {
     /**
      *   处理单个操作
      */
-    public static void dealSingle(ControlInfo controlInfo) {
+    public static void dealSingle(ArrayList<DeviceInfo> deviceInfos) {
         LogUtils.e(TAG, "单个操作成功");
-        if (controlInfo == null) {
-            LogUtils.e(TAG, "单个操作数据异常");
-            return;
-        }
-        ControlInfoSql.updataControlInfo(controlInfo);
+        BaseApp.setDeviceInfos(deviceInfos);
         EventBus.getDefault().post(new DateChangeEvent(false));
     }
 

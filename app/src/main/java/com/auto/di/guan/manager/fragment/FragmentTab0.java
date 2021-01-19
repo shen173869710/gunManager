@@ -13,7 +13,7 @@ import com.auto.di.guan.manager.utils.LogUtils;
 import butterknife.BindView;
 
 public class FragmentTab0 extends BaseFragment {
-    @BindView(R.id.fragment_0_list)
+    @BindView(R.id.fragment_0_gridview)
     RecyclerView fragment0List;
     private MyGridAdapter adapter;
 

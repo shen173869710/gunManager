@@ -32,7 +32,6 @@ import java.util.List;
  *
  */
 public class ChooseGroupctivity extends Activity {
-	private Button button;
 	private RecyclerView recyclerView;
 	private ChooseGridAdapter adapter;
 	private ArrayList<DeviceInfo> deviceInfos = new ArrayList<>();

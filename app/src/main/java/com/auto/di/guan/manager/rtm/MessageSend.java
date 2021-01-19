@@ -5,6 +5,7 @@ import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
+import com.auto.di.guan.manager.utils.GzipUtil;
 import com.auto.di.guan.manager.utils.LogUtils;
 
 import java.util.ArrayList;
@@ -13,7 +14,12 @@ public class MessageSend {
 
     private static final String TAG = "MessageSend";
     public static void send(MessageInfo info) {
-        BaseApp.getInstance().getChatManager().sendPeerMessage(info.toJson());
+        String src = info.toJson();
+        LogUtils.e(TAG, "发送数据的长度"+src.length());
+        String data = GzipUtil.gzip(info.toJson());
+//        LogUtils.e(TAG, "压缩后的数据 =="+data);
+        LogUtils.e(TAG, "压缩后的数据长度 =="+data.length());
+        BaseApp.getInstance().getChatManager().sendPeerMessage(data);
     }
 
     /**
@@ -23,7 +29,7 @@ public class MessageSend {
         MessageInfo info  = new MessageInfo();
         info.setType(MessageEntiy.TYPE_LOGIN);
         info.setManagerId(BaseApp.getUser().getUserId());
-        BaseApp.getInstance().getChatManager().sendLoginPeerMessage(loginId,info.toJson());
+        BaseApp.getInstance().getChatManager().sendLoginPeerMessage(loginId,GzipUtil.gzip(info.toJson()));
     }
 
     /**
