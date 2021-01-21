@@ -69,12 +69,16 @@ public class MessageParse {
             case MessageEntiy.TYPE_GROUP_OPEN:
                 LogUtils.e(TAG, "单组轮灌开启成功");
                 // 单组操作 开
-                dealGroup(info.getControlInfos(), info.getGroupInfo());
+                if (info.getDeviceInfos() != null && info.getGroupInfos() != null) {
+                    dealGroup(info.getDeviceInfos(), info.getGroupInfos());
+                }
                 break;
             case MessageEntiy.TYPE_GROUP_CLOSE:
                 LogUtils.e(TAG, "单组轮灌关闭成功");
-                // 单组操作 关
-                dealGroup(info.getControlInfos(), info.getGroupInfo());
+                if (info.getDeviceInfos() != null && info.getGroupInfos() != null) {
+                    // 单组操作 关
+                    dealGroup(info.getDeviceInfos(), info.getGroupInfos());
+                }
                 break;
             case MessageEntiy.TYPE_AUTO_OPEN:
                 LogUtils.e(TAG, "自动轮灌开启成功");
@@ -169,7 +173,7 @@ public class MessageParse {
     /**
      *  处理单组操作
      */
-    public static void dealGroup(List<ControlInfo>list, GroupInfo groupInfo) {
+    public static void dealGroup(ArrayList<DeviceInfo>list, ArrayList<GroupInfo >groupInfo) {
         LogUtils.e(TAG, "单组操作成功");
         if (list == null || groupInfo == null) {
             LogUtils.e(TAG, "单组操作  传递数据异常");
@@ -180,9 +184,11 @@ public class MessageParse {
             LogUtils.e(TAG, "单组操作  传递数据异常, 组的控制阀为0");
             return;
         }
-        ControlInfoSql.updataControlList(list);
-        int postion = GroupInfoSql.updateGroup(groupInfo);
-        EventBus.getDefault().post(new DateChangeEvent(true, postion));
+        BaseApp.setDeviceInfos(list);
+        BaseApp.setGroupInfos(groupInfo);
+//        ControlInfoSql.updataControlList(list);
+//        int postion = GroupInfoSql.updateGroup(groupInfo);
+        EventBus.getDefault().post(new DateChangeEvent(true, 1));
     }
 
 

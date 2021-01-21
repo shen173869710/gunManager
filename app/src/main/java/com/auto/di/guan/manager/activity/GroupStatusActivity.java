@@ -46,7 +46,6 @@ public class GroupStatusActivity extends IBaseActivity {
     private StatusAdapter closeAdapter;
     private RecyclerView closeList;
     private List<ControlInfo> closeInfos = new ArrayList<>();
-    private int runGroupId = -1;
 
     @Override
     protected int setLayout() {
@@ -99,13 +98,10 @@ public class GroupStatusActivity extends IBaseActivity {
 
         adapter.setData(GroupInfoSql.getJoinGroup());
 
-
         openList = findViewById(R.id.group_option_open);
         openList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false));
         openAdapter = new StatusAdapter(openInfos);
         openList.setAdapter(openAdapter);
-
-
 
         closeList = findViewById(R.id.group_option_close);
         closeList.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
@@ -159,10 +155,17 @@ public class GroupStatusActivity extends IBaseActivity {
         LogUtils.e(TAG,  "正在运行的设备信息");
         if (info != null) {
             openAdapter.setData(ControlInfoSql.queryControlList(info.getGroupId()));
-            if (runGroupId != -1 && runGroupId != info.getGroupId()) {
-                closeAdapter.setData(ControlInfoSql.queryControlList(runGroupId));
+
+            int size = groupInfos.size();
+            int postion = -1;
+            for (int i = 0; i < size; i++) {
+                if (info.getGroupId() == groupInfos.get(i).getGroupId()) {
+                    postion = i;
+                }
             }
-            runGroupId = info.getGroupId();
+            if (postion -1 >= 0) {
+                 closeAdapter.setData(ControlInfoSql.queryControlList(groupInfos.get(postion -1).getGroupId()));
+            }
         }else {
             LogUtils.e("GroupStatusActivity",  "更新设备失败   设备信息为空-----------------------------");
         }

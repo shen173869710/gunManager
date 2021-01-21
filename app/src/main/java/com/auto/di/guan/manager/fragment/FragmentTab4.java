@@ -41,7 +41,7 @@ public class FragmentTab4 extends BaseFragment {
 		int size = groupInfos.size();
 		if (size > 0) {
 			for (int i = 0; i < size; i++) {
-				List<ControlInfo>clist = ControlInfoSql.queryControlList(groupInfos.get(i).getGroupId());
+					List<ControlInfo>clist = ControlInfoSql.queryControlList(groupInfos.get(i).getGroupId());
 				if (clist.size() > 0) {
 					GroupList list = new GroupList();
 					list.groupInfo = groupInfos.get(i);
