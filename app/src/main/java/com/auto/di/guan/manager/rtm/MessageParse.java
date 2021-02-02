@@ -8,6 +8,7 @@ import com.auto.di.guan.manager.db.sql.ControlInfoSql;
 import com.auto.di.guan.manager.db.sql.GroupInfoSql;
 import com.auto.di.guan.manager.entity.CmdStatus;
 import com.auto.di.guan.manager.entity.Entiy;
+import com.auto.di.guan.manager.event.ActivityItemEvent;
 import com.auto.di.guan.manager.event.AutoTimeEvent;
 import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.event.LoginEvent;
@@ -157,6 +158,15 @@ public class MessageParse {
             case MessageEntiy.TYPE_MESSAGE:
                 if (info.getCmdStatus() != null) {
                     dealMessage(info.getCmdStatus());
+                }
+                break;
+            case MessageEntiy.TYPE_FARMLAND:
+                /**
+                 *  农田信息
+                 */
+                LogUtils.e(TAG, "收到农田同步信息");
+                if (info.getMeteoRespones() != null && info.geteDepthRespones() != null) {
+                    EventBus.getDefault().post(new ActivityItemEvent(info.getMeteoRespones(), info.geteDepthRespones()));
                 }
                 break;
         }

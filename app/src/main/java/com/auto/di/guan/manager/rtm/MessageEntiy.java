@@ -51,7 +51,6 @@ public class MessageEntiy {
     // 轮灌操作相关信息
     public static final int TYPE_MESSAGE = 100;
 
-
     /**
      *  自动轮灌 时间同步
      */
@@ -66,4 +65,9 @@ public class MessageEntiy {
     public static final int TYPE_ACTIVITY = 10000000;
     public static final int TYPE_ACTIVITY_STATUS_START = 100000001;
     public static final int TYPE_ACTIVITY_STATUS_FINISH = 100000002;
+    // 农田信息
+    public static final int TYPE_FARMLAND = 10000;
+    /**农田信息item点击事件**/
+    public static final int TYPE_FARMLAND_CLICK = 10002;
+
 }

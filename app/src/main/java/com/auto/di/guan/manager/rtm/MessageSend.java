@@ -261,4 +261,26 @@ public class MessageSend {
         info.setIndex(index);
         send(info);
     }
+
+    /**
+     *   添加农田信息
+     */
+    public static void doFarmLand(int type, String snType, String sn) {
+        MessageInfo info = new MessageInfo();
+        info.setType(type);
+        info.setSnType(snType);
+        info.setSn(sn);
+        send(info);
+    }
+
+
+    /**
+     *   农田信息item 点击事件
+     */
+    public static void doActivityItem(int index) {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_FARMLAND_CLICK);
+        info.setIndex(index);
+        send(info);
+    }
 }

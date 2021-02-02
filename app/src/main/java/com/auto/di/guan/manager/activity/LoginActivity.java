@@ -90,7 +90,7 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements IBas
             return;
         }
         String pwd = loginPwd.getText().toString().trim();
-        pwd = "gsy123";
+        pwd = "123456";
         if (TextUtils.isEmpty(pwd)) {
             Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_LONG).show();
             return;

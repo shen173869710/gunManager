@@ -30,11 +30,11 @@ public class InputDialog extends Dialog {
 
     private void init(DialogContent content, OnDialogClick onDialogClick) {
         setContentView(R.layout.dialog_input);
-         setCancelable(false);
+         setCancelable(true);
         TextView input_title = findViewById(R.id.input_title);
         input_title.setText(content.desc);
         EditText input_edittext = findViewById(R.id.input_edittext);
-
+        input_edittext.setText(content.getCancle());
         TextView dialog_ok = findViewById(R.id.input_ok);
         dialog_ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +45,7 @@ public class InputDialog extends Dialog {
                 value = input_edittext.getText().toString().trim();
                 if(!TextUtils.isEmpty(value)) {
                     onDialogClick.onDialogOkClick(value);
+                    dismiss();
                 }
             }
         });
@@ -57,7 +58,7 @@ public class InputDialog extends Dialog {
             }
 
             if (context instanceof Activity) {
-                if (((Activity) context).isFinishing() || ((Activity) context).isDestroyed()) {
+                if (((Activity) context).isFinishing()) {
                     return;
                 }
             }
@@ -91,7 +92,7 @@ public class InputDialog extends Dialog {
             if (dialog != null && dialog.isShowing()) {
                 Context loadContext = dialog.getContext();
                 if (loadContext instanceof Activity) {
-                    if (((Activity) loadContext).isFinishing() || ((Activity) context).isDestroyed()) {
+                    if (((Activity) loadContext).isFinishing()) {
                         dialog = null;
                         return;
                     }
