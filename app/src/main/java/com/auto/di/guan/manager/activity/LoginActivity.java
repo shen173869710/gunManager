@@ -15,7 +15,6 @@ import com.auto.di.guan.manager.basemodel.view.IBaseView;
 import com.auto.di.guan.manager.customview.XEditText;
 import com.auto.di.guan.manager.db.User;
 import com.auto.di.guan.manager.utils.ToastUtils;
-import com.tencent.bugly.crashreport.CrashReport;
 
 import java.io.Serializable;
 import java.util.ArrayList;

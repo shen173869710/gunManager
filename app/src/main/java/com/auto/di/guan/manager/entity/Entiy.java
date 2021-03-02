@@ -1,7 +1,6 @@
 package com.auto.di.guan.manager.entity;
 
 import android.text.TextUtils;
-
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.ToastUtils;
@@ -9,6 +8,9 @@ import com.auto.di.guan.manager.utils.ToastUtils;
  * Created by Administrator on 2017/7/16.
  */
 public class Entiy {
+
+    /**百度地图**/
+    public static final String BAIDU_KEY = "ttqEPW0GYHru7Zt7QpmquR7UGAdwkwj6";
     /*设置项目的行数*/
     public static final int GUN_ROW = 16;
     /*设置项目的列数*/

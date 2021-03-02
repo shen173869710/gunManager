@@ -17,7 +17,11 @@ import com.auto.di.guan.manager.utils.FloatWindowUtil;
 import com.auto.di.guan.manager.utils.GsonUtil;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.SPUtils;
+import com.baidu.mapapi.CoordType;
+import com.baidu.mapapi.SDKInitializer;
 import com.facebook.stetho.Stetho;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 import com.tencent.bugly.crashreport.CrashReport;
 import java.io.InputStream;
 import java.net.URL;
@@ -58,14 +62,24 @@ public class BaseApp extends Application {
         super.onCreate();
         this.instance = this;
         mContext = getApplicationContext();
+
+        //在使用SDK各组件之前初始化context信息，传入ApplicationContext
+        SDKInitializer.initialize(this);
+        //自4.3.0起，百度地图SDK所有接口均支持百度坐标和国测局坐标，用此方法设置您使用的坐标类型.
+        //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
+        SDKInitializer.setCoordType(CoordType.BD09LL);
+
+
         Stetho.initializeWithDefaults(this);
-        LogUtils.setFilterLevel(LogUtils.ALL);
+//        LogUtils.setFilterLevel(LogUtils.ALL);
         FloatWindowUtil.getInstance().initFloatWindow(this);
 //        CrashHandler.getInstance().init(this);
         CrashReport.initCrashReport(getApplicationContext(), "cc201614d7", true);
 
         mChatManager = new ChatManager(this);
         mChatManager.init();
+
+        Logger.addLogAdapter(new AndroidLogAdapter());
     }
 
     @Override

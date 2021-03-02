@@ -14,7 +14,7 @@ android {
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
-            abiFilters 'arm64-v8a', 'armeabi-v7a'
+            abiFilters 'arm64-v8a', 'armeabi-v7a', 'armeabi'
         }
     }
 
@@ -91,7 +91,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
+    sourceSets {
+        main {
+            jniLibs.srcDir 'libs'
+        }
+    }
 
     dexOptions {
         javaMaxHeapSize "8g"
@@ -105,20 +109,15 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
-
-
     /*RxLifecycle基础库*/
     implementation 'com.trello.rxlifecycle3:rxlifecycle:3.1.0'
     implementation 'com.trello.rxlifecycle3:rxlifecycle-components:3.1.0'
-
     /*网络请求框架*/
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
@@ -128,8 +127,7 @@ dependencies {
     /*RxJava&RxAndroid*/
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-
-    /** greendao 相关 **/
+    /** greendao 相关  **/
     implementation 'org.greenrobot:greendao:3.2.2'
     implementation 'io.github.yuweiguocn:GreenDaoUpgradeHelper:2.2.1'
     implementation 'net.zetetic:android-database-sqlcipher:4.2.0'
@@ -141,26 +139,25 @@ dependencies {
     implementation 'com.github.bumptech.glide:okhttp3-integration:4.9.0'
     implementation 'com.github.bumptech.glide:annotations:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
-
     implementation 'com.facebook.stetho:stetho:1.5.0'
-
     //调试查看同网段数据库
     debugImplementation 'com.amitshekhar.android:debug-db-encrypt:1.0.6'
-
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
     //Toast组件
     implementation 'me.drakeet.support:toastcompat:1.1.0'
     //引入ButterKnife
-    implementation "com.jakewharton:butterknife:10.0.0"
+    implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor "com.jakewharton:butterknife-compiler:10.0.0"
-
-
-    implementation 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
-    implementation 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
-
+    implementation 'com.tencent.bugly:crashreport:latest.release'
+    //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
+    //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
     implementation 'com.just.agentweb:agentweb-androidx:4.1.4'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'// (必选)
-
-    /**声网rtm**/
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    // (必选)
+    /** 声网rtm **/
     implementation 'io.agora.rtm:rtm-sdk:1.4.0'
+    implementation 'com.orhanobut:logger:2.2.0'
+    /***百度地图**/
+    implementation files('libs/BaiduLBS_android.jar')
 }
