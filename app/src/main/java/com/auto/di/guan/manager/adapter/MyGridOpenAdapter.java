@@ -33,10 +33,7 @@ public class MyGridOpenAdapter extends BaseQuickAdapter<DeviceInfo, BaseViewHold
 
     @Override
     protected void convert(BaseViewHolder holder, DeviceInfo deviceInfo) {
-        int itemWidth = DensityUtil.getWidth() - (int)getContext().getResources().getDimension(R.dimen.main_table_list_width);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(itemWidth/ Entiy.GRID_COLUMNS, itemWidth/ Entiy.GRID_COLUMNS);
         /*****设备相关信息****/
-        holder.getView(R.id.grid_item_layout).setLayoutParams(layoutParams);
         holder.setText(R.id.grid_item_device_id, deviceInfo.getDeviceSort()+"");
 
         TextView grid_item_device_name = holder.getView(R.id.grid_item_device_name);

@@ -31,7 +31,7 @@ public class ManagerAdapter extends BaseQuickAdapter<User, BaseViewHolder> {
             layout.setBackgroundColor(getContext().getResources().getColor(R.color.login_edit_hint_color));
         }
 
-        holder.setText(R.id.manager_item_name, data.getProjectName());
+        holder.setText(R.id.manager_item_name, data.getUserName());
         GlideUtil.glideCircleImage(holder.getView(R.id.manager_item_icon), R.mipmap.ic_launcher);
         holder.setText(R.id.manager_item_phone,data.getPhonenumber());
     }

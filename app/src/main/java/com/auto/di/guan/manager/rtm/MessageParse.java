@@ -8,11 +8,13 @@ import com.auto.di.guan.manager.db.sql.ControlInfoSql;
 import com.auto.di.guan.manager.db.sql.GroupInfoSql;
 import com.auto.di.guan.manager.entity.CmdStatus;
 import com.auto.di.guan.manager.entity.Entiy;
+import com.auto.di.guan.manager.event.ActivityItemEvent;
 import com.auto.di.guan.manager.event.AutoTimeEvent;
 import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.event.LoginEvent;
 import com.auto.di.guan.manager.socket.SocketBengEvent;
 import com.auto.di.guan.manager.socket.SocketResult;
+import com.auto.di.guan.manager.utils.GzipUtil;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.google.gson.Gson;
 import org.greenrobot.eventbus.EventBus;
@@ -26,7 +28,15 @@ public class MessageParse {
     public static final String 收到自动轮灌_命令同步信息 = "收到自动轮灌-----------命令同步信息";
 
     public static void praseData(String data, String peerId) {
-        MessageInfo info = new Gson().fromJson(data, MessageInfo.class);
+
+        String  res = GzipUtil.ungzip(data);
+//        LogUtil.e(TAG, "解压缩数据失败"+e.getMessage());
+        MessageInfo info = new Gson().fromJson(res, MessageInfo.class);
+        if (info == null) {
+            LogUtils.e(TAG, "gson 数据解析异常");
+            return;
+        }
+//        MessageInfo info = new Gson().fromJson(data, MessageInfo.class);
         if (info == null) {
             LogUtils.e(TAG, "gson 数据解析异常");
             return;
@@ -53,19 +63,23 @@ public class MessageParse {
             case MessageEntiy.TYPE_SINGLE_CLOSE:
                 // 单个操作 关
                 LogUtils.e(TAG, "收到单个操作数据 ========="+new Gson().toJson(info));
-                if (info.getControlInfo() != null) {
-                    dealSingle(info.getControlInfo());
+                if (info.getDeviceInfos() != null) {
+                    dealSingle(info.getDeviceInfos());
                 }
                 break;
             case MessageEntiy.TYPE_GROUP_OPEN:
                 LogUtils.e(TAG, "单组轮灌开启成功");
                 // 单组操作 开
-                dealGroup(info.getControlInfos(), info.getGroupInfo());
+                if (info.getDeviceInfos() != null && info.getGroupInfos() != null) {
+                    dealGroup(info.getDeviceInfos(), info.getGroupInfos());
+                }
                 break;
             case MessageEntiy.TYPE_GROUP_CLOSE:
                 LogUtils.e(TAG, "单组轮灌关闭成功");
-                // 单组操作 关
-                dealGroup(info.getControlInfos(), info.getGroupInfo());
+                if (info.getDeviceInfos() != null && info.getGroupInfos() != null) {
+                    // 单组操作 关
+                    dealGroup(info.getDeviceInfos(), info.getGroupInfos());
+                }
                 break;
             case MessageEntiy.TYPE_AUTO_OPEN:
                 LogUtils.e(TAG, "自动轮灌开启成功");
@@ -146,25 +160,30 @@ public class MessageParse {
                     dealMessage(info.getCmdStatus());
                 }
                 break;
+            case MessageEntiy.TYPE_FARMLAND:
+                /**
+                 *  农田信息
+                 */
+                LogUtils.e(TAG, "收到农田同步信息");
+                if (info.getMeteoRespones() != null && info.geteDepthRespones() != null) {
+                    EventBus.getDefault().post(new ActivityItemEvent(info.getMeteoRespones(), info.geteDepthRespones()));
+                }
+                break;
         }
     }
     /**
      *   处理单个操作
      */
-    public static void dealSingle(ControlInfo controlInfo) {
+    public static void dealSingle(ArrayList<DeviceInfo> deviceInfos) {
         LogUtils.e(TAG, "单个操作成功");
-        if (controlInfo == null) {
-            LogUtils.e(TAG, "单个操作数据异常");
-            return;
-        }
-        ControlInfoSql.updataControlInfo(controlInfo);
+        BaseApp.setDeviceInfos(deviceInfos);
         EventBus.getDefault().post(new DateChangeEvent(false));
     }
 
     /**
      *  处理单组操作
      */
-    public static void dealGroup(List<ControlInfo>list, GroupInfo groupInfo) {
+    public static void dealGroup(ArrayList<DeviceInfo>list, ArrayList<GroupInfo >groupInfo) {
         LogUtils.e(TAG, "单组操作成功");
         if (list == null || groupInfo == null) {
             LogUtils.e(TAG, "单组操作  传递数据异常");
@@ -175,9 +194,11 @@ public class MessageParse {
             LogUtils.e(TAG, "单组操作  传递数据异常, 组的控制阀为0");
             return;
         }
-        ControlInfoSql.updataControlList(list);
-        int postion = GroupInfoSql.updateGroup(groupInfo);
-        EventBus.getDefault().post(new DateChangeEvent(true, postion));
+        BaseApp.setDeviceInfos(list);
+        BaseApp.setGroupInfos(groupInfo);
+//        ControlInfoSql.updataControlList(list);
+//        int postion = GroupInfoSql.updateGroup(groupInfo);
+        EventBus.getDefault().post(new DateChangeEvent(true, 1));
     }
 
 

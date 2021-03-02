@@ -83,7 +83,7 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements IBas
     @OnClick(R.id.login)
     public void onViewClicked() {
         String name = loginName.getText().toString().trim();
-        name = "18675570791";
+        name = "gsy1";
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(LoginActivity.this, "请输入账号", Toast.LENGTH_LONG).show();
             return;

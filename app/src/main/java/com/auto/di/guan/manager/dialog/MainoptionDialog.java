@@ -112,7 +112,7 @@ public class MainoptionDialog extends Dialog {
 		dialog.main_option_1.setText(info.getValveName());
 		dialog.main_option_2.setText(info.getValveAlias());
 		dialog.main_option_3.setText(info.getValveId()+"");
-		dialog.main_option_4.setText(""+ BaseApp.getUser().getProjectName());
+		dialog.main_option_4.setText(""+ BaseApp.getUser().getProjectGroupId());
 		dialog.main_option_5.setText(status);
 		LayoutParams lay = dialog.getWindow().getAttributes();
 		DisplayMetrics dm = new DisplayMetrics();// 获取屏幕分辨率
