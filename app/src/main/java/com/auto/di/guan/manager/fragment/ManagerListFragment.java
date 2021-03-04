@@ -1,5 +1,6 @@
 package com.auto.di.guan.manager.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,45 +15,52 @@ import androidx.fragment.app.ListFragment;
 
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.activity.MainActivity;
+import com.auto.di.guan.manager.activity.ManagerActivity;
 import com.auto.di.guan.manager.adapter.MyListAdapter;
+import com.auto.di.guan.manager.db.User;
 import com.auto.di.guan.manager.entity.Entiy;
-import com.auto.di.guan.manager.rtm.MessageSend;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-public class ArticleListFragment extends ListFragment {
+public class ManagerListFragment extends ListFragment {
 	public MyListAdapter adapter;
 	private FragmentManager manager;
 	private FragmentTransaction transaction;
-	private ArrayList<Fragment>fragments = new ArrayList<Fragment>(10);
-	private MainActivity activity;
+	private ArrayList<Fragment>fragments = new ArrayList<Fragment>();
+	private ManagerActivity activity;
+
+	private List<User> users = new ArrayList<>();
 
 	@Override
 	public void onAttach(@NonNull Context context) {
 		super.onAttach(context);
-		this.activity = (MainActivity)context;
+		this.activity = (ManagerActivity)context;
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+
+		users = (List<User>) getArguments().getSerializable("list");
+		if (users == null) {
+			users = new ArrayList<>();
+		}
 		manager = getFragmentManager();
 		adapter = new MyListAdapter(activity, Entiy.MANAGER_ITEM);
 		setListAdapter(adapter);
-		fragments.add(new FragmentTab0());
-		fragments.add(new FragmentTab1());
-		fragments.add(new FragmentTab2());
-		fragments.add(new FragmentTab3());
-		fragments.add(new FragmentTab4());
-		fragments.add(new FragmentTab5());
-		fragments.add(new FragmentTab6());
-		fragments.add(new FragmentTab7());
-		fragments.add(new FragmentTab8());
-		fragments.add(new FragmentTab9());
-		fragments.add(new FragmentTab10());
-		fragments.add(new FragmentTab11());
+		fragments.add(new ManagerTab0());
+
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("list", (Serializable) users);
+		fragments.add(ManagerTab1.getInstance(bundle));
+		fragments.add(new ManagerTab2());
+		fragments.add(new ManagerTab3());
+
 		transaction = manager.beginTransaction();
-		transaction.add(R.id.right, fragments.get(0), Entiy.TAB_TITLE[0]).show(fragments.get(0));
+		transaction.add(R.id.manager_info, fragments.get(0), Entiy.MANAGER_ITEM[0]).show(fragments.get(0));
 		transaction.commitAllowingStateLoss();
 		adapter.setSelectedPosition(0);
 	}
@@ -65,11 +73,7 @@ public class ArticleListFragment extends ListFragment {
 		showFragment(fragments.get(position));
 		adapter.notifyDataSetChanged();
 		/*发送点击事件*/
-		int index = position;
-		if (position > 0) {
-			index = position + 1;
-		}
-		MessageSend.doClickEvent(index);
+
 	}
 
 
@@ -89,7 +93,7 @@ public class ArticleListFragment extends ListFragment {
 			FragmentTransaction ft = fm.beginTransaction();
 			if (null !=ft) {
 				fm.executePendingTransactions();
-				ft.add(R.id.right, fragment,tag);
+				ft.add(R.id.manager_info, fragment,tag);
 				ft.commitAllowingStateLoss();
 			}
 		}

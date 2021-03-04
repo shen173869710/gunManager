@@ -25,7 +25,7 @@ public class MessageSend {
     /**
      *  登录
      */
-    public static void doLogin(IBaseActivity baseActivity, String loginId) {
+    public static void doLogin( String loginId) {
         MessageInfo info  = new MessageInfo();
         info.setType(MessageEntiy.TYPE_LOGIN);
         info.setManagerId(BaseApp.getUser().getUserId());

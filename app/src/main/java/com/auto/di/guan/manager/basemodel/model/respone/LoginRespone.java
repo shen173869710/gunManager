@@ -1,7 +1,6 @@
 package com.auto.di.guan.manager.basemodel.model.respone;
 
 import com.auto.di.guan.manager.db.User;
-
 import java.util.List;
 
 /**

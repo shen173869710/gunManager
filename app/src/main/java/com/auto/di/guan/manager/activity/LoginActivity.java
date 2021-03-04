@@ -73,13 +73,6 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements IBas
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
     @OnClick(R.id.login)
     public void onViewClicked() {
         String name = loginName.getText().toString().trim();

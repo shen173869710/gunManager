@@ -18,7 +18,7 @@
             android:layout_width="@dimen/main_table_list_width"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical"/>
         <LinearLayout
             android:id="@+id/right"
             android:layout_width="0dp"

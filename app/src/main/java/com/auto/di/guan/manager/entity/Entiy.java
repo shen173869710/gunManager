@@ -105,19 +105,13 @@ public class Entiy {
 
     public static int GRID_COLUMNS = 5;
 
-//    public static String []TAB_TITLE = {"减阀控器",
-//            "绑定阀门",
-//            "轮灌分组",
-//            "轮灌操作",
-//            "手动操作",
-//            "查询用户",
-//            "水泵控制",
-//            "施肥管理",
-////            "读取参数",
-//            "视频监控",
-//            "农田管理",
-//            "退出登录"
-//    };
+    public static String []MANAGER_ITEM = {
+            "项目主页",
+            "项目操作",
+            "操作日志",
+            "产量日志",
+            "项目公告"
+    };
 
     public static String []TAB_TITLE = {
             "阀门状态",

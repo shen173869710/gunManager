@@ -27,4 +27,11 @@
 		port.</string>
     <string name="error_unknown">The serial port can not be opened for an unknown
 		reason.</string>
+
+
+    <string name="manager_tab_0">项目主页</string>
+    <string name="manager_tab_1">项目操作</string>
+    <string name="manager_tab_2">操作日志</string>
+    <string name="manager_tab_3">项目公告</string>
+    <string name="manager_tab_add">添加日志</string>
 </resources>
