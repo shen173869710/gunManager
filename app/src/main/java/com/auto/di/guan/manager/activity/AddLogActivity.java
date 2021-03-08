@@ -54,7 +54,6 @@ public class AddLogActivity extends IBaseActivity<LoginPresenter> implements IBa
         if (users == null) {
             return;
         }
-
         titleBarTitle.setText("操作日志");
         int size = users.size();
         ArrayList<String> mItems = new ArrayList<>();

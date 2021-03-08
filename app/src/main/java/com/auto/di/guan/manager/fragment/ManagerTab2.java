@@ -1,17 +1,13 @@
 package com.auto.di.guan.manager.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.auto.di.guan.manager.R;
-import com.auto.di.guan.manager.activity.AddLogActivity;
 import com.auto.di.guan.manager.activity.ManagerActivity;
 import com.auto.di.guan.manager.adapter.Tab2Adapter;
 import com.auto.di.guan.manager.db.User;
@@ -20,7 +16,6 @@ import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

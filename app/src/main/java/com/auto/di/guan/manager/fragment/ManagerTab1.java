@@ -81,7 +81,7 @@ public class ManagerTab1 extends BaseFragment {
                     MessageSend.doLogin((users.get(position).getUserId().toString()));
                 }else if (view.getId() == R.id.manager_item_local) {
                     Intent intent = new Intent(activity, MapActivity.class);
-                    intent.putExtra("user", user);
+                    intent.putExtra(Entiy.INTENT_USER, user);
                     startActivity(intent);
                 }
             }
