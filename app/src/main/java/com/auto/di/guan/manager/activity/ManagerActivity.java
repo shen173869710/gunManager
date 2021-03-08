@@ -3,6 +3,9 @@ package com.auto.di.guan.manager.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -13,6 +16,7 @@ import com.auto.di.guan.manager.basemodel.model.respone.BaseRespone;
 import com.auto.di.guan.manager.basemodel.presenter.ManagerPresenter;
 import com.auto.di.guan.manager.basemodel.view.IBaseView;
 import com.auto.di.guan.manager.db.User;
+import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.event.LoginEvent;
 import com.auto.di.guan.manager.fragment.ManagerListFragment;
 import com.auto.di.guan.manager.rtm.ChatManager;
@@ -27,8 +31,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements IBaseView {
 
+    @BindView(R.id.title_bar_title)
+    TextView titleBarTitle;
+    @BindView(R.id.title_bar_status)
+    TextView titleBarStatus;
+    @BindView(R.id.title_bar_back_layout)
+    RelativeLayout titleBarBackLayout;
     private FragmentManager manager;
     private FragmentTransaction transaction;
 
@@ -44,11 +57,13 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
     @Override
     protected void init() {
         users = (List<User>) getIntent().getSerializableExtra("list");
+
+        titleBarBackLayout.setVisibility(View.GONE);
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
         ManagerListFragment managerListFragment = new ManagerListFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("list", (Serializable) users);
+        bundle.putSerializable(Entiy.INTENT_USER_LIST, (Serializable) users);
         managerListFragment.setArguments(bundle);
         transaction.add(R.id.manager_item, managerListFragment, "item");
         transaction.commitAllowingStateLoss();
@@ -81,7 +96,8 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
 
 
     /**
-     *        远程登录相关事件
+     * 远程登录相关事件
+     *
      * @param event
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -105,20 +121,48 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
             mChatManager.doLogout(user);
         }
     }
-    private long firstTime=0;
+
+    private long firstTime = 0;
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode==KeyEvent.KEYCODE_BACK && event.getAction()==KeyEvent.ACTION_DOWN){
-            if (System.currentTimeMillis()-firstTime>2000){
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (System.currentTimeMillis() - firstTime > 2000) {
                 ToastUtils.showToast("再按一次退出");
-                firstTime=System.currentTimeMillis();
-            }else{
+                firstTime = System.currentTimeMillis();
+            } else {
                 finish();
                 System.exit(0);
             }
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+
+    public void setTitle(String str) {
+        titleBarTitle.setText(str);
+    }
+
+    public void setRightInVisible() {
+        titleBarStatus.setVisibility(View.GONE);
+    }
+
+
+    public void setRightVisible() {
+        titleBarStatus.setText("添加日志");
+        titleBarStatus.setVisibility(View.VISIBLE);
+    }
+
+    public void setRightOnClick() {
+        titleBarStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ManagerActivity.this, AddLogActivity.class);
+                intent.putExtra(Entiy.INTENT_USER_LIST, (Serializable) users);
+                startActivity(intent);
+            }
+        });
     }
 
 }

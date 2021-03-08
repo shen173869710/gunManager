@@ -2,20 +2,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_bg"
-    android:orientation="horizontal">
+    android:orientation="vertical">
+
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/main_title_bar" />
 
     <LinearLayout
-        android:id="@+id/manager_item"
-        android:layout_width="@dimen/main_table_list_width"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical"></LinearLayout>
+        android:orientation="horizontal">
 
-    <LinearLayout
-        android:id="@+id/manager_info"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@color/white"
-        android:orientation="vertical"></LinearLayout>
+        <LinearLayout
+            android:id="@+id/manager_item"
+            android:layout_width="@dimen/main_table_list_width"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/manager_info"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:orientation="vertical"></LinearLayout>
+    </LinearLayout>
 </LinearLayout>

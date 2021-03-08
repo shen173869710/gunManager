@@ -1,6 +1,5 @@
 package com.auto.di.guan.manager.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,7 +13,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.ListFragment;
 
 import com.auto.di.guan.manager.R;
-import com.auto.di.guan.manager.activity.MainActivity;
 import com.auto.di.guan.manager.activity.ManagerActivity;
 import com.auto.di.guan.manager.adapter.MyListAdapter;
 import com.auto.di.guan.manager.db.User;
@@ -43,8 +41,7 @@ public class ManagerListFragment extends ListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-
-		users = (List<User>) getArguments().getSerializable("list");
+		users = (List<User>) getArguments().getSerializable(Entiy.INTENT_USER_LIST);
 		if (users == null) {
 			users = new ArrayList<>();
 		}
@@ -52,25 +49,30 @@ public class ManagerListFragment extends ListFragment {
 		adapter = new MyListAdapter(activity, Entiy.MANAGER_ITEM);
 		setListAdapter(adapter);
 		fragments.add(new ManagerTab0());
-
 		Bundle bundle = new Bundle();
-		bundle.putSerializable("list", (Serializable) users);
-		fragments.add(ManagerTab1.getInstance(bundle));
-		fragments.add(new ManagerTab2());
-		fragments.add(new ManagerTab3());
-
+		bundle.putSerializable(Entiy.INTENT_USER_LIST, (Serializable) users);
+		fragments.add(ManagerTab1.newInstance(bundle));
+		fragments.add(ManagerTab2.newInstance(bundle));
+		fragments.add(ManagerTab3.newInstance(bundle));
+		fragments.add(ManagerTab4.newInstance(bundle));
 		transaction = manager.beginTransaction();
 		transaction.add(R.id.manager_info, fragments.get(0), Entiy.MANAGER_ITEM[0]).show(fragments.get(0));
 		transaction.commitAllowingStateLoss();
+		activity.setTitle(Entiy.MANAGER_ITEM[0]);
 		adapter.setSelectedPosition(0);
 	}
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		activity.setTitle(Entiy.TAB_TITLE[position]);
+		activity.setTitle(Entiy.MANAGER_ITEM[position]);
 		adapter.setSelectedPosition(position);
 		showFragment(fragments.get(position));
+		if (position == 2) {
+			activity.setRightVisible();
+		}else {
+			activity.setRightInVisible();
+		}
 		adapter.notifyDataSetChanged();
 		/*发送点击事件*/
 

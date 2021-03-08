@@ -9,6 +9,9 @@ import com.auto.di.guan.manager.utils.ToastUtils;
  */
 public class Entiy {
 
+    public static final String INTENT_USER_LIST = "intent_user_list";
+    public static final String INTENT_USER = "intent_user";
+
     /**百度地图**/
     public static final String BAIDU_KEY = "ttqEPW0GYHru7Zt7QpmquR7UGAdwkwj6";
     /*设置项目的行数*/

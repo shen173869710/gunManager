@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.auto.di.guan.manager.R;
+import com.auto.di.guan.manager.db.User;
+import com.auto.di.guan.manager.entity.Entiy;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
@@ -18,11 +20,14 @@ public class MapActivity extends Activity{
 
 	private MapView mMapView = null;
 	private BaiduMap mBaiduMap;
+	private User user;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
 		// 如果数据表里面没有用户信息
+
+		user = (User) getIntent().getSerializableExtra(Entiy.INTENT_USER);
 		mMapView = (MapView) findViewById(R.id.bmapView);
 		mBaiduMap = mMapView.getMap();
 

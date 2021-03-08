@@ -3,25 +3,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
    >
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/main_table_height"
-        android:background="@color/title_bar_color">
-        <TextView
-            android:id="@+id/title_bar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/manager_tab_0"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-    </RelativeLayout>
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="项目介绍"
+        android:text="你好，欢迎来到\n智慧农业灌溉控制系统\n
+精准环境监测、智能自动控制、实时视频监控、\n海量农情农技，助力打造智能化农场\n
+实现农业大田生成的智能化、自动化"
         android:gravity="center"
         />
 </LinearLayout>

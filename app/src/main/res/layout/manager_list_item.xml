@@ -64,6 +64,18 @@
             android:textSize="14sp" />
     </LinearLayout>
 
+
+    <Button
+        android:id="@+id/manager_item_local"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:text="查看位置"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_red_buttom_rect"
+        />
+
     <Button
         android:id="@+id/manager_item_video"
         android:layout_width="100dp"

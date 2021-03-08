@@ -1,15 +1,19 @@
 package com.auto.di.guan.manager.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.activity.ManagerActivity;
+import com.auto.di.guan.manager.activity.MapActivity;
 import com.auto.di.guan.manager.adapter.ManagerAdapter;
 import com.auto.di.guan.manager.db.User;
+import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.event.UserStatusEvent;
 import com.auto.di.guan.manager.rtm.MessageSend;
@@ -18,6 +22,7 @@ import com.auto.di.guan.manager.utils.GridSpaceItemDecoration;
 import com.auto.di.guan.manager.utils.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -34,7 +39,7 @@ public class ManagerTab1 extends BaseFragment {
 
     private List<User> users;
 
-    public static ManagerTab1 getInstance(Bundle bundle){
+    public static ManagerTab1 newInstance(Bundle bundle){
         ManagerTab1 fragment=new ManagerTab1();
         fragment.setArguments(bundle);
         return fragment;
@@ -48,8 +53,7 @@ public class ManagerTab1 extends BaseFragment {
 
     @Override
     public void init() {
-        Bundle bundle = getArguments();
-        users = (List<User>)bundle.getSerializable("list");
+        users = (List<User>)getArguments().getSerializable(Entiy.INTENT_USER_LIST);
         if (users == null) {
             users = new ArrayList<>();
         }
@@ -66,16 +70,19 @@ public class ManagerTab1 extends BaseFragment {
         mAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                User user = users.get(position);
                 if (view.getId() == R.id.manager_item_login){
-                    User user = users.get(position);
                     if (user.getLoginStatus() != 0) {
                         ToastUtils.showLongToast("用户不在线");
                         return;
                     }
-
                     ManagerActivity managerActivity = (ManagerActivity)activity;
                     managerActivity.showWaitingDialog("");
                     MessageSend.doLogin((users.get(position).getUserId().toString()));
+                }else if (view.getId() == R.id.manager_item_local) {
+                    Intent intent = new Intent(activity, MapActivity.class);
+                    intent.putExtra("user", user);
+                    startActivity(intent);
                 }
             }
         });
