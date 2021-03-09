@@ -66,7 +66,8 @@ public class ManagerTab1 extends BaseFragment {
         managerList.setLayoutManager(linearLayoutManager);
         mAdapter = new ManagerAdapter(users);
         managerList.setAdapter(mAdapter);
-//        mAdapter.addChildClickViewIds(R.id.manager_item_login);
+        mAdapter.addChildClickViewIds(R.id.manager_item_login);
+        mAdapter.addChildClickViewIds(R.id.manager_item_local);
         mAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {

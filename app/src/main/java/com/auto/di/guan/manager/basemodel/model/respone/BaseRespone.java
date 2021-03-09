@@ -12,7 +12,7 @@ public class BaseRespone<T>{
 
 
     public boolean isOk(){
-        if(code == 200) {
+        if(code == 200 || code == 0) {
             return true;
         }
         return false;

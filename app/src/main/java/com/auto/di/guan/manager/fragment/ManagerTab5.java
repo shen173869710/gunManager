@@ -6,14 +6,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.auto.di.guan.manager.R;
-import com.auto.di.guan.manager.adapter.Tab3Adapter;
+import com.auto.di.guan.manager.adapter.Tab5Adapter;
 import com.auto.di.guan.manager.api.ApiUtil;
 import com.auto.di.guan.manager.api.HttpManager;
 import com.auto.di.guan.manager.basemodel.model.request.BaseRequest;
 import com.auto.di.guan.manager.basemodel.model.respone.BaseRespone;
-import com.auto.di.guan.manager.basemodel.model.respone.RaiseCropsRecord;
-import com.auto.di.guan.manager.db.User;
-import com.auto.di.guan.manager.entity.Entiy;
+import com.auto.di.guan.manager.basemodel.model.respone.NoticeMessage;
 import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
@@ -26,68 +24,55 @@ import java.util.TreeMap;
 
 import butterknife.BindView;
 
-public class ManagerTab3 extends BaseFragment {
+public class ManagerTab5 extends BaseFragment {
 
-    @BindView(R.id.tab_3_list)
-    RecyclerView tabList;
-
+    @BindView(R.id.tab_5_list)
+    RecyclerView tab5List;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
-    private Tab3Adapter mAdapter;
+    private Tab5Adapter tab5Adapter;
 
-    List<RaiseCropsRecord> records = new ArrayList<>();
-    private List<User> users;
+    List<NoticeMessage> messages = new ArrayList<>();
 
-    public static ManagerTab3 newInstance(Bundle bundle){
-        ManagerTab3 fragment=new ManagerTab3();
+    public static ManagerTab5 newInstance(Bundle bundle) {
+        ManagerTab5 fragment = new ManagerTab5();
         fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
     public int setLayout() {
-        return R.layout.manager_tab_3;
+        return R.layout.manager_tab_5;
     }
 
     @Override
     public void init() {
-        users = (List<User>)getArguments().getSerializable(Entiy.INTENT_USER_LIST);
-        if (users == null) {
-            users = new ArrayList<>();
-        }
-        tabList.setLayoutManager(new LinearLayoutManager(activity));
-        mAdapter = new Tab3Adapter(records);
-        tabList.setAdapter(mAdapter);
-
         refreshLayout.setRefreshHeader(new ClassicsHeader(activity));
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
+
                 loadMore();
             }
         });
         loadMore();
-
-
-    }
-
-    @Override
-    public void dataChange(DateChangeEvent event) {
-
     }
 
     public void loadMore() {
+        tab5List.setLayoutManager(new LinearLayoutManager(activity));
+        tab5Adapter = new Tab5Adapter(messages);
+        tab5List.setAdapter(tab5Adapter);
         TreeMap<String, Object> treeMap = new TreeMap<>();
         treeMap.put("pageNum", 1);
         treeMap.put("pageSize", 100);
-        HttpManager.syncData(ApiUtil.createApiService().getWaterList(BaseRequest.toMerchantTreeMap(treeMap)), new HttpManager.OnResultListener() {
+        HttpManager.syncData(ApiUtil.createApiService().getNotice(BaseRequest.toMerchantTreeMap(treeMap)), new HttpManager.OnResultListener() {
             @Override
             public void onSuccess(BaseRespone respone) {
                 refreshLayout.finishRefresh(1000);
                 if (respone.getData() != null) {
-                    List<RaiseCropsRecord> list = (List<RaiseCropsRecord>) respone.getData();
+                    List<NoticeMessage> list = (List<NoticeMessage>) respone.getData();
                     if (list != null) {
-                        mAdapter.setData(list);
+                        tab5Adapter.setData(list);
                     }
                 }
             }
@@ -97,5 +82,9 @@ public class ManagerTab3 extends BaseFragment {
                 refreshLayout.finishRefresh(false);
             }
         });
+    }
+    @Override
+    public void dataChange(DateChangeEvent event) {
+
     }
 }

@@ -55,6 +55,7 @@ public class ManagerListFragment extends ListFragment {
 		fragments.add(ManagerTab2.newInstance(bundle));
 		fragments.add(ManagerTab3.newInstance(bundle));
 		fragments.add(ManagerTab4.newInstance(bundle));
+		fragments.add(ManagerTab5.newInstance(bundle));
 		transaction = manager.beginTransaction();
 		transaction.add(R.id.manager_info, fragments.get(0), Entiy.MANAGER_ITEM[0]).show(fragments.get(0));
 		transaction.commitAllowingStateLoss();

@@ -1,14 +1,19 @@
 package com.auto.di.guan.manager.api;
 
 
+import com.auto.di.guan.manager.basemodel.model.respone.ApplyFertilizerRecord;
 import com.auto.di.guan.manager.basemodel.model.respone.BaseRespone;
 import com.auto.di.guan.manager.basemodel.model.respone.LoginRespone;
-import com.auto.di.guan.manager.db.UserAction;
+import com.auto.di.guan.manager.basemodel.model.respone.NoticeMessage;
+import com.auto.di.guan.manager.basemodel.model.respone.PageInfo;
+import com.auto.di.guan.manager.basemodel.model.respone.RaiseCropsRecord;
+import com.auto.di.guan.manager.basemodel.model.respone.WateringRecord;
 import com.auto.di.guan.manager.entity.TableDataInfo;
 
 import java.util.List;
 import java.util.Map;
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -33,4 +38,48 @@ public interface ApiService {
     Observable<BaseRespone<TableDataInfo>> getActions(@FieldMap Map<String, Object> map);
 
 
+
+    /**
+     *  发送预计信息
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/send/smsMsg")
+    Observable<BaseRespone<TableDataInfo>> sendSmsMsg(@FieldMap Map<String, Object> map);
+
+
+    /**
+     *  获取通知
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/notice/getPageList")
+    Observable<BaseRespone<List<NoticeMessage>>> getNotice(@FieldMap Map<String, Object> map);
+
+    /**
+     *  保存种植作物记录
+     * @return
+     */
+    @POST("api/save/raiseCrops")
+    Observable<BaseRespone> saveRaise(@Body RaiseCropsRecord record);
+    @POST("api/raiseCrops/getPageList")
+    Observable<BaseRespone<List<RaiseCropsRecord>>>getRaiseList(@Body PageInfo pageInfo);
+
+    /**
+     *  浇水记录
+     * @return
+     */
+    @POST("api/save/wateringRecord")
+    Observable<BaseRespone> saveWater(@Body WateringRecord record);
+    @FormUrlEncoded
+    @POST("api/wateringRecord/getPageList")
+    Observable<BaseRespone<List<WateringRecord>>>getWaterList(@FieldMap Map<String, Object> map);
+    /**
+     *  保存种植作物记录
+     * @return
+     */
+    @POST("/api/save/applyFertilizer")
+    Observable<BaseRespone> saveApply(@Body ApplyFertilizerRecord record);
+    @POST("api/applyFertilizer/getPageList")
+    Observable<BaseRespone<List<ApplyFertilizerRecord>>>getApplyList(@Body PageInfo pageInfo);
 }
