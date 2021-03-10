@@ -21,9 +21,9 @@ public class Tab2Adapter extends BaseQuickAdapter<WateringRecord, BaseViewHolder
 
     @Override
     protected void convert(BaseViewHolder holder, WateringRecord data) {
-        holder.setText(R.id.item_0, data.getProject_name()+"");
-        holder.setText(R.id.item_1, data.getFlow_meter_count()+"");
-        holder.setText(R.id.item_2, data.getRecord_date()+"");
+        holder.setText(R.id.item_0, data.getProjectName()+"");
+        holder.setText(R.id.item_1, data.getFlowMeterCount()+"");
+        holder.setText(R.id.item_2, data.getRecordDate()+"");
     }
 
 

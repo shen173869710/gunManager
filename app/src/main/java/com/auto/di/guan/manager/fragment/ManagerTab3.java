@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.auto.di.guan.manager.R;
+import com.auto.di.guan.manager.activity.ManagerActivity;
 import com.auto.di.guan.manager.adapter.Tab3Adapter;
 import com.auto.di.guan.manager.api.ApiUtil;
 import com.auto.di.guan.manager.api.HttpManager;
@@ -67,8 +68,6 @@ public class ManagerTab3 extends BaseFragment {
             }
         });
         loadMore();
-
-
     }
 
     @Override
@@ -78,9 +77,9 @@ public class ManagerTab3 extends BaseFragment {
 
     public void loadMore() {
         TreeMap<String, Object> treeMap = new TreeMap<>();
-        treeMap.put("pageNum", 1);
-        treeMap.put("pageSize", 100);
-        HttpManager.syncData(ApiUtil.createApiService().getWaterList(BaseRequest.toMerchantTreeMap(treeMap)), new HttpManager.OnResultListener() {
+        treeMap.put("beginTime", 1);
+        treeMap.put("endTime", System.currentTimeMillis());
+        HttpManager.syncData(ApiUtil.createApiService().getRaiseList(BaseRequest.toMerchantTreeMap(treeMap)), new HttpManager.OnResultListener() {
             @Override
             public void onSuccess(BaseRespone respone) {
                 refreshLayout.finishRefresh(1000);

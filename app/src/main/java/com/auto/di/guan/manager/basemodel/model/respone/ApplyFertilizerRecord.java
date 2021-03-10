@@ -19,7 +19,7 @@ public class ApplyFertilizerRecord implements Serializable{
 	private String nitrogenFertilizerName = "氮肥名称";
 	private String nitrogenFertilizerNum= "氮肥数量";
 	//磷肥名称
-	private String phosphate_fertilizer_name= "磷肥名称";
+	private String phosphateFertilizerName= "磷肥名称";
 	private String phosphateFertilizerNum= "磷肥数量";
 	//钾肥名称
 	private String potashFertilizerName= "钾肥名称";
@@ -81,12 +81,12 @@ public class ApplyFertilizerRecord implements Serializable{
 		this.nitrogenFertilizerNum = nitrogenFertilizerNum;
 	}
 
-	public String getPhosphate_fertilizer_name() {
-		return phosphate_fertilizer_name;
+	public String getPhosphateFertilizerName() {
+		return phosphateFertilizerName;
 	}
 
-	public void setPhosphate_fertilizer_name(String phosphate_fertilizer_name) {
-		this.phosphate_fertilizer_name = phosphate_fertilizer_name;
+	public void setPhosphateFertilizerName(String phosphate_fertilizer_name) {
+		this.phosphateFertilizerName = phosphate_fertilizer_name;
 	}
 
 	public String getPhosphateFertilizerNum() {

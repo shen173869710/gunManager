@@ -69,11 +69,12 @@ public class ManagerListFragment extends ListFragment {
 		activity.setTitle(Entiy.MANAGER_ITEM[position]);
 		adapter.setSelectedPosition(position);
 		showFragment(fragments.get(position));
-		if (position == 2) {
+		if (position == 2 || position == 3 || position == 4) {
 			activity.setRightVisible();
 		}else {
 			activity.setRightInVisible();
 		}
+		activity.setIndex(position);
 		adapter.notifyDataSetChanged();
 		/*发送点击事件*/
 

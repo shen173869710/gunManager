@@ -1,6 +1,5 @@
 package com.auto.di.guan.manager.activity;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,44 +10,54 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.auto.di.guan.manager.R;
+import com.auto.di.guan.manager.adapter.Submit2Adapter;
+import com.auto.di.guan.manager.adapter.SubmitAdapter;
 import com.auto.di.guan.manager.app.BaseApp;
+import com.auto.di.guan.manager.basemodel.model.respone.ApplyFertilizerRecord;
 import com.auto.di.guan.manager.basemodel.model.respone.BaseRespone;
-import com.auto.di.guan.manager.basemodel.model.respone.WateringRecord;
-import com.auto.di.guan.manager.basemodel.presenter.CommonPresenter;
+import com.auto.di.guan.manager.basemodel.presenter.LoginPresenter;
 import com.auto.di.guan.manager.basemodel.view.IBaseView;
 import com.auto.di.guan.manager.db.User;
 import com.auto.di.guan.manager.entity.Entiy;
+import com.auto.di.guan.manager.entity.SubmitInfo;
 import com.auto.di.guan.manager.utils.ToastUtils;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * 添加操作日志
+ *       施肥日志
  */
-
-public class AddLogActivity extends IBaseActivity<CommonPresenter> implements IBaseView {
+public class AddApplyActivity extends IBaseActivity<LoginPresenter> implements IBaseView {
 
     @BindView(R.id.title_bar_back_layout)
     RelativeLayout titleBarBackLayout;
     @BindView(R.id.add_spinner)
     Spinner addSpinner;
-    @BindView(R.id.add_info)
-    EditText addInfo;
     @BindView(R.id.add_submit)
     Button addSubmit;
     @BindView(R.id.title_bar_title)
     TextView titleBarTitle;
+    @BindView(R.id.add_list)
+    RecyclerView addList;
 
     private List<User> users;
     private int index = 0;
+    private Submit2Adapter submitAdapter;
+    private List<SubmitInfo> submitInfos = new ArrayList<>();
+
+    private ArrayList<String> dataList = new ArrayList<>();
 
     @Override
     protected int setLayout() {
-        return R.layout.activity_add_log;
+        return R.layout.activity_add_apply;
     }
 
     @Override
@@ -57,8 +66,13 @@ public class AddLogActivity extends IBaseActivity<CommonPresenter> implements IB
         if (users == null) {
             return;
         }
-        titleBarTitle.setText(R.string.manager_tab_2);
-
+        dataList.clear();
+        dataList.add("氮肥");
+        dataList.add("磷肥");
+        dataList.add("钾肥");
+        dataList.add("复合肥");
+        dataList.add("其他肥");
+        titleBarTitle.setText(R.string.manager_tab_4);
         int size = users.size();
         ArrayList<String> mItems = new ArrayList<>();
         for (int i = 0; i < size; i++) {
@@ -66,7 +80,6 @@ public class AddLogActivity extends IBaseActivity<CommonPresenter> implements IB
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mItems);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         addSpinner.setAdapter(adapter);
         addSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -79,43 +92,70 @@ public class AddLogActivity extends IBaseActivity<CommonPresenter> implements IB
 
             }
         });
+
+        addList.setLayoutManager(new LinearLayoutManager(this));
+
+        int length = Entiy.APPLY.length;
+        submitInfos.clear();
+        for (int i = 0; i < length; i++) {
+            submitInfos.add(new SubmitInfo(Entiy.RAISE[i], ""));
+        }
+        submitAdapter = new Submit2Adapter(submitInfos,dataList);
+        addList.setAdapter(submitAdapter);
     }
 
     @Override
-    protected CommonPresenter createPresenter() {
-        return new CommonPresenter();
+    protected LoginPresenter createPresenter() {
+        return new LoginPresenter();
     }
 
 
     @Override
     public void success(BaseRespone respone) {
-        ToastUtils.showToast(R.string.submit_suc);
+
     }
 
     @Override
     public void fail(Throwable error, Integer code, String msg) {
-        ToastUtils.showToast(msg + "");
     }
 
 
     public void submitInfo() {
-        String info = addInfo.getText().toString().trim();
-        if (TextUtils.isEmpty(info)) {
-            ToastUtils.showToast("输入信息为空");
-            return;
-        }
+        int size = submitInfos.size();
+
         User user = users.get(index);
-        WateringRecord record = new WateringRecord();
+        ApplyFertilizerRecord record = new ApplyFertilizerRecord();
+        for (int i = 0; i < size; i++) {
+            SubmitInfo info = submitInfos.get(i);
+            if (TextUtils.isEmpty(info.getDesc())) {
+                ToastUtils.showToast("输入信息为空");
+                return;
+            }
+
+            if (info.getIndex() < 0) {
+                ToastUtils.showToast("请选择化肥种类");
+                return;
+            }
+            if (info.getIndex() == 0) {
+                record.setNitrogenFertilizerName(dataList.get(0));
+                record.setCompoundFertilizerNum(info.getDesc());
+            }else if (info.getIndex() == 1) {
+                record.setPhosphateFertilizerName(dataList.get(1));
+                record.setPhosphateFertilizerNum(info.getDesc());
+            }else if (info.getIndex() == 2) {
+                record.setPotashFertilizerName(dataList.get(2));
+                record.setPotashFertilizerNum(info.getDesc());
+            }else if (info.getIndex() == 3) {
+                record.setCompoundFertilizerName(dataList.get(3));
+                record.setPotashFertilizerNum(info.getDesc());
+            }else if (info.getIndex() == 4) {
+                record.setOtherFertilizersName(dataList.get(4));
+                record.setOtherFertilizersNum(info.getDesc());
+            }
+        }
         record.setWaterUserId(BaseApp.getUser().getUserId());
         record.setMemberUserId(user.getUserId());
         record.setProjectName(user.getLoginName());
-        record.setFlowMeterCount(info);
-        record.setRecordDate(System.currentTimeMillis());
-        record.setFieldExt1("1");
-        record.setFieldExt2("2");
-        record.setFieldExt3("3");
-        record.setFieldExt4("4");
-        mPresenter.addWater(record);
     }
 
 
@@ -129,12 +169,5 @@ public class AddLogActivity extends IBaseActivity<CommonPresenter> implements IB
                 submitInfo();
                 break;
         }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

@@ -1,85 +1,88 @@
 package com.auto.di.guan.manager.basemodel.model.respone;
 
 public class WateringRecord {
-    private long water_user_id;
-    private long member_user_id;
-    private String project_name;
-    private String flow_meter_count;
-    private String record_date;
-    private String file_ext1;
-    private String file_ext2;
-    private String file_ext3;
-    private String file_ext4;
+    private long waterUserId;
+    private long memberUserId;
+    private String projectName;
+    private String flowMeterCount;
+    private long recordDate;
+    private String fieldExt1;
+    private String fieldExt2;
+    private String fieldExt3;
 
-    public long getWater_user_id() {
-        return water_user_id;
+    public long getWaterUserId() {
+        return waterUserId;
     }
 
-    public void setWater_user_id(long water_user_id) {
-        this.water_user_id = water_user_id;
+    public void setWaterUserId(long waterUserId) {
+        this.waterUserId = waterUserId;
     }
 
-    public long getMember_user_id() {
-        return member_user_id;
+    public long getMemberUserId() {
+        return memberUserId;
     }
 
-    public void setMember_user_id(long member_user_id) {
-        this.member_user_id = member_user_id;
+    public void setMemberUserId(long memberUserId) {
+        this.memberUserId = memberUserId;
     }
 
-    public String getProject_name() {
-        return project_name;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setProject_name(String project_name) {
-        this.project_name = project_name;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
-    public String getFlow_meter_count() {
-        return flow_meter_count;
+    public String getFlowMeterCount() {
+        return flowMeterCount;
     }
 
-    public void setFlow_meter_count(String flow_meter_count) {
-        this.flow_meter_count = flow_meter_count;
+    public void setFlowMeterCount(String flowMeterCount) {
+        this.flowMeterCount = flowMeterCount;
     }
 
-    public String getRecord_date() {
-        return record_date;
+    public long getRecordDate() {
+        return recordDate;
     }
 
-    public void setRecord_date(String record_date) {
-        this.record_date = record_date;
+    public void setRecordDate(long recordDate) {
+        this.recordDate = recordDate;
     }
 
-    public String getFile_ext1() {
-        return file_ext1;
+    public String getFieldExt1() {
+        return fieldExt1;
     }
 
-    public void setFile_ext1(String file_ext1) {
-        this.file_ext1 = file_ext1;
+    public void setFieldExt1(String fieldExt1) {
+        this.fieldExt1 = fieldExt1;
     }
 
-    public String getFile_ext2() {
-        return file_ext2;
+    public String getFieldExt2() {
+        return fieldExt2;
     }
 
-    public void setFile_ext2(String file_ext2) {
-        this.file_ext2 = file_ext2;
+    public void setFieldExt2(String fieldExt2) {
+        this.fieldExt2 = fieldExt2;
     }
 
-    public String getFile_ext3() {
-        return file_ext3;
+    public String getFieldExt3() {
+        return fieldExt3;
     }
 
-    public void setFile_ext3(String file_ext3) {
-        this.file_ext3 = file_ext3;
+    public void setFieldExt3(String fieldExt3) {
+        this.fieldExt3 = fieldExt3;
     }
 
-    public String getFile_ext4() {
-        return file_ext4;
+    public String getFieldExt4() {
+        return fieldExt4;
     }
 
-    public void setFile_ext4(String file_ext4) {
-        this.file_ext4 = file_ext4;
+    public void setFieldExt4(String fieldExt4) {
+        this.fieldExt4 = fieldExt4;
     }
+
+    private String fieldExt4;
+
+
 }

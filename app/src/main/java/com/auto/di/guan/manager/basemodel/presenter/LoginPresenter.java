@@ -9,6 +9,7 @@ import com.auto.di.guan.manager.basemodel.model.respone.PageInfo;
 import com.auto.di.guan.manager.basemodel.model.respone.RaiseCropsRecord;
 import com.auto.di.guan.manager.basemodel.model.respone.WateringRecord;
 import com.auto.di.guan.manager.basemodel.view.IBaseView;
+import com.auto.di.guan.manager.utils.Md5Util;
 
 import java.util.TreeMap;
 
@@ -24,7 +25,7 @@ public class LoginPresenter extends BasePresenter<IBaseView>{
      * 登录请求
      * **/
     public void doLogin(String userName, final String pwd) {
-//        String password = Md5Util.md5(pwd);
+        String password = Md5Util.md5(pwd);
         TreeMap<String, Object> treeMap = new TreeMap<>();
         treeMap.put("loginName",userName);
         treeMap.put("password",pwd);
@@ -88,11 +89,11 @@ public class LoginPresenter extends BasePresenter<IBaseView>{
 //        doHttpTask(getApiService().getApplyList(pageInfo), new HttpManager.OnResultListener() {
 //            @Override
 //            public void onSuccess(BaseRespone respone) {
-//                getBaseView().success(respone);
+////                getBaseView().success(respone);
 //            }
 //            @Override
 //            public void onError(Throwable error, Integer code,String msg) {
-//                getBaseView().fail(error,code,msg);
+////                getBaseView().fail(error,code,msg);
 //            }
 //        });
 

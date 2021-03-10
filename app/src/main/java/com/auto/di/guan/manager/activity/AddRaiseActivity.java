@@ -1,54 +1,59 @@
 package com.auto.di.guan.manager.activity;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.auto.di.guan.manager.R;
+import com.auto.di.guan.manager.adapter.SubmitAdapter;
 import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.basemodel.model.respone.BaseRespone;
-import com.auto.di.guan.manager.basemodel.model.respone.WateringRecord;
+import com.auto.di.guan.manager.basemodel.model.respone.RaiseCropsRecord;
 import com.auto.di.guan.manager.basemodel.presenter.CommonPresenter;
 import com.auto.di.guan.manager.basemodel.view.IBaseView;
 import com.auto.di.guan.manager.db.User;
 import com.auto.di.guan.manager.entity.Entiy;
+import com.auto.di.guan.manager.entity.SubmitInfo;
 import com.auto.di.guan.manager.utils.ToastUtils;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * 添加操作日志
+ * 产量日志
  */
-
-public class AddLogActivity extends IBaseActivity<CommonPresenter> implements IBaseView {
+public class AddRaiseActivity extends IBaseActivity<CommonPresenter> implements IBaseView {
 
     @BindView(R.id.title_bar_back_layout)
     RelativeLayout titleBarBackLayout;
     @BindView(R.id.add_spinner)
     Spinner addSpinner;
-    @BindView(R.id.add_info)
-    EditText addInfo;
     @BindView(R.id.add_submit)
     Button addSubmit;
     @BindView(R.id.title_bar_title)
     TextView titleBarTitle;
+    @BindView(R.id.add_list)
+    RecyclerView addList;
 
     private List<User> users;
     private int index = 0;
+    private SubmitAdapter submitAdapter;
+    private List<SubmitInfo> submitInfos = new ArrayList<>();
 
     @Override
     protected int setLayout() {
-        return R.layout.activity_add_log;
+        return R.layout.activity_add_raise;
     }
 
     @Override
@@ -57,8 +62,7 @@ public class AddLogActivity extends IBaseActivity<CommonPresenter> implements IB
         if (users == null) {
             return;
         }
-        titleBarTitle.setText(R.string.manager_tab_2);
-
+        titleBarTitle.setText(R.string.manager_tab_3);
         int size = users.size();
         ArrayList<String> mItems = new ArrayList<>();
         for (int i = 0; i < size; i++) {
@@ -79,6 +83,17 @@ public class AddLogActivity extends IBaseActivity<CommonPresenter> implements IB
 
             }
         });
+
+        addList.setLayoutManager(new LinearLayoutManager(this));
+
+        int length = Entiy.RAISE.length;
+        submitInfos.clear();
+        for (int i = 0; i < length; i++) {
+            submitInfos.add(new SubmitInfo(Entiy.RAISE[i], ""));
+        }
+        submitAdapter = new SubmitAdapter(submitInfos);
+        addList.setAdapter(submitAdapter);
+
     }
 
     @Override
@@ -89,33 +104,34 @@ public class AddLogActivity extends IBaseActivity<CommonPresenter> implements IB
 
     @Override
     public void success(BaseRespone respone) {
-        ToastUtils.showToast(R.string.submit_suc);
+
     }
 
     @Override
     public void fail(Throwable error, Integer code, String msg) {
-        ToastUtils.showToast(msg + "");
     }
 
 
     public void submitInfo() {
-        String info = addInfo.getText().toString().trim();
-        if (TextUtils.isEmpty(info)) {
-            ToastUtils.showToast("输入信息为空");
-            return;
+        int size = submitInfos.size();
+        for (int i = 0; i < size; i++) {
+            if (TextUtils.isEmpty(submitInfos.get(i).getDesc())) {
+                ToastUtils.showToast("输入信息为空");
+                return;
+            }
         }
         User user = users.get(index);
-        WateringRecord record = new WateringRecord();
+        RaiseCropsRecord record = new RaiseCropsRecord();
         record.setWaterUserId(BaseApp.getUser().getUserId());
         record.setMemberUserId(user.getUserId());
         record.setProjectName(user.getLoginName());
-        record.setFlowMeterCount(info);
-        record.setRecordDate(System.currentTimeMillis());
-        record.setFieldExt1("1");
-        record.setFieldExt2("2");
-        record.setFieldExt3("3");
-        record.setFieldExt4("4");
-        mPresenter.addWater(record);
+        record.setCropName(submitInfos.get(0).getDesc());
+        record.setVarieties(submitInfos.get(1).getDesc());
+        record.setSowingTime(System.currentTimeMillis());
+        record.setCollectingTime(System.currentTimeMillis());
+        record.setOutputUnit(submitInfos.get(4).getDesc());
+        record.setOutputYm(submitInfos.get(5).getDesc());
+        mPresenter.addRaise(record);
     }
 
 
@@ -131,10 +147,4 @@ public class AddLogActivity extends IBaseActivity<CommonPresenter> implements IB
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

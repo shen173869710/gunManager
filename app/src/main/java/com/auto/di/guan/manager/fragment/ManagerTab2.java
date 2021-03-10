@@ -2,7 +2,6 @@ package com.auto.di.guan.manager.fragment;
 
 import android.os.Bundle;
 import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -69,9 +68,6 @@ public class ManagerTab2 extends BaseFragment {
 
             }
         });
-
-        ManagerActivity managerActivity = (ManagerActivity) activity;
-        managerActivity.setRightOnClick();
 //        titleBarAdd.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

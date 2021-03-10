@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.ToastUtils;
+
 /**
  * Created by Administrator on 2017/7/16.
  */
@@ -108,6 +109,29 @@ public class Entiy {
 
     public static int GRID_COLUMNS = 5;
 
+    /****提交产量相关****/
+    public static String []RAISE = {
+            "作物名称",
+            "作物品种",
+            "播种时间",
+            "采收时间",
+            "单位产量",
+            "作物年份"
+    };
+
+    public static String []APPLY = {
+            "氮肥名称",
+            "氮肥数量",
+            "磷肥名称",
+            "磷肥数量",
+            "钾肥名称",
+            "钾肥数量",
+            "复合肥名称",
+            "复合肥数量",
+            "其他肥名称",
+            "其他肥数量"
+    };
+    /**管理端的主页面**/
     public static String []MANAGER_ITEM = {
             "项目主页",
             "项目操作",
@@ -116,7 +140,7 @@ public class Entiy {
             "施肥日志",
             "项目公告"
     };
-
+    /***操作页面***/
     public static String []TAB_TITLE = {
             "阀门状态",
             "轮灌分组",

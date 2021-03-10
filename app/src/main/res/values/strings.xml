@@ -32,6 +32,13 @@
     <string name="manager_tab_0">项目主页</string>
     <string name="manager_tab_1">项目操作</string>
     <string name="manager_tab_2">操作日志</string>
-    <string name="manager_tab_3">项目公告</string>
+    <string name="manager_tab_3">产量日志</string>
+    <string name="manager_tab_4">施肥日志</string>
+    <string name="manager_tab_5">项目公告</string>
     <string name="manager_tab_add">添加日志</string>
+
+
+    <string name="submit_suc">提交成功</string>
+    <string name="submit_faile">提交失败</string>
+    <string name="save">提交</string>
 </resources>

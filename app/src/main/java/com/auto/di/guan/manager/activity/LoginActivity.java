@@ -1,7 +1,6 @@
 package com.auto.di.guan.manager.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.Toast;
@@ -15,13 +14,11 @@ import com.auto.di.guan.manager.basemodel.view.IBaseView;
 import com.auto.di.guan.manager.customview.XEditText;
 import com.auto.di.guan.manager.db.User;
 import com.auto.di.guan.manager.utils.ToastUtils;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LoginActivity extends IBaseActivity<LoginPresenter> implements IBaseView {
@@ -87,7 +84,6 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements IBas
             Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_LONG).show();
             return;
         }
-
         mPresenter.doLogin(name, pwd);
     }
 }

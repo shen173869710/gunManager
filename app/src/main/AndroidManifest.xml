@@ -59,6 +59,8 @@
         <activity android:name=".activity.WelcomeActivity" android:screenOrientation="landscape"/>
         <activity android:name=".activity.MapActivity" android:screenOrientation="landscape"/>
         <activity android:name=".activity.AddLogActivity" android:screenOrientation="landscape"/>
+        <activity android:name=".activity.AddRaiseActivity" android:screenOrientation="landscape"/>
+        <activity android:name=".activity.AddApplyActivity" android:screenOrientation="landscape"/>
         <activity android:name=".floatWindow.FloatActivity" android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

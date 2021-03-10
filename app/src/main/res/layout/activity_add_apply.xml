@@ -9,11 +9,9 @@
     <include
         android:id="@+id/title_bar"
         layout="@layout/main_title_bar" />
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,17 +29,15 @@
                 android:scrollbars="vertical"
                 android:spinnerMode="dropdown" />
 
-            <EditText
-                android:id="@+id/add_info"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/add_list"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/input_bg"
-                android:gravity="top"
-                android:hint="请输入日志信息"
-                android:maxLength="1000"
-                android:padding="5dp"
-                android:paddingRight="10dp" />
+                android:layout_height="wrap_content"
+                android:cacheColorHint="#00000000"
+                android:divider="@color/main_bg"
+                android:fadingEdge="none"
+                android:listSelector="@drawable/dialogue_listview_selector"
+                android:scrollbars="none" />
 
             <LinearLayout
                 android:layout_width="@dimen/main_button_width"
@@ -57,7 +53,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/main_button_height"
                     android:background="@drawable/login_button_sel"
-                    android:text="@string/save"
+                    android:text="提交日志"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size_24" />
             </LinearLayout>

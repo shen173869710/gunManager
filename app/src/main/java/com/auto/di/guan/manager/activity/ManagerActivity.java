@@ -22,6 +22,7 @@ import com.auto.di.guan.manager.fragment.ManagerListFragment;
 import com.auto.di.guan.manager.rtm.ChatManager;
 import com.auto.di.guan.manager.utils.ToastUtils;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -48,6 +49,7 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
     private ChatManager mChatManager;
     private List<User> users = new ArrayList<>();
 
+    private int index = 0;
 
     @Override
     protected int setLayout() {
@@ -76,6 +78,15 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
         }
         /***登录同时监听在线用户的状态***/
         BaseApp.getInstance().getChatManager().doLogin(user, this);
+
+
+
+        titleBarStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getRightOnClick();
+            }
+        });
     }
 
     @Override
@@ -154,15 +165,24 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
         titleBarStatus.setVisibility(View.VISIBLE);
     }
 
-    public void setRightOnClick() {
-        titleBarStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ManagerActivity.this, AddLogActivity.class);
-                intent.putExtra(Entiy.INTENT_USER_LIST, (Serializable) users);
-                startActivity(intent);
-            }
-        });
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public void getRightOnClick() {
+        if (index < 2 || index > 4) {
+            return;
+        }
+        Intent intent = new Intent();
+        if (index == 2) {
+            intent.setClass(ManagerActivity.this, AddLogActivity.class);
+        }else if (index == 3) {
+            intent.setClass(ManagerActivity.this, AddRaiseActivity.class);
+        }else if (index == 4) {
+            intent.setClass(ManagerActivity.this, AddApplyActivity.class);
+        }
+        intent.putExtra(Entiy.INTENT_USER_LIST, (Serializable) users);
+        startActivity(intent);
     }
 
 }

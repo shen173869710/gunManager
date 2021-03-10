@@ -52,6 +52,7 @@ public class ManagerTab4 extends BaseFragment {
         mAdapter = new Tab4Adapter(list);
         tabList.setAdapter(mAdapter);
         refreshLayout.setRefreshHeader(new ClassicsHeader(activity));
+
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
@@ -65,7 +66,7 @@ public class ManagerTab4 extends BaseFragment {
         TreeMap<String, Object> treeMap = new TreeMap<>();
         treeMap.put("pageNum", 1);
         treeMap.put("pageSize", 100);
-        HttpManager.syncData(ApiUtil.createApiService().getNotice(BaseRequest.toMerchantTreeMap(treeMap)), new HttpManager.OnResultListener() {
+        HttpManager.syncData(ApiUtil.createApiService().getApplyList(BaseRequest.toMerchantTreeMap(treeMap)), new HttpManager.OnResultListener() {
             @Override
             public void onSuccess(BaseRespone respone) {
                 refreshLayout.finishRefresh(1000);

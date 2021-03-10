@@ -5,7 +5,6 @@ import com.auto.di.guan.manager.basemodel.model.respone.ApplyFertilizerRecord;
 import com.auto.di.guan.manager.basemodel.model.respone.BaseRespone;
 import com.auto.di.guan.manager.basemodel.model.respone.LoginRespone;
 import com.auto.di.guan.manager.basemodel.model.respone.NoticeMessage;
-import com.auto.di.guan.manager.basemodel.model.respone.PageInfo;
 import com.auto.di.guan.manager.basemodel.model.respone.RaiseCropsRecord;
 import com.auto.di.guan.manager.basemodel.model.respone.WateringRecord;
 import com.auto.di.guan.manager.entity.TableDataInfo;
@@ -36,9 +35,6 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/api/project/perationlist")
     Observable<BaseRespone<TableDataInfo>> getActions(@FieldMap Map<String, Object> map);
-
-
-
     /**
      *  发送预计信息
      * @return
@@ -46,8 +42,6 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/api/send/smsMsg")
     Observable<BaseRespone<TableDataInfo>> sendSmsMsg(@FieldMap Map<String, Object> map);
-
-
     /**
      *  获取通知
      * @return
@@ -55,16 +49,15 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/notice/getPageList")
     Observable<BaseRespone<List<NoticeMessage>>> getNotice(@FieldMap Map<String, Object> map);
-
     /**
      *  保存种植作物记录
      * @return
      */
     @POST("api/save/raiseCrops")
     Observable<BaseRespone> saveRaise(@Body RaiseCropsRecord record);
+    @FormUrlEncoded
     @POST("api/raiseCrops/getPageList")
-    Observable<BaseRespone<List<RaiseCropsRecord>>>getRaiseList(@Body PageInfo pageInfo);
-
+    Observable<BaseRespone<List<RaiseCropsRecord>>>getRaiseList(@FieldMap Map<String, Object> map);
     /**
      *  浇水记录
      * @return
@@ -80,6 +73,7 @@ public interface ApiService {
      */
     @POST("/api/save/applyFertilizer")
     Observable<BaseRespone> saveApply(@Body ApplyFertilizerRecord record);
+    @FormUrlEncoded
     @POST("api/applyFertilizer/getPageList")
-    Observable<BaseRespone<List<ApplyFertilizerRecord>>>getApplyList(@Body PageInfo pageInfo);
+    Observable<BaseRespone<List<ApplyFertilizerRecord>>>getApplyList(@FieldMap Map<String, Object> map);
 }
