@@ -125,11 +125,10 @@ public class DateUtils {
      * @return
      */
     public static String timet(String time) {
-        SimpleDateFormat sdr = new SimpleDateFormat("yyyy年MM月dd日  HH:mm");
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy/MM/dd");
         @SuppressWarnings("unused")
         long lcc = Long.valueOf(time);
-        int i = Integer.parseInt(time);
-        String times = sdr.format(new Date(i * 1000L));
+        String times = sdr.format(new Date(lcc));
         return times;
 
     }

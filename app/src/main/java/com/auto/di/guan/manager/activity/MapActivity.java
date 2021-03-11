@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.db.User;
@@ -34,6 +35,20 @@ public class MapActivity extends Activity{
 		//定义Maker坐标点
 		LatLng point = new LatLng(39.963175, 116.400244);
 		View view = LayoutInflater.from(this).inflate(R.layout.map_maker_layout, null);
+
+
+		TextView item_project = view.findViewById(R.id.item_project);
+		TextView item_name = view.findViewById(R.id.item_name);
+		TextView item_crop = view.findViewById(R.id.item_crop);
+		TextView item_varieties = view.findViewById(R.id.item_varieties);
+		TextView item_outputUnit = view.findViewById(R.id.item_outputUnit);
+		TextView item_outputYm = view.findViewById(R.id.item_outputYm);
+		item_project.setText(user.getLoginName());
+		item_name.setText(user.getPhonenumber()+"");
+		item_crop.setText("棉花");
+		item_varieties.setText("棉花一号");
+		item_outputUnit.setText("3吨");
+		item_outputYm.setText("3年");
 		BitmapDescriptor bitmap = BitmapDescriptorFactory.fromView(view);
 //构建Marker图标
 //		BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher);

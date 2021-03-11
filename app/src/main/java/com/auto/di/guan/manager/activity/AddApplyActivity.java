@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.Submit2Adapter;
-import com.auto.di.guan.manager.adapter.SubmitAdapter;
 import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.basemodel.model.respone.ApplyFertilizerRecord;
 import com.auto.di.guan.manager.basemodel.model.respone.BaseRespone;
@@ -53,8 +51,6 @@ public class AddApplyActivity extends IBaseActivity<LoginPresenter> implements I
     private Submit2Adapter submitAdapter;
     private List<SubmitInfo> submitInfos = new ArrayList<>();
 
-    private ArrayList<String> dataList = new ArrayList<>();
-
     @Override
     protected int setLayout() {
         return R.layout.activity_add_apply;
@@ -66,12 +62,6 @@ public class AddApplyActivity extends IBaseActivity<LoginPresenter> implements I
         if (users == null) {
             return;
         }
-        dataList.clear();
-        dataList.add("氮肥");
-        dataList.add("磷肥");
-        dataList.add("钾肥");
-        dataList.add("复合肥");
-        dataList.add("其他肥");
         titleBarTitle.setText(R.string.manager_tab_4);
         int size = users.size();
         ArrayList<String> mItems = new ArrayList<>();
@@ -98,9 +88,27 @@ public class AddApplyActivity extends IBaseActivity<LoginPresenter> implements I
         int length = Entiy.APPLY.length;
         submitInfos.clear();
         for (int i = 0; i < length; i++) {
-            submitInfos.add(new SubmitInfo(Entiy.RAISE[i], ""));
+            SubmitInfo submitInfo = new SubmitInfo(Entiy.APPLY[i], "");
+            String[] temp = null;
+            ArrayList<String> type = new ArrayList<>();
+            if (i == 0) {
+                temp = getResources().getStringArray(R.array.nitrogenFertilizer);
+            }else if (i == 1) {
+                temp = getResources().getStringArray(R.array.phosphateFertilizer);
+            }else if (i == 2) {
+                temp = getResources().getStringArray(R.array.potashFertilizer);
+            }else if (i == 3) {
+                temp = getResources().getStringArray(R.array.compoundFertilizer);
+            }else if (i == 4) {
+                temp = getResources().getStringArray(R.array.otherFertilizers);
+            }
+            for (int j = 0; j < temp.length; j++) {
+                type.add(temp[j]);
+            }
+            submitInfo.setLists(type);
+            submitInfos.add(submitInfo);
         }
-        submitAdapter = new Submit2Adapter(submitInfos,dataList);
+        submitAdapter = new Submit2Adapter(submitInfos);
         addList.setAdapter(submitAdapter);
     }
 
@@ -137,19 +145,19 @@ public class AddApplyActivity extends IBaseActivity<LoginPresenter> implements I
                 return;
             }
             if (info.getIndex() == 0) {
-                record.setNitrogenFertilizerName(dataList.get(0));
+                record.setNitrogenFertilizerName(info.getInfo());
                 record.setCompoundFertilizerNum(info.getDesc());
             }else if (info.getIndex() == 1) {
-                record.setPhosphateFertilizerName(dataList.get(1));
+                record.setPhosphateFertilizerName(info.getInfo());
                 record.setPhosphateFertilizerNum(info.getDesc());
             }else if (info.getIndex() == 2) {
-                record.setPotashFertilizerName(dataList.get(2));
+                record.setPotashFertilizerName(info.getInfo());
                 record.setPotashFertilizerNum(info.getDesc());
             }else if (info.getIndex() == 3) {
-                record.setCompoundFertilizerName(dataList.get(3));
+                record.setCompoundFertilizerName(info.getInfo());
                 record.setPotashFertilizerNum(info.getDesc());
             }else if (info.getIndex() == 4) {
-                record.setOtherFertilizersName(dataList.get(4));
+                record.setOtherFertilizersName(info.getInfo());
                 record.setOtherFertilizersNum(info.getDesc());
             }
         }

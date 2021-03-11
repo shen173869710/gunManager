@@ -2,6 +2,7 @@ package com.auto.di.guan.manager.adapter;
 
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.basemodel.model.respone.ApplyFertilizerRecord;
+import com.auto.di.guan.manager.utils.DateUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
@@ -20,9 +21,13 @@ public class Tab4Adapter extends BaseQuickAdapter<ApplyFertilizerRecord, BaseVie
     }
     @Override
     protected void convert(BaseViewHolder holder, ApplyFertilizerRecord data) {
-//        holder.setText(R.id.item_title, data.getNoticeTitle()+"");
-//        holder.setText(R.id.item_desc,data.getNoticeContent()+"");
-//        holder.setText(R.id.item_time,data.getCreateTime()+"");
+        holder.setText(R.id.item_0, data.getProjectName()+"");
+        holder.setText(R.id.item_1, data.getNitrogenFertilizerName()+"/"+data.getNitrogenFertilizerNum());
+        holder.setText(R.id.item_2, data.getPhosphateFertilizerName()+"/"+data.getPhosphateFertilizerNum());
+        holder.setText(R.id.item_3, data.getPotashFertilizerName()+"/"+data.getPotashFertilizerNum());
+        holder.setText(R.id.item_4, data.getCompoundFertilizerName()+"/"+data.getCompoundFertilizerNum());
+        holder.setText(R.id.item_5, data.getOtherFertilizersName()+"/"+data.getOtherFertilizersNum());
+        holder.setText(R.id.item_6, DateUtils.timet(String.valueOf(data.getApplyFertilizerDate())) +"");
     }
 
 }

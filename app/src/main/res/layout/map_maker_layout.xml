@@ -3,35 +3,55 @@
     android:layout_width="100dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@drawable/input_bg"
+    android:padding="10dp"
     >
-
     <TextView
-        android:text="111111"
+        android:id="@+id/item_project"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:layout_gravity="center_horizontal"
+        android:padding="5dp"
         />
     <TextView
-        android:text="222222"
+        android:id="@+id/item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:layout_gravity="center_horizontal"
+        android:padding="5dp"
         />
     <TextView
-        android:text="333333"
+        android:id="@+id/item_crop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:layout_gravity="center_horizontal"
+        android:padding="5dp"
         />
     <TextView
-        android:text="444444"
+        android:id="@+id/item_varieties"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:layout_gravity="center_horizontal"
+        android:padding="5dp"
+        />
+    <TextView
+        android:id="@+id/item_outputUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_gravity="center_horizontal"
+        android:padding="5dp"
+        />
+    <TextView
+        android:id="@+id/item_outputYm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_gravity="center_horizontal"
+        android:padding="5dp"
         />
 </LinearLayout>

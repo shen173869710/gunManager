@@ -1,19 +1,60 @@
-<com.scwang.smart.refresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/refreshLayout"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
 
-    <com.scwang.smart.refresh.header.ClassicsHeader
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="60dp"
+        android:background="@drawable/main_poi_bg"
+        android:orientation="horizontal">
+        >
+        <TextView
+            android:text="项目名称"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_16"
+            />
+        <TextView
+            android:text="流量表计数（立方米）"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_16"
+            />
+        <TextView
+            android:text="记录时间"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_16"
+            />
+    </LinearLayout>
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/tab_2_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:cacheColorHint="#00000000"
-        android:divider="@color/main_bg"
-        android:fadingEdge="none"
-        android:listSelector="@drawable/dialogue_listview_selector"
-        android:scrollbars="none" />
-</com.scwang.smart.refresh.layout.SmartRefreshLayout>
+        <com.scwang.smart.refresh.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tab_2_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="#00000000"
+            android:divider="@color/main_bg"
+            android:fadingEdge="none"
+            android:listSelector="@drawable/dialogue_listview_selector"
+            android:scrollbars="none" />
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+</LinearLayout>

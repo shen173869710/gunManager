@@ -2,6 +2,7 @@ package com.auto.di.guan.manager.adapter;
 
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.basemodel.model.respone.WateringRecord;
+import com.auto.di.guan.manager.utils.DateUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
@@ -23,7 +24,7 @@ public class Tab2Adapter extends BaseQuickAdapter<WateringRecord, BaseViewHolder
     protected void convert(BaseViewHolder holder, WateringRecord data) {
         holder.setText(R.id.item_0, data.getProjectName()+"");
         holder.setText(R.id.item_1, data.getFlowMeterCount()+"");
-        holder.setText(R.id.item_2, data.getRecordDate()+"");
+        holder.setText(R.id.item_2, DateUtils.timet(String.valueOf(data.getRecordDate()))+"");
     }
 
 

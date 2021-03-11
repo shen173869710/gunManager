@@ -2,6 +2,7 @@ package com.auto.di.guan.manager.adapter;
 
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.basemodel.model.respone.RaiseCropsRecord;
+import com.auto.di.guan.manager.utils.DateUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
@@ -21,9 +22,12 @@ public class Tab3Adapter extends BaseQuickAdapter<RaiseCropsRecord, BaseViewHold
 
     @Override
     protected void convert(BaseViewHolder holder, RaiseCropsRecord data) {
-
-//        holder.setText(R.id.item_0, data.getNoticeTitle()+"");
-//        holder.setText(R.id.item_1,data.getNoticeType()+"");
+        holder.setText(R.id.item_0, data.getProjectName()+"");
+        holder.setText(R.id.item_1, data.getCropName()+"");
+        holder.setText(R.id.item_2, data.getVarieties()+"");
+        holder.setText(R.id.item_3, DateUtils.timet(String.valueOf(data.getSowingTime()))+"");
+        holder.setText(R.id.item_4, DateUtils.timet(String.valueOf(data.getCollectingTime()))+"");
+        holder.setText(R.id.item_5, data.getOutputUnit()+"");
+        holder.setText(R.id.item_6, data.getOutputYm()+"");
     }
-
 }

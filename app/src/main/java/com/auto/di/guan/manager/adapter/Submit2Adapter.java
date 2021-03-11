@@ -14,15 +14,13 @@ import com.auto.di.guan.manager.entity.SubmitInfo;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Submit2Adapter extends BaseQuickAdapter<SubmitInfo, BaseViewHolder> {
 
-    private ArrayList<String> type = new ArrayList<>();
-    public Submit2Adapter(List<SubmitInfo> data, ArrayList<String> list) {
+
+    public Submit2Adapter(List<SubmitInfo> data) {
         super(R.layout.submit2_list_item, data);
-        this.type = list;
     }
 
     public void setData(List<SubmitInfo> data) {
@@ -33,6 +31,8 @@ public class Submit2Adapter extends BaseQuickAdapter<SubmitInfo, BaseViewHolder>
 
     @Override
     protected void convert(BaseViewHolder holder, SubmitInfo data) {
+
+
         holder.setText(R.id.submit_title, data.getTitle());
         if (TextUtils.isEmpty(data.getDesc())) {
             data.setDesc("");
@@ -62,15 +62,17 @@ public class Submit2Adapter extends BaseQuickAdapter<SubmitInfo, BaseViewHolder>
             }
         });
 
+
+
         Spinner spinner = holder.getView(R.id.submit_spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, type);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, data.getLists());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                data.setIndex(position);
+                data.setInfo(data.getLists().get(position));
             }
 
             @Override

@@ -64,7 +64,12 @@ public class User implements Serializable {
     private String longitudeLatitude;
     // 项目经纬度
     private String parentLoginName;
-
+    //种植作物
+    private String raisecrops;
+    //品种
+    private String varieties;
+    //种植面积
+    private String plantingarea;
 
     private int loginStatus = 1;
 
@@ -251,5 +256,29 @@ public class User implements Serializable {
 
     public void setLoginStatus(int loginStatus) {
         this.loginStatus = loginStatus;
+    }
+
+    public String getRaisecrops() {
+        return raisecrops;
+    }
+
+    public void setRaisecrops(String raisecrops) {
+        this.raisecrops = raisecrops;
+    }
+
+    public String getVarieties() {
+        return varieties;
+    }
+
+    public void setVarieties(String varieties) {
+        this.varieties = varieties;
+    }
+
+    public String getPlantingarea() {
+        return plantingarea;
+    }
+
+    public void setPlantingarea(String plantingarea) {
+        this.plantingarea = plantingarea;
     }
 }

@@ -17,7 +17,6 @@
         />
     <TextView
         android:id="@+id/item_time"
-        android:text="1920-2-2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -28,7 +27,6 @@
         />
     <TextView
         android:id="@+id/item_desc"
-        android:text="1920--211111111111111111111111"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="left"

@@ -47,6 +47,9 @@ public class ManagerTab5 extends BaseFragment {
 
     @Override
     public void init() {
+        tab5List.setLayoutManager(new LinearLayoutManager(activity));
+        tab5Adapter = new Tab5Adapter(messages);
+        tab5List.setAdapter(tab5Adapter);
         refreshLayout.setRefreshHeader(new ClassicsHeader(activity));
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -59,9 +62,6 @@ public class ManagerTab5 extends BaseFragment {
     }
 
     public void loadMore() {
-        tab5List.setLayoutManager(new LinearLayoutManager(activity));
-        tab5Adapter = new Tab5Adapter(messages);
-        tab5List.setAdapter(tab5Adapter);
         TreeMap<String, Object> treeMap = new TreeMap<>();
         treeMap.put("pageNum", 1);
         treeMap.put("pageSize", 100);

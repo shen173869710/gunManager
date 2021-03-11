@@ -2,11 +2,12 @@ package com.auto.di.guan.manager.fragment;
 
 import android.os.Bundle;
 import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.auto.di.guan.manager.R;
-import com.auto.di.guan.manager.activity.ManagerActivity;
 import com.auto.di.guan.manager.adapter.Tab2Adapter;
 import com.auto.di.guan.manager.api.ApiUtil;
 import com.auto.di.guan.manager.api.HttpManager;
@@ -22,6 +23,7 @@ import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;

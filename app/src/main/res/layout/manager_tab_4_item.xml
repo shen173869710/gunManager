@@ -1,43 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="60dp"
     android:background="@drawable/main_poi_bg"
     android:orientation="horizontal"
-    android:padding="10dp"
     >
-
     <TextView
-        android:id="@+id/item_title"
-        android:text="title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="@dimen/size_16"
-        />
-    <TextView
-        android:id="@+id/item_time"
-        android:text="1920-2-2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/item_0"
+        android:text="1"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:gravity="center"
+        android:layout_height="match_parent"
         android:textColor="@color/black"
         android:textSize="@dimen/size_16"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/item_desc"
         />
     <TextView
-        android:id="@+id/item_desc"
-        android:text="1920--211111111111111111111111"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:textColor="@color/tab_color_normal"
+        android:id="@+id/item_1"
+        android:text="1"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_height="match_parent"
+        android:textColor="@color/black"
         android:textSize="@dimen/size_16"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/item_time"
-        android:layout_below="@+id/item_title"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="10dp"
         />
-</RelativeLayout>
+    <TextView
+        android:id="@+id/item_2"
+        android:text="1"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_height="match_parent"
+        android:textColor="@color/black"
+        android:textSize="@dimen/size_16"
+        />
+    <TextView
+        android:id="@+id/item_3"
+        android:text="1"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_height="match_parent"
+        android:textColor="@color/black"
+        android:textSize="@dimen/size_16"
+        />
+    <TextView
+        android:id="@+id/item_4"
+        android:text="1"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_height="match_parent"
+        android:textColor="@color/black"
+        android:textSize="@dimen/size_16"
+        />
+    <TextView
+        android:id="@+id/item_5"
+        android:text="1"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_height="match_parent"
+        android:textColor="@color/black"
+        android:textSize="@dimen/size_16"
+        />
+    <TextView
+        android:id="@+id/item_6"
+        android:text="1"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_height="match_parent"
+        android:textColor="@color/black"
+        android:textSize="@dimen/size_16"
+        />
+
+</LinearLayout>

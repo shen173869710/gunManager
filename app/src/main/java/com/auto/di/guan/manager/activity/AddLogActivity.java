@@ -131,10 +131,4 @@ public class AddLogActivity extends IBaseActivity<CommonPresenter> implements IB
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

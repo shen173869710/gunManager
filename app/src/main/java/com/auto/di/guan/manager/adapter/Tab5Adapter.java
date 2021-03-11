@@ -10,7 +10,7 @@ import java.util.List;
 public class Tab5Adapter extends BaseQuickAdapter<NoticeMessage, BaseViewHolder> {
 
     public Tab5Adapter(List<NoticeMessage> data) {
-        super(R.layout.manager_tab_4_item, data);
+        super(R.layout.manager_tab_5_item, data);
     }
 
     public void setData(List<NoticeMessage> data) {
