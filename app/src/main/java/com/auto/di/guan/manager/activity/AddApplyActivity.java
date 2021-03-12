@@ -22,16 +22,21 @@ import com.auto.di.guan.manager.basemodel.view.IBaseView;
 import com.auto.di.guan.manager.db.User;
 import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.entity.SubmitInfo;
+import com.auto.di.guan.manager.utils.DateUtils;
 import com.auto.di.guan.manager.utils.ToastUtils;
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.TimePickerView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- *       施肥日志
+ * 施肥日志
  */
 public class AddApplyActivity extends IBaseActivity<LoginPresenter> implements IBaseView {
 
@@ -45,11 +50,14 @@ public class AddApplyActivity extends IBaseActivity<LoginPresenter> implements I
     TextView titleBarTitle;
     @BindView(R.id.add_list)
     RecyclerView addList;
+    @BindView(R.id.add_time)
+    TextView addTime;
 
     private List<User> users;
     private int index = 0;
     private Submit2Adapter submitAdapter;
     private List<SubmitInfo> submitInfos = new ArrayList<>();
+    private ApplyFertilizerRecord record = new ApplyFertilizerRecord();
 
     @Override
     protected int setLayout() {
@@ -93,13 +101,13 @@ public class AddApplyActivity extends IBaseActivity<LoginPresenter> implements I
             ArrayList<String> type = new ArrayList<>();
             if (i == 0) {
                 temp = getResources().getStringArray(R.array.nitrogenFertilizer);
-            }else if (i == 1) {
+            } else if (i == 1) {
                 temp = getResources().getStringArray(R.array.phosphateFertilizer);
-            }else if (i == 2) {
+            } else if (i == 2) {
                 temp = getResources().getStringArray(R.array.potashFertilizer);
-            }else if (i == 3) {
+            } else if (i == 3) {
                 temp = getResources().getStringArray(R.array.compoundFertilizer);
-            }else if (i == 4) {
+            } else if (i == 4) {
                 temp = getResources().getStringArray(R.array.otherFertilizers);
             }
             for (int j = 0; j < temp.length; j++) {
@@ -120,26 +128,27 @@ public class AddApplyActivity extends IBaseActivity<LoginPresenter> implements I
 
     @Override
     public void success(BaseRespone respone) {
-
+        ToastUtils.showToast(R.string.submit_suc);
     }
 
     @Override
     public void fail(Throwable error, Integer code, String msg) {
+        ToastUtils.showToast(R.string.submit_faile);
     }
-
 
     public void submitInfo() {
         int size = submitInfos.size();
-
+        if (record.getApplyFertilizerDate() == null) {
+            ToastUtils.showToast("请选择施肥日期");
+            return;
+        }
         User user = users.get(index);
-        ApplyFertilizerRecord record = new ApplyFertilizerRecord();
         for (int i = 0; i < size; i++) {
             SubmitInfo info = submitInfos.get(i);
             if (TextUtils.isEmpty(info.getDesc())) {
                 ToastUtils.showToast("输入信息为空");
                 return;
             }
-
             if (info.getIndex() < 0) {
                 ToastUtils.showToast("请选择化肥种类");
                 return;
@@ -147,16 +156,16 @@ public class AddApplyActivity extends IBaseActivity<LoginPresenter> implements I
             if (info.getIndex() == 0) {
                 record.setNitrogenFertilizerName(info.getInfo());
                 record.setCompoundFertilizerNum(info.getDesc());
-            }else if (info.getIndex() == 1) {
+            } else if (info.getIndex() == 1) {
                 record.setPhosphateFertilizerName(info.getInfo());
                 record.setPhosphateFertilizerNum(info.getDesc());
-            }else if (info.getIndex() == 2) {
+            } else if (info.getIndex() == 2) {
                 record.setPotashFertilizerName(info.getInfo());
                 record.setPotashFertilizerNum(info.getDesc());
-            }else if (info.getIndex() == 3) {
+            } else if (info.getIndex() == 3) {
                 record.setCompoundFertilizerName(info.getInfo());
                 record.setPotashFertilizerNum(info.getDesc());
-            }else if (info.getIndex() == 4) {
+            } else if (info.getIndex() == 4) {
                 record.setOtherFertilizersName(info.getInfo());
                 record.setOtherFertilizersNum(info.getDesc());
             }
@@ -167,7 +176,7 @@ public class AddApplyActivity extends IBaseActivity<LoginPresenter> implements I
     }
 
 
-    @OnClick({R.id.title_bar_back_layout, R.id.add_submit})
+    @OnClick({R.id.title_bar_back_layout, R.id.add_submit, R.id.add_time})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title_bar_back_layout:
@@ -176,6 +185,25 @@ public class AddApplyActivity extends IBaseActivity<LoginPresenter> implements I
             case R.id.add_submit:
                 submitInfo();
                 break;
+            case R.id.add_time:
+                initStartTimePicker();
+                break;
         }
     }
+
+
+    /**初始化开始日期选择器控件*/
+    private void initStartTimePicker() {
+        TimePickerView pvTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date,View v) {//选中事件回调
+                addTime.setText(DateUtils.timet(String.valueOf(date.getTime())));
+//                tvTime.setText(getTime(date));
+                record.setApplyFertilizerDate(date.getTime());
+            }
+        }).build();
+        // pvTime.setDate(Calendar.getInstance());//注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
+        pvTime.show();
+    }
+
 }

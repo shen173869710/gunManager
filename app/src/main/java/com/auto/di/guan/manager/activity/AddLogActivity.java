@@ -94,7 +94,7 @@ public class AddLogActivity extends IBaseActivity<CommonPresenter> implements IB
 
     @Override
     public void fail(Throwable error, Integer code, String msg) {
-        ToastUtils.showToast(msg + "");
+        ToastUtils.showToast(R.string.submit_faile);
     }
 
 

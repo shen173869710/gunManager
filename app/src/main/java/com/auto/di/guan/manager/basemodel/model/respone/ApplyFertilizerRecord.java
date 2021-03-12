@@ -4,9 +4,7 @@ import java.io.Serializable;
 
 /**
  * 施肥信息记录表
- * 
  * @author Administrator
- *
  */
 public class ApplyFertilizerRecord implements Serializable{
 	//管水员id

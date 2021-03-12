@@ -7,6 +7,8 @@ public class SubmitInfo {
     private int index = -1;
     private String desc;
     private String info;
+    private long time;
+
     private ArrayList<String>lists = new ArrayList<>();
 
     public SubmitInfo(String title, String desc) {
@@ -52,5 +54,13 @@ public class SubmitInfo {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
     }
 }

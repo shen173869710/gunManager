@@ -35,6 +35,7 @@ public class User implements Serializable {
     /** 帐号状态（0正常 1停用） */
     private int status;
 
+    private String address;
     /** 删除标志（0代表存在 2代表删除） */
     private String delFlag;
 
@@ -280,5 +281,13 @@ public class User implements Serializable {
 
     public void setPlantingarea(String plantingarea) {
         this.plantingarea = plantingarea;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

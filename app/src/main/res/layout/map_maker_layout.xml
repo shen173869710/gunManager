@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="100dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/input_bg"
@@ -11,47 +11,81 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:layout_gravity="center_horizontal"
+        android:gravity="left"
         android:padding="5dp"
         />
     <TextView
-        android:id="@+id/item_name"
+        android:id="@+id/item_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:layout_gravity="center_horizontal"
         android:padding="5dp"
+        android:gravity="left"
         />
     <TextView
-        android:id="@+id/item_crop"
+        android:id="@+id/item_local"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:layout_gravity="center_horizontal"
         android:padding="5dp"
+        android:gravity="left"
+        />
+
+    <TextView
+        android:id="@+id/item_raisecrops"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:padding="5dp"
+        android:gravity="left"
         />
     <TextView
         android:id="@+id/item_varieties"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:layout_gravity="center_horizontal"
         android:padding="5dp"
+        android:gravity="left"
         />
     <TextView
-        android:id="@+id/item_outputUnit"
+        android:id="@+id/item_plantingarea"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:layout_gravity="center_horizontal"
         android:padding="5dp"
+        android:gravity="left"
         />
     <TextView
-        android:id="@+id/item_outputYm"
+        android:id="@+id/item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:layout_gravity="center_horizontal"
         android:padding="5dp"
+        android:gravity="left"
+        />
+    <TextView
+        android:id="@+id/item_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:padding="5dp"
+        android:gravity="left"
+        />
+
+    <TextView
+        android:id="@+id/item_pram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:padding="5dp"
+        android:gravity="left"
+        />
+    <TextView
+        android:id="@+id/item_pileOutNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:padding="5dp"
+        android:gravity="left"
         />
 </LinearLayout>

@@ -101,14 +101,14 @@ public class AddRaiseActivity extends IBaseActivity<CommonPresenter> implements 
         return new CommonPresenter();
     }
 
-
     @Override
     public void success(BaseRespone respone) {
-
+        ToastUtils.showToast(R.string.submit_suc);
     }
 
     @Override
     public void fail(Throwable error, Integer code, String msg) {
+        ToastUtils.showToast(R.string.submit_faile);
     }
 
 
@@ -118,6 +118,11 @@ public class AddRaiseActivity extends IBaseActivity<CommonPresenter> implements 
             if (TextUtils.isEmpty(submitInfos.get(i).getDesc())) {
                 ToastUtils.showToast("输入信息为空");
                 return;
+            }else if (i == 4 || i == 5){
+                if (submitInfos.get(i).getTime() == 0) {
+                    ToastUtils.showToast("请选择时间");
+                    return;
+                }
             }
         }
         User user = users.get(index);
@@ -127,10 +132,10 @@ public class AddRaiseActivity extends IBaseActivity<CommonPresenter> implements 
         record.setProjectName(user.getLoginName());
         record.setCropName(submitInfos.get(0).getDesc());
         record.setVarieties(submitInfos.get(1).getDesc());
-        record.setSowingTime(System.currentTimeMillis());
-        record.setCollectingTime(System.currentTimeMillis());
-        record.setOutputUnit(submitInfos.get(4).getDesc());
-        record.setOutputYm(submitInfos.get(5).getDesc());
+        record.setOutputUnit(submitInfos.get(2).getDesc());
+        record.setOutputYm(submitInfos.get(3).getDesc());
+        record.setSowingTime(submitInfos.get(4).getTime());
+        record.setCollectingTime(submitInfos.get(5).getTime());
         mPresenter.addRaise(record);
     }
 

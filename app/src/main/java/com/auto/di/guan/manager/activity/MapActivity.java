@@ -36,19 +36,37 @@ public class MapActivity extends Activity{
 		LatLng point = new LatLng(39.963175, 116.400244);
 		View view = LayoutInflater.from(this).inflate(R.layout.map_maker_layout, null);
 
-
+		// 项目名称
 		TextView item_project = view.findViewById(R.id.item_project);
-		TextView item_name = view.findViewById(R.id.item_name);
-		TextView item_crop = view.findViewById(R.id.item_crop);
+		// 地理位置
+		TextView item_address = view.findViewById(R.id.item_address);
+		// 地理坐标
+		TextView item_local = view.findViewById(R.id.item_local);
+		// 种植作物
+		TextView item_raisecrops = view.findViewById(R.id.item_raisecrops);
+		// 品    种
 		TextView item_varieties = view.findViewById(R.id.item_varieties);
-		TextView item_outputUnit = view.findViewById(R.id.item_outputUnit);
-		TextView item_outputYm = view.findViewById(R.id.item_outputYm);
-		item_project.setText(user.getLoginName());
-		item_name.setText(user.getPhonenumber()+"");
-		item_crop.setText("棉花");
-		item_varieties.setText("棉花一号");
-		item_outputUnit.setText("3吨");
-		item_outputYm.setText("3年");
+		// 种植面积
+		TextView item_plantingarea = view.findViewById(R.id.item_plantingarea);
+         // 负责人员姓名
+		TextView item_name = view.findViewById(R.id.item_name);
+		// 联系电话
+		TextView item_phone = view.findViewById(R.id.item_phone);
+		//管网参数
+		TextView item_pram = view.findViewById(R.id.item_pram);
+		//出地桩
+		TextView item_pileOutNum = view.findViewById(R.id.item_pileOutNum);
+		item_project.setText("项目名称: "+user.getProjectName());
+		item_address.setText("地理位置: "+user.getAddress());
+		item_local.setText("地理坐标: "+user.getLongitudeLatitude());
+		item_raisecrops.setText("种植作物: "+user.getRaisecrops());
+		item_varieties.setText("种植品种: "+user.getVarieties());
+		item_plantingarea.setText("种植面积: "+user.getPlantingarea());
+		item_name.setText("负责人员: "+user.getUserName()+"");
+		item_phone.setText("联系电话: "+user.getPhonenumber());
+		item_pram.setText("管网参数: "+user.getTrunkPipeNum()+"/"+user.getTrunkPipeMaxNum());
+		item_pileOutNum.setText("出地桩: "+user.getTrunkPipeNum());
+
 		BitmapDescriptor bitmap = BitmapDescriptorFactory.fromView(view);
 //构建Marker图标
 //		BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher);
