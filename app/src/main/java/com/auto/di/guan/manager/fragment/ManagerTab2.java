@@ -1,5 +1,6 @@
 package com.auto.di.guan.manager.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.auto.di.guan.manager.R;
+import com.auto.di.guan.manager.activity.LogInfoActivity;
 import com.auto.di.guan.manager.adapter.Tab2Adapter;
 import com.auto.di.guan.manager.api.ApiUtil;
 import com.auto.di.guan.manager.api.HttpManager;
@@ -19,6 +21,7 @@ import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
@@ -64,20 +67,14 @@ public class ManagerTab2 extends BaseFragment {
         mAdapter = new Tab2Adapter(wateringRecords);
         tabList.setAdapter(mAdapter);
         mAdapter.addChildClickViewIds(R.id.manager_item_login);
-        mAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
+        mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemChildClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
-
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                Intent intent = new Intent(activity, LogInfoActivity.class);
+                intent.putExtra("water", wateringRecords.get(position));
+                activity.startActivity(intent);
             }
         });
-//        titleBarAdd.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(activity, AddLogActivity.class);
-//                intent.putExtra(Entiy.INTENT_USER_LIST, (Serializable) users);
-//                activity.startActivity(intent);
-//            }
-//        });
 
         refreshLayout.setRefreshHeader(new ClassicsHeader(activity));
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {

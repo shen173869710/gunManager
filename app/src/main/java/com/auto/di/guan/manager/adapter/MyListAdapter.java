@@ -47,16 +47,18 @@ public class MyListAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.list_item, null);
             holder.item_text = (TextView) convertView.findViewById(R.id.list_item_text);
-
+            holder.item_icon = convertView.findViewById(R.id.list_item_icon);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.item_text.setText(datas[position]);
         if (selectedPosition == position) {
-            convertView.setBackgroundColor(context.getResources().getColor(R.color.black));
+            convertView.setBackgroundColor(context.getResources().getColor(R.color.main_item_p));
+            holder.item_icon.setVisibility(View.VISIBLE);
         }else {
-            convertView.setBackgroundColor(context.getResources().getColor(R.color.white));
+            convertView.setBackgroundColor(context.getResources().getColor(R.color.main_item_n));
+            holder.item_icon.setVisibility(View.GONE);
         }
         return convertView;
     }
@@ -66,5 +68,6 @@ public class MyListAdapter extends BaseAdapter {
 
     class ViewHolder {
         public TextView item_text;
+        public View item_icon;
     }
 }

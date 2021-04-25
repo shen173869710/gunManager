@@ -7,8 +7,18 @@
     android:background="@color/login_bg"
     android:orientation="vertical">
 
+
+    <ImageView
+        android:layout_width="169dp"
+        android:layout_height="48dp"
+        android:background="@mipmap/mian_logo"
+        android:layout_above="@+id/login_layout"
+        android:layout_centerHorizontal="true"
+        />
     <LinearLayout
+        android:id="@+id/login_layout"
         android:layout_width="300dp"
+        android:layout_marginTop="30dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:background="@drawable/bg_item_top_normal_rect"
@@ -34,12 +44,10 @@
             app:x_showPwdDrawable="@mipmap/edittext_show" />
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1sp"
+            style="@style/line"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="13dp"
             android:layout_marginRight="13dp"
-            android:background="@color/color_divide_line"
             android:gravity="center_horizontal" />
 
 
@@ -62,12 +70,10 @@
             app:x_hidePwdDrawable="@mipmap/edittext_hide"
             app:x_showPwdDrawable="@mipmap/edittext_show" />
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1sp"
+            style="@style/line"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="13dp"
             android:layout_marginRight="13dp"
-            android:background="@color/color_divide_line"
             android:gravity="center_horizontal" />
 
         <LinearLayout
@@ -84,7 +90,7 @@
                 android:layout_height="@dimen/main_button_height"
                 android:background="@drawable/login_button_sel"
                 android:text="登录"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/size_24" />
         </LinearLayout>
     </LinearLayout>

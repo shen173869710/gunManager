@@ -1,6 +1,8 @@
 package com.auto.di.guan.manager.basemodel.model.respone;
 
-public class WateringRecord {
+import java.io.Serializable;
+
+public class WateringRecord implements Serializable {
     private long waterUserId;
     private long memberUserId;
     private String projectName;

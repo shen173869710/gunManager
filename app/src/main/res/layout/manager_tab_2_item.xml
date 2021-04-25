@@ -17,10 +17,11 @@
         />
     <TextView
         android:id="@+id/item_1"
-        android:text="1"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:gravity="center"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:layout_height="match_parent"
         android:textColor="@color/black"
         android:textSize="@dimen/size_16"

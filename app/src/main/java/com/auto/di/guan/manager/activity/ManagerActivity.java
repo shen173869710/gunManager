@@ -22,7 +22,6 @@ import com.auto.di.guan.manager.fragment.ManagerListFragment;
 import com.auto.di.guan.manager.rtm.ChatManager;
 import com.auto.di.guan.manager.utils.ToastUtils;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -33,7 +32,6 @@ import java.util.List;
 import java.util.Set;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements IBaseView {
 
@@ -160,7 +158,7 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
     }
 
 
-    public void setRightVisible() {
+    public void setRightVisible(int index) {
         titleBarStatus.setText("添加日志");
         titleBarStatus.setVisibility(View.VISIBLE);
     }

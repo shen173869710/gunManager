@@ -70,7 +70,7 @@ public class ManagerListFragment extends ListFragment {
 		adapter.setSelectedPosition(position);
 		showFragment(fragments.get(position));
 		if (position == 2 || position == 3 || position == 4) {
-			activity.setRightVisible();
+			activity.setRightVisible(position);
 		}else {
 			activity.setRightInVisible();
 		}

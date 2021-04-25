@@ -5,8 +5,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.DeviceInfo;
@@ -14,7 +12,6 @@ import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
-
 import java.util.List;
 
 /**
