@@ -121,8 +121,6 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-
-
     <style name="control_image">
         <item name="android:layout_width">50dp</item>
         <item name="android:layout_height">73dp</item>
@@ -144,13 +142,11 @@
         <item name="android:layout_height">40dp</item>
     </style>
 
-
     <style name="line">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
         <item name="android:background">@color/line</item>
     </style>
-
 
     <style name="all_button">
         <item name="android:layout_width">150dp</item>
@@ -160,8 +156,6 @@
         <item name="android:textSize">18px</item>
         <item name="android:gravity">center</item>
     </style>
-
-
 
     <style name="list_item_title">
         <item name="android:layout_width">0dp</item>
