@@ -14,10 +14,15 @@
         <!--将Activity的Theme设置成透明-->
         <item name="android:windowIsTranslucent">true</item>
     </style>
+<!--    <style name="AnimationActivity" parent="@android:style/Animation.Translucent">-->
+<!--        <item name="android:windowEnterAnimation">@anim/slide_in_right</item>-->
+<!--        <item name="android:windowExitAnimation">@anim/slide_out_left</item>-->
+<!--    </style>-->
+
 
     <!-- animation 样式 -->
     <!--Activity进场。出场动画-->
-    <style name="AnimationActivity" parent="@android:style/Animation.Activity">
+    <style name="AnimationActivity" parent="@android:style/Animation.Translucent">
         <!--用于设置打开新的Activity并进入新的Activity展示的动画-->
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
         <!--用于设置打开新的Activity并销毁之前的Activity展示的动画-->
@@ -153,6 +158,17 @@
         <item name="android:background">@drawable/bg_red_buttom_rect</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">18px</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+
+
+    <style name="list_item_title">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:gravity">center</item>
     </style>
 </resources>

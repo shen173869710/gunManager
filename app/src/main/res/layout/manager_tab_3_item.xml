@@ -7,66 +7,31 @@
 
     <TextView
         android:id="@+id/item_0"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:layout_height="match_parent"
-        android:textColor="@color/black"
-        android:textSize="@dimen/size_16"
+        style="@style/list_item_title"
         />
     <TextView
         android:id="@+id/item_1"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:layout_height="match_parent"
-        android:textColor="@color/black"
-        android:textSize="@dimen/size_16"
+        style="@style/list_item_title"
         />
     <TextView
         android:id="@+id/item_2"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:layout_height="match_parent"
-        android:textColor="@color/black"
-        android:textSize="@dimen/size_16"
+        style="@style/list_item_title"
         />
     <TextView
         android:id="@+id/item_3"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:layout_height="match_parent"
-        android:textColor="@color/black"
-        android:textSize="@dimen/size_16"
+        style="@style/list_item_title"
         />
     <TextView
         android:id="@+id/item_4"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:layout_height="match_parent"
-        android:textColor="@color/black"
-        android:textSize="@dimen/size_16"
+        style="@style/list_item_title"
         />
     <TextView
         android:id="@+id/item_5"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:layout_height="match_parent"
-        android:textColor="@color/black"
-        android:textSize="@dimen/size_16"
+        style="@style/list_item_title"
         />
 
     <TextView
         android:id="@+id/item_6"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:layout_height="match_parent"
-        android:textColor="@color/black"
-        android:textSize="@dimen/size_16"
+        style="@style/list_item_title"
         />
 </LinearLayout>

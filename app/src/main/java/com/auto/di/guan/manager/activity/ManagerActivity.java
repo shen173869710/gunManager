@@ -39,8 +39,8 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
     TextView titleBarTitle;
     @BindView(R.id.title_bar_status)
     TextView titleBarStatus;
-    @BindView(R.id.title_bar_back_layout)
-    RelativeLayout titleBarBackLayout;
+//    @BindView(R.id.title_bar_back_layout)
+//    RelativeLayout titleBarBackLayout;
     private FragmentManager manager;
     private FragmentTransaction transaction;
 
@@ -58,7 +58,7 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
     protected void init() {
         users = (List<User>) getIntent().getSerializableExtra("list");
 
-        titleBarBackLayout.setVisibility(View.GONE);
+//        titleBarBackLayout.setVisibility(View.GONE);
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
         ManagerListFragment managerListFragment = new ManagerListFragment();

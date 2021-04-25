@@ -9,7 +9,6 @@
     <include
         android:id="@+id/title_bar"
         layout="@layout/main_title_bar" />
-
     <TextView
         android:id="@+id/log_title"
         android:layout_width="wrap_content"
@@ -19,8 +18,6 @@
         android:textColor="@color/black"
         android:layout_gravity="center_horizontal"
         />
-
-
     <TextView
         android:id="@+id/log_desc"
         android:layout_width="match_parent"

@@ -4,7 +4,6 @@
     android:layout_height="80dp"
     android:background="#31436A">
     <TextView
-        android:text="111111"
         android:id="@+id/list_item_text"
         android:layout_width="200dp"
         android:layout_height="80dp"
