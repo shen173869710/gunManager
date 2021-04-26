@@ -1,6 +1,8 @@
 package com.auto.di.guan.manager.basemodel.model.respone;
 
-public class NoticeMessage {
+import java.io.Serializable;
+
+public class NoticeMessage implements Serializable {
     /** 公告标题 */
     private String searchValue;
     /** 公告标题 */

@@ -36,9 +36,7 @@ public class ManagerTab1 extends BaseFragment {
     @BindView(R.id.manager_list)
     RecyclerView managerList;
     private ManagerAdapter mAdapter;
-
     private List<User> users;
-
     public static ManagerTab1 newInstance(Bundle bundle){
         ManagerTab1 fragment=new ManagerTab1();
         fragment.setArguments(bundle);

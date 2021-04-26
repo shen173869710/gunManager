@@ -3,89 +3,52 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/input_bg"
-    android:padding="10dp"
+    android:paddingTop="10dp"
+    android:paddingLeft="10dp"
+    android:paddingBottom="30dp"
+    android:paddingRight="10dp"
+    android:background="@mipmap/market_bg"
     >
     <TextView
         android:id="@+id/item_project"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:gravity="left"
-        android:padding="5dp"
+        style="@style/map_item"
         />
     <TextView
         android:id="@+id/item_address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:padding="5dp"
-        android:gravity="left"
+        style="@style/map_item"
         />
     <TextView
         android:id="@+id/item_local"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:padding="5dp"
-        android:gravity="left"
+        style="@style/map_item"
         />
 
     <TextView
         android:id="@+id/item_raisecrops"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:padding="5dp"
-        android:gravity="left"
+        style="@style/map_item"
         />
     <TextView
         android:id="@+id/item_varieties"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:padding="5dp"
-        android:gravity="left"
+        style="@style/map_item"
         />
     <TextView
         android:id="@+id/item_plantingarea"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:padding="5dp"
-        android:gravity="left"
+        style="@style/map_item"
         />
     <TextView
         android:id="@+id/item_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:padding="5dp"
-        android:gravity="left"
+        style="@style/map_item"
         />
     <TextView
         android:id="@+id/item_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:padding="5dp"
-        android:gravity="left"
+        style="@style/map_item"
         />
 
     <TextView
         android:id="@+id/item_pram"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:padding="5dp"
-        android:gravity="left"
+        style="@style/map_item"
         />
     <TextView
         android:id="@+id/item_pileOutNum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:padding="5dp"
-        android:gravity="left"
+        style="@style/map_item"
         />
 </LinearLayout>

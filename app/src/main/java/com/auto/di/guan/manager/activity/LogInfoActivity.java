@@ -1,14 +1,17 @@
 package com.auto.di.guan.manager.activity;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.auto.di.guan.manager.R;
+import com.auto.di.guan.manager.basemodel.model.respone.NoticeMessage;
 import com.auto.di.guan.manager.basemodel.model.respone.RaiseCropsRecord;
 import com.auto.di.guan.manager.basemodel.model.respone.WateringRecord;
 import com.auto.di.guan.manager.basemodel.presenter.CommonPresenter;
 import com.auto.di.guan.manager.db.User;
+import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.utils.DateUtils;
 
 import java.util.List;
@@ -34,7 +37,9 @@ public class LogInfoActivity extends IBaseActivity {
     @BindView(R.id.log_time)
     TextView logTime;
 
-    WateringRecord record;
+    WateringRecord mRecord;
+    private String mTitle;
+    NoticeMessage mMessage;
 
     @Override
     protected int setLayout() {
@@ -43,13 +48,31 @@ public class LogInfoActivity extends IBaseActivity {
 
     @Override
     protected void init() {
-        titleBarTitle.setText("操作详情");
-        record = (WateringRecord) getIntent().getSerializableExtra("water");
-        if (record != null) {
-            logTitle.setText("项目:"+ record.getProjectName());
-            logDesc.setText(record.getFlowMeterCount()+"");
-            logTime.setText(DateUtils.timet(String.valueOf(record.getRecordDate())));
+
+        mTitle =  getIntent().getStringExtra(Entiy.INTENT_TITLE);
+        if (TextUtils.isEmpty(mTitle)) {
+            mTitle = "";
         }
+        mRecord = (WateringRecord) getIntent().getSerializableExtra(Entiy.INTENT_WATER);
+        mMessage = (NoticeMessage) getIntent().getSerializableExtra(Entiy.INTENT_NOTICE);
+        titleBarTitle.setText(mTitle);
+
+        String title;
+        String desc;
+        String time;
+        if (mRecord != null) {
+            title = mRecord.getProjectName();
+            desc = mRecord.getFlowMeterCount();
+            time = DateUtils.timet(String.valueOf(mRecord.getRecordDate()));
+        }else {
+            title = mMessage.getNoticeTitle();
+            desc = mMessage.getNoticeContent();
+            time = mMessage.getCreateTime();
+        }
+
+        logTitle.setText(title);
+        logDesc.setText(desc);
+        logTime.setText(time);
     }
 
     @Override

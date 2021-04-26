@@ -59,6 +59,7 @@ public class ManagerListFragment extends ListFragment {
 		transaction = manager.beginTransaction();
 		transaction.add(R.id.manager_info, fragments.get(0), Entiy.MANAGER_ITEM[0]).show(fragments.get(0));
 		transaction.commitAllowingStateLoss();
+		activity.setRightInVisible();
 		activity.setTitle(Entiy.MANAGER_ITEM[0]);
 		adapter.setSelectedPosition(0);
 	}

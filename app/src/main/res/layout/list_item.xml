@@ -10,7 +10,7 @@
         android:textColor="#B5CBFF"
         android:gravity="center"
         android:layout_centerInParent="true"
-        android:textSize="22sp"
+        android:textSize="24sp"
         />
     <View
         android:id="@+id/list_item_icon"

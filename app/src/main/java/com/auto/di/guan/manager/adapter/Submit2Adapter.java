@@ -31,21 +31,19 @@ public class Submit2Adapter extends BaseQuickAdapter<SubmitInfo, BaseViewHolder>
 
     @Override
     protected void convert(BaseViewHolder holder, SubmitInfo data) {
-
-
         holder.setText(R.id.submit_title, data.getTitle());
         if (TextUtils.isEmpty(data.getDesc())) {
             data.setDesc("");
         }
 
+        EditText info = holder.getView(R.id.submit_info);
         if (TextUtils.isEmpty(data.getDesc())){
             holder.setText(R.id.submit_info, "");
         }else {
             holder.setText(R.id.submit_info, data.getDesc());
         }
 
-        EditText editText = holder.getView(R.id.submit_info);
-        editText.addTextChangedListener(new TextWatcher() {
+        info.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -62,22 +60,21 @@ public class Submit2Adapter extends BaseQuickAdapter<SubmitInfo, BaseViewHolder>
             }
         });
 
-
-
-        Spinner spinner = holder.getView(R.id.submit_spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, data.getLists());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        EditText num = holder.getView(R.id.submit_name);
+        num.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                data.setInfo(data.getLists().get(position));
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                data.setInfo(s.toString());
             }
         });
     }

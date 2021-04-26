@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/layout_bg"
     android:orientation="vertical">
 
     <include
@@ -12,54 +11,52 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical">
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="@drawable/bg_item_top_normal_rect"
             android:orientation="vertical"
+            android:gravity="center_horizontal"
             android:padding="20dp">
 
             <Spinner
                 android:id="@+id/add_spinner"
-                android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:focusableInTouchMode="true"
-                android:scrollbars="vertical"
-                android:spinnerMode="dropdown" />
+                style="@style/manager_spinner"
+                />
 
             <EditText
                 android:id="@+id/add_info"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_width="@dimen/manager_submit_width"
+                android:layout_height="400dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/input_bg"
+                android:layout_gravity="center_horizontal"
                 android:gravity="top"
                 android:hint="请输入日志信息"
-                android:maxLength="1000"
+                android:maxLength="500"
                 android:padding="5dp"
+                android:textColor="@color/black"
                 android:paddingRight="10dp" />
 
             <LinearLayout
-                android:layout_width="@dimen/main_button_width"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:gravity="top|center"
                 android:orientation="vertical">
-
                 <Button
                     android:id="@+id/add_submit"
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/main_button_height"
-                    android:background="@drawable/login_button_sel"
+                    style="@style/all_button"
                     android:text="@string/save"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/size_24" />
+                    />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

@@ -159,7 +159,6 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
 
 
     public void setRightVisible(int index) {
-        titleBarStatus.setText("添加日志");
         titleBarStatus.setVisibility(View.VISIBLE);
     }
 

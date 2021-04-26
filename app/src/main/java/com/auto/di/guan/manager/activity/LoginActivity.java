@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.basemodel.model.respone.BaseRespone;
@@ -22,7 +21,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class LoginActivity extends IBaseActivity<LoginPresenter> implements IBaseView {
-
     @BindView(R.id.login_name)
     XEditText loginName;
     @BindView(R.id.login_pwd)

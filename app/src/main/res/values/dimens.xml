@@ -1,9 +1,15 @@
 <resources>
 
+
+    <!--提交布局的宽度-->
+    <dimen name="manager_submit_width">760dp</dimen>
+    <dimen name="manager_input_width">325dp</dimen>
+
     <dimen name="main_grid_width">160dp</dimen>
     <dimen name="main_table_height">60dp</dimen>
-    <dimen name="main_table_list_width">160dp</dimen>
+    <dimen name="main_table_list_width">190dp</dimen>
     <dimen name="main_grid_padding">10dp</dimen>
+
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
@@ -90,5 +96,7 @@
     <dimen name="size_40">40sp</dimen>
     <dimen name="size_48">48sp</dimen>
     <dimen name="size_50">50sp</dimen>
+
+
 
 </resources>

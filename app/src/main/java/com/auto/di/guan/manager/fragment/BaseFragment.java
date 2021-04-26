@@ -7,15 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.utils.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 /**
@@ -33,11 +36,6 @@ public abstract class BaseFragment extends Fragment{
         super.onAttach(context);
         this.activity = (Activity) context;
     }
-
-    public void setTitle(String title) {
-        activity.setTitle(title);
-    }
-
 
     @Nullable
     @Override
@@ -67,6 +65,7 @@ public abstract class BaseFragment extends Fragment{
         }
         EventBus.getDefault().unregister(this);
     }
+
 
     public void showToast(String message) {
         Toast.makeText(this.getActivity(),message,Toast.LENGTH_LONG).show();

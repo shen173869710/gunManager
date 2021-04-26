@@ -418,4 +418,8 @@ public class Entiy {
         }
     }
 
+
+    public final static String INTENT_WATER = "intent_water";
+    public final static String INTENT_TITLE = "intent_title";
+    public final static String INTENT_NOTICE = "intent_notice";
 }

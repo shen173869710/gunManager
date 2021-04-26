@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/layout_bg"
     android:orientation="vertical">
 
     <include
@@ -12,51 +12,50 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:layout_margin="10dp"
+        >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:background="@drawable/bg_item_top_normal_rect"
             android:orientation="vertical"
+            android:gravity="center_horizontal"
             android:padding="20dp">
-
             <Spinner
                 android:id="@+id/add_spinner"
-                android:layout_width="300dp"
+                android:layout_width="@dimen/manager_submit_width"
                 android:layout_height="50dp"
                 android:focusableInTouchMode="true"
                 android:scrollbars="vertical"
+                android:background="@drawable/input_bg"
                 android:spinnerMode="dropdown" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/add_list"
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/manager_submit_width"
                 android:layout_height="wrap_content"
                 android:cacheColorHint="#00000000"
-                android:divider="@color/main_bg"
+                android:divider="@color/line"
                 android:fadingEdge="none"
+                android:layout_marginTop="10dp"
                 android:listSelector="@drawable/dialogue_listview_selector"
                 android:scrollbars="none" />
 
             <LinearLayout
-                android:layout_width="@dimen/main_button_width"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:gravity="top|center"
                 android:orientation="vertical">
-
                 <Button
                     android:id="@+id/add_submit"
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/main_button_height"
-                    android:background="@drawable/login_button_sel"
+                   style="@style/all_button"
                     android:text="提交日志"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/size_24" />
+                    />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:duplicateParentState="true"
     android:layout_width="match_parent"
-    android:layout_height="50dip"
+    android:layout_height="60dip"
     android:id="@+id/title_bar_contaner"
     android:background="@color/main"
     >

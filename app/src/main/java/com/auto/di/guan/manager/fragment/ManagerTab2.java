@@ -71,7 +71,8 @@ public class ManagerTab2 extends BaseFragment {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 Intent intent = new Intent(activity, LogInfoActivity.class);
-                intent.putExtra("water", wateringRecords.get(position));
+                intent.putExtra(Entiy.INTENT_WATER, wateringRecords.get(position));
+                intent.putExtra(Entiy.INTENT_TITLE, Entiy.MANAGER_ITEM[2]);
                 activity.startActivity(intent);
             }
         });
