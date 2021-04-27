@@ -1,9 +1,8 @@
 package com.auto.di.guan.manager.adapter;
 
 
-import android.opengl.Visibility;
-import android.view.View;
 import android.widget.LinearLayout;
+
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.db.User;
 import com.auto.di.guan.manager.utils.GlideUtil;
