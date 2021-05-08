@@ -76,6 +76,8 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:text=""
+            android:textColor="@color/black"
+            android:textSize="@dimen/main_text_16"
             />
 
         <TextView
@@ -85,11 +87,13 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:text=""
+            android:textColor="@color/black"
+            android:textSize="@dimen/main_text_16"
              />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/main_divider" />
+        android:layout_height="1px"
+        android:background="@color/line" />
 </LinearLayout>

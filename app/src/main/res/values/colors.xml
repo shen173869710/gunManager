@@ -77,7 +77,7 @@
     <color name="black">#000000</color>
     <color name="blue">#037bff</color>
     <color name="gray_transparent">#99000000</color>
-    <color name="main_bg">#f5f5f5</color>
+    <color name="main_bg">#E7F0F2</color>
     <color name="main_hint_color">#999999</color>
     <color name="main_red_bg">#ff6633</color>
     <color name="main_divider">#dad8d8</color>

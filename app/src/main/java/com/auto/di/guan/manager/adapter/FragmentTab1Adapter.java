@@ -13,6 +13,7 @@ import com.auto.di.guan.manager.activity.GroupEditctivity;
 import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.GroupList;
 import com.auto.di.guan.manager.entity.Entiy;
+import com.auto.di.guan.manager.utils.GlideUtil;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
 import java.util.List;
 
@@ -72,8 +73,9 @@ public class FragmentTab1Adapter extends BaseExpandableListAdapter {
     private void bindChildView(final ChildHolder holder, final int groupPosition, int childPosition) {
         ControlInfo controlInfo = groupLists.get(groupPosition).controlInfos.get(childPosition);
         holder.group_item_name.setText(controlInfo.getValveName() + " 号控制阀");
-        holder.group_item_icon.setImageResource(Entiy.getImageResource(controlInfo.getValveStatus()));
-        holder.group_item_type.setText("名称  " + controlInfo.getValveAlias());
+//        holder.group_item_icon.setImageResource(Entiy.getImageResource(controlInfo.getValveStatus()));
+        GlideUtil.loadControlExpand(context, holder.group_item_icon, controlInfo);
+        holder.group_item_type.setText("别名 " + controlInfo.getValveAlias());
     }
 
 

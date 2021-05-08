@@ -10,7 +10,9 @@
         layout="@layout/main_title_bar" />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:background="@color/white">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/group_edit_listview"
@@ -49,7 +51,7 @@
                 android:layout_height="@dimen/main_button_height"
                 android:text="解散分组"
                 android:textColor="@color/white"
-                android:background="@drawable/bg_red_buttom_rect"
+                android:background="@drawable/bg_red_buttom_rect_del"
                 />
         </LinearLayout>
 

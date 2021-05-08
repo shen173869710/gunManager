@@ -1,5 +1,7 @@
 package com.auto.di.guan.manager.fragment;
 
+import android.view.View;
+
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +30,9 @@ public class FragmentTab0 extends BaseFragment {
         fragment0List.setLayoutManager(manager);
         adapter = new MyGridAdapter(BaseApp.getDeviceInfos());
         fragment0List.setAdapter(adapter);
+        fragment0List.setItemViewCacheSize(200);
+        fragment0List.setDrawingCacheEnabled(true);//保存绘图，提高速度
+        fragment0List.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
     }
 
     @Override
@@ -35,6 +40,6 @@ public class FragmentTab0 extends BaseFragment {
         LogUtils.e("FragmentTab0", "更新组信息");
         adapter = new MyGridAdapter(BaseApp.getDeviceInfos());
         fragment0List.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+
     }
 }

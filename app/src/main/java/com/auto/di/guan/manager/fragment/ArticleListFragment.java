@@ -37,7 +37,7 @@ public class ArticleListFragment extends ListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		manager = getFragmentManager();
-		adapter = new MyListAdapter(activity, Entiy.MANAGER_ITEM);
+		adapter = new MyListAdapter(activity, Entiy.TAB_TITLE);
 		setListAdapter(adapter);
 		fragments.add(new FragmentTab0());
 		fragments.add(new FragmentTab1());

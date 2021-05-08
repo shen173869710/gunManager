@@ -5,9 +5,9 @@
     <dimen name="manager_submit_width">760dp</dimen>
     <dimen name="manager_input_width">325dp</dimen>
 
-    <dimen name="main_grid_width">160dp</dimen>
+    <dimen name="main_grid_width">222dp</dimen>
     <dimen name="main_table_height">60dp</dimen>
-    <dimen name="main_table_list_width">190dp</dimen>
+    <dimen name="main_table_list_width">160dp</dimen>
     <dimen name="main_grid_padding">10dp</dimen>
 
 
@@ -53,7 +53,7 @@
     <dimen name="main_button_magin_bottom">20dp</dimen>
     <dimen name="main_expand_height">70dp</dimen>
     <dimen name="main_expand_group_height">70dp</dimen>
-    <dimen name="main_expand_group_child">50dp</dimen>
+    <dimen name="main_expand_group_child">60dp</dimen>
     <dimen name="main_edittex_width">200dp</dimen>
     <dimen name="main_item_width">300dp</dimen>
     <dimen name="main_item_height">60dp</dimen>

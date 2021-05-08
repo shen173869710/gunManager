@@ -57,11 +57,11 @@ public class ChooseGroupctivity extends Activity {
 		recyclerView = findViewById(R.id.choose_gridview);
 		deviceInfos = DeviceSql.getAllDevice();
 
-		for (int i = 0; i < deviceInfos.size(); i++) {
-			LogUtils.e("i----", ""+i);
-			LogUtils.e("0----", ""+deviceInfos.get(i).getValveDeviceSwitchList().get(0).isSelect());
-			LogUtils.e("1----", ""+deviceInfos.get(i).getValveDeviceSwitchList().get(1).isSelect());
-		}
+//		for (int i = 0; i < deviceInfos.size(); i++) {
+//			LogUtils.e("i----", ""+i);
+//			LogUtils.e("0----", ""+deviceInfos.get(i).getValveDeviceSwitchList().get(0).isSelect());
+//			LogUtils.e("1----", ""+deviceInfos.get(i).getValveDeviceSwitchList().get(1).isSelect());
+//		}
 		adapter = new ChooseGridAdapter( deviceInfos);
 		LinearLayoutManager manager = new GridLayoutManager(this, Entiy.GRID_COLUMNS);
 		recyclerView.setLayoutManager(manager);

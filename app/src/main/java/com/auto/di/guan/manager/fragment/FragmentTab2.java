@@ -1,12 +1,11 @@
 package com.auto.di.guan.manager.fragment;
+
 import android.content.Intent;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.activity.GroupOptionActivity;
-import com.auto.di.guan.manager.activity.OptionSettingActivity;
 import com.auto.di.guan.manager.adapter.GroupExpandableListViewaAdapter;
 import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.db.ControlInfo;
@@ -15,8 +14,10 @@ import com.auto.di.guan.manager.db.GroupList;
 import com.auto.di.guan.manager.db.sql.ControlInfoSql;
 import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
