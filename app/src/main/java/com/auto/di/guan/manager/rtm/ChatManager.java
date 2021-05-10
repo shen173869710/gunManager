@@ -213,7 +213,7 @@ public class ChatManager {
 
     public void sendLoginPeerMessage(String id,String content) {
         if (IBaseActivity != null) {
-            IBaseActivity.showWaitingDialog("");
+            IBaseActivity.showDialog();
         }
 
         final RtmMessage message = mRtmClient.createMessage();
@@ -221,7 +221,6 @@ public class ChatManager {
         SendMessageOptions option = new SendMessageOptions();
         option.enableOfflineMessaging = false;
         mRtmClient.sendMessageToPeer(id, message, option, new ResultCallback<Void>() {
-
             @Override
             public void onSuccess(Void aVoid) {
                 BaseApp.setLoginId(id);

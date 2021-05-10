@@ -52,8 +52,8 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements IBas
 //            List<User>users = loginRespone.getMemberList();
             List<User>users = new ArrayList<>();
             users.addAll(loginRespone.getMemberList());
-            users.addAll(loginRespone.getMemberList());
-            users.addAll(loginRespone.getMemberList());
+//            users.addAll(loginRespone.getMemberList());
+//            users.addAll(loginRespone.getMemberList());
             Intent intent = new Intent(LoginActivity.this, ManagerActivity.class);
             if (users == null) {
                 users = new ArrayList<>();

@@ -120,7 +120,7 @@ public class MainoptionDialog extends Dialog {
 		Rect rect = new Rect();
 		View view = context.getWindow().getDecorView();
 		view.getWindowVisibleDisplayFrame(rect);
-		lay.width = dm.widthPixels * 9 / 10;
+		lay.width = dm.widthPixels * 4 / 10;
 		dialog.show();
 	}
 

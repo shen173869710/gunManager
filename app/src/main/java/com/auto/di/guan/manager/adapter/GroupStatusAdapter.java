@@ -26,7 +26,6 @@ import com.google.gson.Gson;
 
 import org.greenrobot.greendao.annotation.NotNull;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 

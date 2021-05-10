@@ -23,10 +23,6 @@ public class MainShowDialog extends Dialog {
 	public Button main_custom_sure;
 	public TextView main_custom_msg;
 	public TextView main_custom_title;
-	public LinearLayout main_custom_name_layout;
-	public LinearLayout main_custom_phone_layout;
-	public EditText main_custom_edit_name;
-	public EditText main_custom_edit_phone;
 
 	public MainShowDialog(Context context) {
 		super(context, R.style.UpdateDialog);
@@ -77,35 +73,6 @@ public class MainShowDialog extends Dialog {
 		main_custom_cancle.setOnClickListener(listener);
 	}
 
-//	public static void ShowDialog(final Activity context, String title,
-//			String msg, final Intent intent) {
-//		final MainShowDialog dialog = new MainShowDialog(context);
-//		dialog.main_custom_title.setText(title);
-//		dialog.main_custom_msg.setText(msg);
-//		dialog.setOnPositiveListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				context.startActivity(intent);
-//				dialog.dismiss();
-//			}
-//		});
-//
-//		dialog.setOnNegativeListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				dialog.dismiss();
-//			}
-//		});
-//
-//		LayoutParams lay = dialog.getWindow().getAttributes();
-//		DisplayMetrics dm = new DisplayMetrics();// 获取屏幕分辨率
-//		context.getWindowManager().getDefaultDisplay().getMetrics(dm);//
-//		Rect rect = new Rect();
-//		View view = context.getWindow().getDecorView();
-//		view.getWindowVisibleDisplayFrame(rect);
-//		lay.width = dm.widthPixels * 9 / 10;
-//		dialog.show();
-//	}
 	public static void ShowDialog(final Activity context, String title,
 			String msg, final View.OnClickListener listener) {
 		final MainShowDialog dialog = new MainShowDialog(context);

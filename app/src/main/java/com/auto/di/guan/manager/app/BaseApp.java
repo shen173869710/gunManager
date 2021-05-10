@@ -13,6 +13,7 @@ import com.auto.di.guan.manager.db.DeviceInfo;
 import com.auto.di.guan.manager.db.GroupInfo;
 import com.auto.di.guan.manager.db.User;
 import com.auto.di.guan.manager.rtm.ChatManager;
+import com.auto.di.guan.manager.utils.FloatStatusUtil;
 import com.auto.di.guan.manager.utils.FloatWindowUtil;
 import com.auto.di.guan.manager.utils.GsonUtil;
 import com.auto.di.guan.manager.utils.LogUtils;
@@ -73,6 +74,7 @@ public class BaseApp extends Application {
         Stetho.initializeWithDefaults(this);
 //        LogUtils.setFilterLevel(LogUtils.ALL);
         FloatWindowUtil.getInstance().initFloatWindow(this);
+        FloatStatusUtil.getInstance().initFloatWindow(this);
 //        CrashHandler.getInstance().init(this);
         CrashReport.initCrashReport(getApplicationContext(), "cc201614d7", true);
 

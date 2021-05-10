@@ -39,14 +39,6 @@ public class GroupStatusActivity extends IBaseActivity {
     private List<GroupInfo> groupInfos = new ArrayList<>();
     private GroupStatusAdapter adapter;
 
-    private StatusAdapter openAdapter;
-    private RecyclerView openList;
-    private List<ControlInfo> openInfos = new ArrayList<>();
-
-    private StatusAdapter closeAdapter;
-    private RecyclerView closeList;
-    private List<ControlInfo> closeInfos = new ArrayList<>();
-
     @Override
     protected int setLayout() {
         return R.layout.activity_group_status_layout;
@@ -97,18 +89,6 @@ public class GroupStatusActivity extends IBaseActivity {
         recyclerView.setAdapter(adapter);
 
         adapter.setData(GroupInfoSql.getJoinGroup());
-
-        openList = findViewById(R.id.group_option_open);
-        openList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false));
-        openAdapter = new StatusAdapter(openInfos);
-        openList.setAdapter(openAdapter);
-
-        closeList = findViewById(R.id.group_option_close);
-        closeList.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
-        closeAdapter = new StatusAdapter(closeInfos);
-        closeList.setAdapter(closeAdapter);
-
-        initOpenControl();
     }
 
     @Override
@@ -122,7 +102,6 @@ public class GroupStatusActivity extends IBaseActivity {
             LogUtils.e(TAG, " 轮灌时间更新 数据异常");
             return;
         }
-//        LogUtils.e(TAG, " 轮灌时间更新");
         GroupInfo groupInfo = event.getGroupInfo();
         int groupId = groupInfo.getGroupId();
 
@@ -135,42 +114,16 @@ public class GroupStatusActivity extends IBaseActivity {
         }
         adapter.getData().set(positin, groupInfo);
         adapter.notifyItemChanged(positin, positin);
-//        if (openInfos != null && openInfos.size() == 0) {
-//            onGroupStatusEvent(groupInfo);
-//        }
-    }
 
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onDateChangeEvent(DateChangeEvent event) {
         LogUtils.e(TAG, " 设备状态数据更--------------------------");
         if (adapter != null) {
             adapter.setData(GroupInfoSql.getJoinGroup());
-            initOpenControl();
         }
     }
-
-    public void initOpenControl() {
-        GroupInfo info = GroupInfoSql.getRunGroup();
-        LogUtils.e(TAG,  "正在运行的设备信息");
-        if (info != null) {
-            openAdapter.setData(ControlInfoSql.queryControlList(info.getGroupId()));
-
-            int size = groupInfos.size();
-            int postion = -1;
-            for (int i = 0; i < size; i++) {
-                if (info.getGroupId() == groupInfos.get(i).getGroupId()) {
-                    postion = i;
-                }
-            }
-            if (postion -1 >= 0) {
-                 closeAdapter.setData(ControlInfoSql.queryControlList(groupInfos.get(postion -1).getGroupId()));
-            }
-        }else {
-            LogUtils.e("GroupStatusActivity",  "更新设备失败   设备信息为空-----------------------------");
-        }
-    }
-
 
     @Override
     protected void onDestroy() {

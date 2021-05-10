@@ -110,7 +110,7 @@ public class GroupOptionDialog extends Dialog {
 		Rect rect = new Rect();
 		View view = context.getWindow().getDecorView();
 		view.getWindowVisibleDisplayFrame(rect);
-		lay.width = dm.widthPixels * 9 / 10;
+		lay.width = dm.widthPixels * 3 / 10;
 		dialog.show();
 	}
 

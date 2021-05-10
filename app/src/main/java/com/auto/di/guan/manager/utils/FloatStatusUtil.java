@@ -1,70 +1,100 @@
 package com.auto.di.guan.manager.utils;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.auto.di.guan.manager.R;
-import com.auto.di.guan.manager.activity.GroupStatusActivity;
 import com.auto.di.guan.manager.activity.MainActivity;
-import com.auto.di.guan.manager.adapter.DialogListViewAdapter;
+import com.auto.di.guan.manager.adapter.FloatStatusAdapter;
 import com.auto.di.guan.manager.app.BaseApp;
+import com.auto.di.guan.manager.db.ControlInfo;
+import com.auto.di.guan.manager.db.GroupInfo;
+import com.auto.di.guan.manager.db.sql.ControlInfoSql;
+import com.auto.di.guan.manager.db.sql.GroupInfoSql;
 import com.auto.di.guan.manager.entity.CmdStatus;
+import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.floatWindow.FloatWindow;
 import com.auto.di.guan.manager.floatWindow.MoveType;
 import com.auto.di.guan.manager.floatWindow.Screen;
+import com.github.lzyzsd.circleprogress.DonutProgress;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by Administrator on 2018/7/25.
- *   悬浮窗显示状态
+ *  显示当前正在运行的阀门
  */
-
 public class FloatStatusUtil {
     private static FloatStatusUtil instance = new FloatStatusUtil();
     private RecyclerView mListView;
-    private DialogListViewAdapter adapter;
-    private ArrayList<CmdStatus> alist = new ArrayList<>();
+    private FloatStatusAdapter adapter;
+    private ArrayList<ControlInfo> controlInfos = new ArrayList<>();
     private View view;
+    private TextView textView;
+    private DonutProgress donutProgress;
+    private GroupInfo groupInfo;
+
+    LinearLayout linearLayout;
+
     public static synchronized FloatStatusUtil getInstance() {
         return instance;
     }
 
     private final String TAG = "FloatStatusUtil";
+
     public void initFloatWindow(Context mContext) {
-        view = View.inflate(BaseApp.getInstance(), R.layout.dialog_listview, null);
+        view = View.inflate(BaseApp.getInstance(), R.layout.dialog_run_listview, null);
         view.setFocusableInTouchMode(true);
-        mListView = (RecyclerView) view.findViewById(R.id.listview);
-        view.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
+        mListView = (RecyclerView) view.findViewById(R.id.list);
+        donutProgress = view.findViewById(R.id.progress);
+
+        linearLayout = view.findViewById(R.id.layout_list);
+        textView = view.findViewById(R.id.text);
+
+        donutProgress.setVisibility(View.VISIBLE);
+        donutProgress.setMax(100);
+        donutProgress.setProgress(90);
+
+        if (groupInfo != null && groupInfo.getGroupStatus() == Entiy.GROUP_STATUS_OPEN) {
+            List<ControlInfo> list = ControlInfoSql.queryControlList(groupInfo.getGroupId());
+            controlInfos.clear();
+            controlInfos.addAll(list);
+        }
+        initProgess(groupInfo);
+
+        textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (controlInfos.size() == 0) {
+                    ToastUtils.showLongToast("当前没有运行的设备");
+                    return;
+                }
+                if (mListView.getVisibility() == View.VISIBLE) {
+                    mListView.setVisibility(View.GONE);
+                    linearLayout.setVisibility(View.GONE);
+                    LogUtils.e(TAG, "gon");
+                } else {
+                    mListView.setVisibility(View.VISIBLE);
+                    linearLayout.setVisibility(View.VISIBLE);
+                    LogUtils.e(TAG, "VISIBLE");
+                }
             }
         });
-        view.findViewById(R.id.close).setOnClickListener(new DoubleClickListener (){
-
-            @Override
-            public void onMultiClick(View v) {
-                alist.clear();
-                adapter.notifyDataSetChanged();
-                FloatWindow.destroy(TAG);
-            }
-        });
-
-        adapter = new DialogListViewAdapter(alist);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false);
-        layoutManager.setStackFromEnd(true);
+        adapter = new FloatStatusAdapter(controlInfos);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
         mListView.setLayoutManager(layoutManager);
         mListView.setAdapter(adapter);
     }
 
     public void cleanList() {
         if (adapter != null) {
-            alist.clear();
+            controlInfos.clear();
             adapter.notifyDataSetChanged();
         }
     }
@@ -73,24 +103,24 @@ public class FloatStatusUtil {
         if (FloatWindow.get(TAG) == null) {
             return false;
         }
-       return FloatWindow.get(TAG).isShowing();
+        return FloatWindow.get(TAG).isShowing();
     }
 
-    public void show (){
+    public void show() {
         if (FloatWindow.get(TAG) == null) {
+            LogUtils.e(TAG, "-----------------show()");
+            int size = Math.round(BaseApp.getContext().getResources().getDimension(R.dimen.float_status_size));
             FloatWindow.with(BaseApp.getInstance())
                     .setView(view)
-                    .setWidth(Screen.width,0.4f)
-                    .setHeight(Screen.height,0.3f)
-                    .setX(Screen.width,0.5f)
-                    .setY(Screen.height,0.5f)
-                    .setDesktopShow(true)
-                    .setFilter(true, MainActivity.class, GroupStatusActivity.class)
+                    .setHeight(size)
+                    .setX(Screen.width, 0.9f)
+                    .setY(Screen.height, 0.5f)
+//                    .setFilter(true, MainActivity.class)
                     .setMoveType(MoveType.active)
                     .setTag(TAG)
                     .build();
             FloatWindow.get(TAG).show();
-        }else {
+        } else {
             if (!FloatWindow.get(TAG).isShowing()) {
                 FloatWindow.get(TAG).show();
             }
@@ -98,50 +128,52 @@ public class FloatStatusUtil {
     }
 
     public void distory() {
-        alist.clear();
+        controlInfos.clear();
         adapter.notifyDataSetChanged();
         FloatWindow.destroy(TAG);
     }
 
-    public void onStatsuEvent(CmdStatus event) {
-        if (event != null) {
-            int size = alist.size();
-            boolean isHas = false;
-            for (int i = 0; i < size; i++) {
-                CmdStatus status = alist.get(i);
-                if (status.getControl_id() == event.getControl_id()) {
-                    if (!TextUtils.isEmpty(event.getCmd_start())) {
-                        status.setCmd_start(event.getCmd_start());
-                        status.setCmd_end("");
-                        status.setCmd_read_start("");
-                        status.setCmd_read_middle("");
-                        status.setCmd_read_end("");
-                    }
-                    if (!TextUtils.isEmpty(event.getCmd_end())) {
-                        status.setCmd_end(event.getCmd_end());
-                    }
 
-                    if(!TextUtils.isEmpty(event.getCmd_read_start())) {
-                        status.setCmd_read_start(event.getCmd_read_start());
-                    }
-
-                    if (!TextUtils.isEmpty(event.getCmd_read_middle())) {
-                        status.setCmd_read_middle(event.getCmd_read_middle());
-                    }
-
-                    if (!TextUtils.isEmpty(event.getCmd_read_end())) {
-                        status.setCmd_read_end(event.getCmd_read_end());
-                    }
-                    isHas = true;
+    public void onGroupStatusEvent(GroupInfo info) {
+        if (info != null && info.getGroupStatus() == Entiy.GROUP_STATUS_OPEN) {
+            List<ControlInfo> controlInfoList = ControlInfoSql.queryControlList(info.getGroupId());
+            int size = controlInfoList.size();
+            if (size > 0) {
+                controlInfos.clear();
+                controlInfos.addAll(controlInfoList);
+                if (adapter != null) {
+                    adapter.notifyDataSetChanged();
                 }
             }
-            if (!isHas) {
-                alist.add(event);
-            }
+        }
+        initProgess(info);
+    }
+    /**
+     *        计算当前运行的时间
+     * @param info
+     */
+    public void onAutoCountEvent(GroupInfo info) {
+        initProgess(info);
+    }
 
-            if (adapter != null && mListView != null) {
-                adapter.notifyDataSetChanged();
-                mListView.scrollToPosition(adapter.getItemCount()-1);
+    /**
+     *         初始化进度条
+     * @param info
+     */
+    private void initProgess(GroupInfo info) {
+        if (info != null && info.getGroupStatus() == Entiy.GROUP_STATUS_OPEN) {
+            groupInfo = info;
+            if (donutProgress != null) {
+                donutProgress.setVisibility(View.VISIBLE);
+                donutProgress.setMax(groupInfo.getGroupTime());
+                donutProgress.setProgress(groupInfo.getGroupRunTime());
+                textView.setText("时长:" + groupInfo.getGroupTime() + "\n运行:" + info.getGroupRunTime());
+            }
+        }else {
+            controlInfos.clear();
+            if (donutProgress != null) {
+                textView.setText("无设备运行");
+                donutProgress.setVisibility(View.INVISIBLE);
             }
         }
     }

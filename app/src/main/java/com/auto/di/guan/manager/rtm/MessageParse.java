@@ -14,6 +14,7 @@ import com.auto.di.guan.manager.event.DateChangeEvent;
 import com.auto.di.guan.manager.event.LoginEvent;
 import com.auto.di.guan.manager.socket.SocketBengEvent;
 import com.auto.di.guan.manager.socket.SocketResult;
+import com.auto.di.guan.manager.utils.FloatStatusUtil;
 import com.auto.di.guan.manager.utils.GzipUtil;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.google.gson.Gson;
@@ -45,11 +46,11 @@ public class MessageParse {
             case MessageEntiy.TYPE_LOGIN:
                 // 登录
                 if (info.getDeviceInfos() != null && info.getGroupInfos() != null) {
+                    BaseApp.getInstance().getChatManager().setLoginId(String.valueOf(peerId));
                     BaseApp.setDeviceInfos(info.getDeviceInfos());
                     BaseApp.setGroupInfos(info.getGroupInfos());
                     Entiy.GRID_COLUMNS = info.getCloumn();
                     EventBus.getDefault().post(new LoginEvent(true));
-                    BaseApp.getInstance().getChatManager().setLoginId(String.valueOf(peerId));
                 }
                 break;
             case MessageEntiy.TYPE_LOGOUT:
@@ -243,10 +244,14 @@ public class MessageParse {
      *  处理自动轮灌
      */
     public static void dealAuto(ArrayList<DeviceInfo>deviceInfos, ArrayList<GroupInfo> infos) {
-        LogUtils.i(TAG, 收到自动轮灌_命令同步信息);
+        LogUtils.e(TAG, 收到自动轮灌_命令同步信息);
         BaseApp.setDeviceInfos(deviceInfos);
         BaseApp.setGroupInfos(infos);
         EventBus.getDefault().post(new DateChangeEvent(true));
+
+        /**
+         * 自动轮灌单组变化
+         */
     }
 
     /**
@@ -257,6 +262,14 @@ public class MessageParse {
         BaseApp.setDeviceInfos(deviceInfos);
         BaseApp.setGroupInfos(infos);
         EventBus.getDefault().post(new DateChangeEvent(true));
+
+        /**
+         *  更新悬浮窗实时状态
+         */
+        GroupInfo info = GroupInfoSql.getRunGroup();
+        if(info != null) {
+            FloatStatusUtil.getInstance().onGroupStatusEvent(info);
+        }
     }
 
     /**
@@ -265,5 +278,7 @@ public class MessageParse {
     public static void dealAutoTime(GroupInfo groupInfo) {
         LogUtils.i(TAG, "收到自动轮灌------------时间信息同步");
         EventBus.getDefault().post(new AutoTimeEvent(groupInfo));
+        /*****同步自动轮灌时间******/
+        FloatStatusUtil.getInstance().onAutoCountEvent(groupInfo);
     }
 }

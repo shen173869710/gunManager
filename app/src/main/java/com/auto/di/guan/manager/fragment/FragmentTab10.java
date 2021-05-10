@@ -1,13 +1,10 @@
 package com.auto.di.guan.manager.fragment;
 
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.auto.di.guan.manager.R;
 import com.auto.di.guan.manager.adapter.QuareUserAdapter;
 import com.auto.di.guan.manager.api.ApiUtil;
@@ -18,16 +15,13 @@ import com.auto.di.guan.manager.basemodel.model.respone.BaseRespone;
 import com.auto.di.guan.manager.db.ControlInfo;
 import com.auto.di.guan.manager.db.User;
 import com.auto.di.guan.manager.db.UserAction;
-import com.auto.di.guan.manager.db.sql.GroupInfoSql;
 import com.auto.di.guan.manager.dialog.MainChooseDialog;
 import com.auto.di.guan.manager.dialog.MainChooseIdDialog;
 import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.entity.TableDataInfo;
 import com.auto.di.guan.manager.event.DateChangeEvent;
-import com.auto.di.guan.manager.rtm.ChatManager;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.NoFastClickUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
@@ -218,10 +212,7 @@ public class FragmentTab10 extends BaseFragment {
 		}
 	}
 
-	private void showChooseListById(int id) {
-//		List<UserAction>action = UserActionSql.queryUserActionlList(id);
-//		showEnd(action);
-	}
+
 
 
 	@Override
@@ -262,8 +253,6 @@ public class FragmentTab10 extends BaseFragment {
 
 	}
 
-
-
 	/**
 	 *  数据同步
 	 */
@@ -280,15 +269,12 @@ public class FragmentTab10 extends BaseFragment {
 			public void onSuccess(BaseRespone t) {
 				LogUtils.e("TAG", "获取数据成");
 				if (t != null && t.getData() != null) {
-
 					TableDataInfo info = (TableDataInfo) t.getData();
 					if (info != null && info.getRows() != null) {
 						showEnd(info.getRows());
 					}
-
 				}
 			}
-
 			@Override
 			public void onError(Throwable error, Integer code, String msg) {
 				LogUtils.e("TAG", "获取数据失败");

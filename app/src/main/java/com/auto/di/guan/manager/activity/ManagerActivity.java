@@ -18,8 +18,10 @@ import com.auto.di.guan.manager.basemodel.view.IBaseView;
 import com.auto.di.guan.manager.db.User;
 import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.event.LoginEvent;
+import com.auto.di.guan.manager.event.UserStatusEvent;
 import com.auto.di.guan.manager.fragment.ManagerListFragment;
 import com.auto.di.guan.manager.rtm.ChatManager;
+import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.ToastUtils;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -76,8 +78,6 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
         }
         /***登录同时监听在线用户的状态***/
         BaseApp.getInstance().getChatManager().doLogin(user, this);
-
-
 
         titleBarStatus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,12 +154,17 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
     }
 
     public void setRightInVisible() {
-        titleBarStatus.setVisibility(View.GONE);
+        if (titleBarStatus != null) {
+            titleBarStatus.setVisibility(View.GONE);
+        }
+
     }
 
 
     public void setRightVisible(int index) {
-        titleBarStatus.setVisibility(View.VISIBLE);
+        if (titleBarStatus != null) {
+            titleBarStatus.setVisibility(View.VISIBLE);
+        }
     }
 
     public void setIndex(int index) {
@@ -181,5 +186,23 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
         intent.putExtra(Entiy.INTENT_USER_LIST, (Serializable) users);
         startActivity(intent);
     }
+
+    /**
+     *        用户状态变化
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUserStatusEvent(UserStatusEvent event) {
+        int size = users.size();
+        for (int i = 0; i < size; i++) {
+            User user = users.get(i);
+            if (event.getPeerId().equals(user.getUserId().toString())) {
+                user.setLoginStatus(event.getStatus());
+                LogUtils.e("ManagerActivity", "用户在线");
+            }
+        }
+
+    }
+
 
 }

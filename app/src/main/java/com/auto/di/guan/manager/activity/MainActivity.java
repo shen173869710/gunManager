@@ -13,6 +13,7 @@ import com.auto.di.guan.manager.event.DialogEvent;
 import com.auto.di.guan.manager.event.UserStatusEvent;
 import com.auto.di.guan.manager.fragment.ArticleListFragment;
 import com.auto.di.guan.manager.rtm.MessageSend;
+import com.auto.di.guan.manager.utils.FloatStatusUtil;
 import com.auto.di.guan.manager.utils.FloatWindowUtil;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.PollingUtils;
@@ -57,6 +58,8 @@ public class MainActivity extends IBaseActivity {
 //                mChatManager.sendPeerMessage( "来着222222222的消息");
             }
         });
+
+        FloatStatusUtil.getInstance().show();
     }
 
     @Override

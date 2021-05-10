@@ -19,6 +19,7 @@ import com.auto.di.guan.manager.event.UserStatusEvent;
 import com.auto.di.guan.manager.rtm.MessageSend;
 import com.auto.di.guan.manager.utils.DensityUtil;
 import com.auto.di.guan.manager.utils.GridSpaceItemDecoration;
+import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
@@ -75,8 +76,6 @@ public class ManagerTab1 extends BaseFragment {
                         ToastUtils.showLongToast("用户不在线");
                         return;
                     }
-                    ManagerActivity managerActivity = (ManagerActivity)activity;
-                    managerActivity.showWaitingDialog("");
                     MessageSend.doLogin((users.get(position).getUserId().toString()));
                 }else if (view.getId() == R.id.manager_item_local) {
                     Intent intent = new Intent(activity, MapActivity.class);
@@ -104,6 +103,8 @@ public class ManagerTab1 extends BaseFragment {
             User user = users.get(i);
             if (event.getPeerId().equals(user.getUserId().toString())) {
                 user.setLoginStatus(event.getStatus());
+
+                LogUtils.e("TAB1", "用户在线");
             }
         }
         if (mAdapter != null) {

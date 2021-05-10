@@ -39,6 +39,7 @@ public class ArticleListFragment extends ListFragment {
 		manager = getFragmentManager();
 		adapter = new MyListAdapter(activity, Entiy.TAB_TITLE);
 		setListAdapter(adapter);
+		fragments.add(new FragmentTab7());
 		fragments.add(new FragmentTab0());
 		fragments.add(new FragmentTab1());
 		fragments.add(new FragmentTab2());
@@ -46,7 +47,6 @@ public class ArticleListFragment extends ListFragment {
 		fragments.add(new FragmentTab4());
 		fragments.add(new FragmentTab5());
 		fragments.add(new FragmentTab6());
-		fragments.add(new FragmentTab7());
 		fragments.add(new FragmentTab8());
 		fragments.add(new FragmentTab9());
 		fragments.add(new FragmentTab10());
