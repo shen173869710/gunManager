@@ -10,7 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.auto.di.guan.manager.R;
+import com.auto.di.guan.manager.activity.GroupStatusActivity;
+import com.auto.di.guan.manager.activity.LoginActivity;
 import com.auto.di.guan.manager.activity.MainActivity;
+import com.auto.di.guan.manager.activity.ManagerActivity;
 import com.auto.di.guan.manager.adapter.FloatStatusAdapter;
 import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.db.ControlInfo;
@@ -31,6 +34,9 @@ import java.util.List;
  *  显示当前正在运行的阀门
  */
 public class FloatStatusUtil {
+
+    private final String TAG = "FloatStatusUtil";
+
     private static FloatStatusUtil instance = new FloatStatusUtil();
     private RecyclerView mListView;
     private FloatStatusAdapter adapter;
@@ -39,14 +45,10 @@ public class FloatStatusUtil {
     private TextView textView;
     private DonutProgress donutProgress;
     private GroupInfo groupInfo;
-
     LinearLayout linearLayout;
-
     public static synchronized FloatStatusUtil getInstance() {
         return instance;
     }
-
-    private final String TAG = "FloatStatusUtil";
 
     public void initFloatWindow(Context mContext) {
         view = View.inflate(BaseApp.getInstance(), R.layout.dialog_run_listview, null);
@@ -67,7 +69,6 @@ public class FloatStatusUtil {
             controlInfos.addAll(list);
         }
         initProgess(groupInfo);
-
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,14 +109,14 @@ public class FloatStatusUtil {
 
     public void show() {
         if (FloatWindow.get(TAG) == null) {
-            LogUtils.e(TAG, "-----------------show()");
             int size = Math.round(BaseApp.getContext().getResources().getDimension(R.dimen.float_status_size));
             FloatWindow.with(BaseApp.getInstance())
                     .setView(view)
                     .setHeight(size)
+                    .setWidth(size)
                     .setX(Screen.width, 0.9f)
                     .setY(Screen.height, 0.5f)
-//                    .setFilter(true, MainActivity.class)
+                    .setFilter(true, MainActivity.class, GroupStatusActivity.class)
                     .setMoveType(MoveType.active)
                     .setTag(TAG)
                     .build();

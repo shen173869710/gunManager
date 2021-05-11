@@ -13,6 +13,8 @@ import com.auto.di.guan.manager.basemodel.presenter.CommonPresenter;
 import com.auto.di.guan.manager.db.User;
 import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.utils.DateUtils;
+import com.auto.di.guan.manager.utils.FloatStatusUtil;
+import com.auto.di.guan.manager.utils.FloatWindowUtil;
 
 import java.util.List;
 
@@ -73,6 +75,7 @@ public class LogInfoActivity extends IBaseActivity {
         logTitle.setText(title);
         logDesc.setText(desc);
         logTime.setText(time);
+
     }
 
     @Override

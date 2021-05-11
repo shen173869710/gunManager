@@ -86,7 +86,7 @@ public class FloatWindowUtil {
                     .setX(Screen.width,0.5f)
                     .setY(Screen.height,0.5f)
                     .setDesktopShow(true)
-                    .setFilter(true, MainActivity.class, GroupStatusActivity.class)
+//                    .setFilter(true, MainActivity.class, GroupStatusActivity.class)
                     .setMoveType(MoveType.active)
                     .setTag(TAG)
                     .build();

@@ -21,6 +21,8 @@ import com.auto.di.guan.manager.event.LoginEvent;
 import com.auto.di.guan.manager.event.UserStatusEvent;
 import com.auto.di.guan.manager.fragment.ManagerListFragment;
 import com.auto.di.guan.manager.rtm.ChatManager;
+import com.auto.di.guan.manager.utils.FloatStatusUtil;
+import com.auto.di.guan.manager.utils.FloatWindowUtil;
 import com.auto.di.guan.manager.utils.LogUtils;
 import com.auto.di.guan.manager.utils.ToastUtils;
 
@@ -85,6 +87,8 @@ public class ManagerActivity extends IBaseActivity<ManagerPresenter> implements 
                 getRightOnClick();
             }
         });
+
+
     }
 
     @Override

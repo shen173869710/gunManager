@@ -13,6 +13,10 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 
+import com.auto.di.guan.manager.R;
+import com.auto.di.guan.manager.app.BaseApp;
+import com.auto.di.guan.manager.utils.LogUtils;
+
 /**
  * Created by yhao on 2017/12/22.
  * https://github.com/yhaolpz
@@ -34,7 +38,7 @@ public class IFloatWindowImpl extends IFloatWindow {
     private float upY;
     private boolean mClick = false;
     private int mSlop;
-
+    private int size = Math.round(BaseApp.getContext().getResources().getDimension(R.dimen.float_status_size));
 
     private IFloatWindowImpl() {
 
@@ -233,7 +237,9 @@ public class IFloatWindowImpl extends IFloatWindow {
                                 if (newY < 10) {
                                     newY = 10;
                                 }
-                                int y = Util.getScreenHeight(mB.mApplicationContext) - 10;
+
+
+                                int y = Util.getScreenHeight(mB.mApplicationContext) - size;
                                 if (newY > y) {
                                     newY = y;
                                 }
@@ -242,11 +248,12 @@ public class IFloatWindowImpl extends IFloatWindow {
                                     newX = 0;
                                 }
 
-                                int x = Util.getScreenHeight(mB.mApplicationContext) - 10;
+                                int x = Util.getScreenWidth(mB.mApplicationContext) - size;
                                 if (newX > x) {
                                     newX = x;
                                 }
 
+                                LogUtils.e("move", "x ="+ x + "  newx = "+newX + "  y ="+y + "  newY = "+newY);
                                 mFloatView.updateXY(newX, newY);
                                 if (mB.mViewStateListener != null) {
                                     mB.mViewStateListener.onPositionUpdate(newX, newY);

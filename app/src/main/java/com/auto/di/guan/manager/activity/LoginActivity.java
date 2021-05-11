@@ -12,6 +12,8 @@ import com.auto.di.guan.manager.basemodel.presenter.LoginPresenter;
 import com.auto.di.guan.manager.basemodel.view.IBaseView;
 import com.auto.di.guan.manager.customview.XEditText;
 import com.auto.di.guan.manager.db.User;
+import com.auto.di.guan.manager.utils.FloatStatusUtil;
+import com.auto.di.guan.manager.utils.FloatWindowUtil;
 import com.auto.di.guan.manager.utils.ToastUtils;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -35,7 +37,6 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements IBas
 
     @Override
     protected void init() {
-
     }
 
     @Override
