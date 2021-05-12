@@ -18,7 +18,6 @@ import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.basemodel.model.respone.ApplyFertilizerRecord;
 import com.auto.di.guan.manager.basemodel.model.respone.BaseRespone;
 import com.auto.di.guan.manager.basemodel.presenter.CommonPresenter;
-import com.auto.di.guan.manager.basemodel.presenter.LoginPresenter;
 import com.auto.di.guan.manager.basemodel.view.IBaseView;
 import com.auto.di.guan.manager.db.User;
 import com.auto.di.guan.manager.entity.Entiy;

@@ -5,13 +5,18 @@
     android:orientation="vertical"
     android:padding="10dp"
     >
+
+    <Spinner
+        android:id="@+id/tab_3_spinner"
+        android:layout_marginTop="10dp"
+        style="@style/manager_spinner_title" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginTop="10dp"
         android:background="@color/line"
         android:orientation="horizontal">
         >
-
         <TextView
             android:text="项目名称"
             style="@style/manager_tab_title"
@@ -42,10 +47,6 @@
             style="@style/manager_tab_title"
             />
     </LinearLayout>
-    <Spinner
-        android:id="@+id/tab_3_spinner"
-        android:layout_marginTop="10dp"
-        style="@style/manager_spinner_title" />
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
