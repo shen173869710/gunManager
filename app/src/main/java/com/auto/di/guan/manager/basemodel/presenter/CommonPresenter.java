@@ -52,7 +52,7 @@ public class CommonPresenter extends BasePresenter<IBaseView>{
      *       施肥记录
      * @param record
      */
-    public void addWater(ApplyFertilizerRecord record) {
+    public void addApply(ApplyFertilizerRecord record) {
         // 测试提交施肥
         doHttpTask(getApiService().saveApply(record), new HttpManager.OnResultListener() {
             @Override

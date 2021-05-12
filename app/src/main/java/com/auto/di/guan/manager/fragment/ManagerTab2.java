@@ -3,6 +3,9 @@ package com.auto.di.guan.manager.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -39,11 +42,14 @@ public class ManagerTab2 extends BaseFragment {
     RecyclerView tabList;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
-
+    @BindView(R.id.tab_2_spinner)
+    Spinner tabSpinner;
     Tab2Adapter mAdapter;
+
     private List<User> users;
 
     private List<WateringRecord> wateringRecords = new ArrayList<>();
+    private long userId = 0;
 
     public static ManagerTab2 newInstance(Bundle bundle){
         ManagerTab2 fragment=new ManagerTab2();
@@ -63,8 +69,36 @@ public class ManagerTab2 extends BaseFragment {
             users = new ArrayList<>();
         }
 
+        int size = users.size();
+        ArrayList<String> mItems = new ArrayList<>();
+        mItems.add("全部");
+        for (int i = 0; i < size; i++) {
+            mItems.add(users.get(i).getLoginName());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, mItems);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        tabSpinner.setAdapter(adapter);
+        tabSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               if (position == 0) {
+                   userId = 0;
+               }else {
+                   userId = users.get(position -1).getUserId();
+               }
+                mAdapter.setData(wateringRecords, userId);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
         tabList.setLayoutManager(new LinearLayoutManager(activity));
-        mAdapter = new Tab2Adapter(wateringRecords);
+        mAdapter = new Tab2Adapter(new ArrayList<>());
         tabList.setAdapter(mAdapter);
         mAdapter.addChildClickViewIds(R.id.manager_item_login);
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
@@ -96,9 +130,9 @@ public class ManagerTab2 extends BaseFragment {
             public void onSuccess(BaseRespone respone) {
                 refreshLayout.finishRefresh(1000);
                 if (respone.getData() != null) {
-                    List<WateringRecord> list = (List<WateringRecord>) respone.getData();
-                    if (list != null) {
-                        mAdapter.setData(list);
+                    wateringRecords = (List<WateringRecord>) respone.getData();
+                    if (wateringRecords != null) {
+                        mAdapter.setData(wateringRecords, userId);
                     }
                 }
             }

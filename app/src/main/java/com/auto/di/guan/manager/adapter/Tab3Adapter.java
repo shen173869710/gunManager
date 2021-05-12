@@ -14,9 +14,18 @@ public class Tab3Adapter extends BaseQuickAdapter<RaiseCropsRecord, BaseViewHold
         super(R.layout.manager_tab_3_item, data);
     }
 
-    public void setData(List<RaiseCropsRecord> data) {
+    public void setData(List<RaiseCropsRecord> data, long userId) {
         getData().clear();
-        getData().addAll(data);
+        if (userId == 0) {
+            getData().addAll(data);
+        }else {
+            int size = data.size();
+            for (int i = 0; i < size; i++) {
+                if (data.get(i).getMemberUserId() == userId) {
+                    getData().add(data.get(i));
+                }
+            }
+        }
         notifyDataSetChanged();
     }
 

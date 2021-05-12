@@ -42,11 +42,17 @@
             style="@style/manager_tab_title"
             />
     </LinearLayout>
+    <Spinner
+        android:id="@+id/tab_3_spinner"
+        android:layout_marginTop="10dp"
+        style="@style/manager_spinner_title" />
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        >
 
         <com.scwang.smart.refresh.header.ClassicsHeader
             android:layout_width="match_parent"

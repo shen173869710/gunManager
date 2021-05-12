@@ -17,6 +17,7 @@ import com.auto.di.guan.manager.adapter.Submit2Adapter;
 import com.auto.di.guan.manager.app.BaseApp;
 import com.auto.di.guan.manager.basemodel.model.respone.ApplyFertilizerRecord;
 import com.auto.di.guan.manager.basemodel.model.respone.BaseRespone;
+import com.auto.di.guan.manager.basemodel.presenter.CommonPresenter;
 import com.auto.di.guan.manager.basemodel.presenter.LoginPresenter;
 import com.auto.di.guan.manager.basemodel.view.IBaseView;
 import com.auto.di.guan.manager.db.User;
@@ -38,7 +39,7 @@ import butterknife.OnClick;
 /**
  * 施肥日志
  */
-public class AddApplyActivity extends IBaseActivity<LoginPresenter> implements IBaseView {
+public class AddApplyActivity extends IBaseActivity<CommonPresenter> implements IBaseView {
 
     @BindView(R.id.title_bar_back_layout)
     RelativeLayout titleBarBackLayout;
@@ -96,24 +97,24 @@ public class AddApplyActivity extends IBaseActivity<LoginPresenter> implements I
         int length = Entiy.APPLY.length;
         submitInfos.clear();
         for (int i = 0; i < length; i++) {
-            SubmitInfo submitInfo = new SubmitInfo(Entiy.APPLY[i], "");
-            String[] temp = null;
-            ArrayList<String> type = new ArrayList<>();
-            if (i == 0) {
-                temp = getResources().getStringArray(R.array.nitrogenFertilizer);
-            } else if (i == 1) {
-                temp = getResources().getStringArray(R.array.phosphateFertilizer);
-            } else if (i == 2) {
-                temp = getResources().getStringArray(R.array.potashFertilizer);
-            } else if (i == 3) {
-                temp = getResources().getStringArray(R.array.compoundFertilizer);
-            } else if (i == 4) {
-                temp = getResources().getStringArray(R.array.otherFertilizers);
-            }
-            for (int j = 0; j < temp.length; j++) {
-                type.add(temp[j]);
-            }
-            submitInfo.setLists(type);
+            SubmitInfo submitInfo = new SubmitInfo(Entiy.APPLY[i], "", i);
+//            String[] temp = null;
+//            ArrayList<String> type = new ArrayList<>();
+//            if (i == 0) {
+//                temp = getResources().getStringArray(R.array.nitrogenFertilizer);
+//            } else if (i == 1) {
+//                temp = getResources().getStringArray(R.array.phosphateFertilizer);
+//            } else if (i == 2) {
+//                temp = getResources().getStringArray(R.array.potashFertilizer);
+//            } else if (i == 3) {
+//                temp = getResources().getStringArray(R.array.compoundFertilizer);
+//            } else if (i == 4) {
+//                temp = getResources().getStringArray(R.array.otherFertilizers);
+//            }
+//            for (int j = 0; j < temp.length; j++) {
+//                type.add(temp[j]);
+//            }
+//            submitInfo.setLists(type);
             submitInfos.add(submitInfo);
         }
         submitAdapter = new Submit2Adapter(submitInfos);
@@ -121,8 +122,8 @@ public class AddApplyActivity extends IBaseActivity<LoginPresenter> implements I
     }
 
     @Override
-    protected LoginPresenter createPresenter() {
-        return new LoginPresenter();
+    protected CommonPresenter createPresenter() {
+        return new CommonPresenter();
     }
 
 
@@ -173,6 +174,7 @@ public class AddApplyActivity extends IBaseActivity<LoginPresenter> implements I
         record.setWaterUserId(BaseApp.getUser().getUserId());
         record.setMemberUserId(user.getUserId());
         record.setProjectName(user.getLoginName());
+        mPresenter.addApply(record);
     }
 
 

@@ -3,10 +3,10 @@ package com.auto.di.guan.manager.entity;
 import java.util.ArrayList;
 
 public class SubmitInfo {
-    private String title;
+    private String title = "";
     private int index = -1;
-    private String desc;
-    private String info;
+    private String desc = "";
+    private String info = "";
     private long time;
 
     private ArrayList<String>lists = new ArrayList<>();
@@ -14,6 +14,12 @@ public class SubmitInfo {
     public SubmitInfo(String title, String desc) {
         this.title = title;
         this.desc = desc;
+    }
+
+    public SubmitInfo(String title, String desc, int index) {
+        this.title = title;
+        this.desc = desc;
+        this.index = index;
     }
 
     public int getIndex() {

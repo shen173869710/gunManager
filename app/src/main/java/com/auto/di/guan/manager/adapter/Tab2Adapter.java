@@ -11,9 +11,18 @@ public class Tab2Adapter extends BaseQuickAdapter<WateringRecord, BaseViewHolder
         super(R.layout.manager_tab_2_item, data);
     }
 
-    public void setData(List<WateringRecord> data) {
+    public void setData(List<WateringRecord> data, long userId) {
         getData().clear();
-        getData().addAll(data);
+        if (userId == 0) {
+            getData().addAll(data);
+        }else {
+            int size = data.size();
+            for (int i = 0; i < size; i++) {
+                if (data.get(i).getMemberUserId() == userId) {
+                    getData().add(data.get(i));
+                }
+            }
+        }
         notifyDataSetChanged();
     }
     @Override
@@ -22,6 +31,4 @@ public class Tab2Adapter extends BaseQuickAdapter<WateringRecord, BaseViewHolder
         holder.setText(R.id.item_1, data.getFlowMeterCount()+"");
         holder.setText(R.id.item_2, DateUtils.timet(String.valueOf(data.getRecordDate()))+"");
     }
-
-
 }

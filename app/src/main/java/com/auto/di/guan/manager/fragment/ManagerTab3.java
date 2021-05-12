@@ -1,16 +1,15 @@
 package com.auto.di.guan.manager.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.auto.di.guan.manager.R;
-import com.auto.di.guan.manager.activity.LogInfoActivity;
-import com.auto.di.guan.manager.activity.ManagerActivity;
 import com.auto.di.guan.manager.adapter.Tab3Adapter;
 import com.auto.di.guan.manager.api.ApiUtil;
 import com.auto.di.guan.manager.api.HttpManager;
@@ -20,8 +19,6 @@ import com.auto.di.guan.manager.basemodel.model.respone.RaiseCropsRecord;
 import com.auto.di.guan.manager.db.User;
 import com.auto.di.guan.manager.entity.Entiy;
 import com.auto.di.guan.manager.event.DateChangeEvent;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
@@ -45,6 +42,9 @@ public class ManagerTab3 extends BaseFragment {
     List<RaiseCropsRecord> records = new ArrayList<>();
     private List<User> users;
 
+    @BindView(R.id.tab_3_spinner)
+    Spinner tabSpinner;
+    private long userId = 0;
     public static ManagerTab3 newInstance(Bundle bundle){
         ManagerTab3 fragment=new ManagerTab3();
         fragment.setArguments(bundle);
@@ -62,10 +62,37 @@ public class ManagerTab3 extends BaseFragment {
         if (users == null) {
             users = new ArrayList<>();
         }
-        tabList.setLayoutManager(new LinearLayoutManager(activity));
-        mAdapter = new Tab3Adapter(records);
-        tabList.setAdapter(mAdapter);
 
+        int size = users.size();
+        ArrayList<String> mItems = new ArrayList<>();
+        mItems.add("全部");
+        for (int i = 0; i < size; i++) {
+            mItems.add(users.get(i).getLoginName());
+        }
+
+        tabList.setLayoutManager(new LinearLayoutManager(activity));
+        mAdapter = new Tab3Adapter(new ArrayList<>());
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, mItems);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        tabList.setAdapter(mAdapter);
+        tabSpinner.setAdapter(adapter);
+        tabSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    userId = 0;
+                }else {
+                    userId = users.get(position -1).getUserId();
+                }
+                mAdapter.setData(records, userId);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         refreshLayout.setRefreshHeader(new ClassicsHeader(activity));
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -92,9 +119,9 @@ public class ManagerTab3 extends BaseFragment {
             public void onSuccess(BaseRespone respone) {
                 refreshLayout.finishRefresh(1000);
                 if (respone.getData() != null) {
-                    List<RaiseCropsRecord> list = (List<RaiseCropsRecord>) respone.getData();
-                    if (list != null) {
-                        mAdapter.setData(list);
+                    records = (List<RaiseCropsRecord>) respone.getData();
+                    if (records != null) {
+                        mAdapter.setData(records, userId);
                     }
                 }
             }

@@ -14,9 +14,18 @@ public class Tab4Adapter extends BaseQuickAdapter<ApplyFertilizerRecord, BaseVie
         super(R.layout.manager_tab_4_item, data);
     }
 
-    public void setData(List<ApplyFertilizerRecord> data) {
+    public void setData(List<ApplyFertilizerRecord> data, long userId) {
         getData().clear();
-        getData().addAll(data);
+        if (userId == 0) {
+            getData().addAll(data);
+        }else {
+            int size = data.size();
+            for (int i = 0; i < size; i++) {
+                if (data.get(i).getMemberUserId() == userId) {
+                    getData().add(data.get(i));
+                }
+            }
+        }
         notifyDataSetChanged();
     }
     @Override
